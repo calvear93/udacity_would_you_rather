@@ -1,0 +1,55 @@
+@import url('./icons/materialdesignicons.css');
+@import url('./icons/materialdesignicons-animation.css');
+
+$blue: #007bff;
+$indigo: #6610f2;
+$purple: #6f42c1;
+$pink: #e83e8c;
+$red: #dc3545;
+$orange: #fd7e14;
+$yellow: #ffc107;
+$green: #28a745;
+$teal: #00b4aa;
+$cyan: #17a2b8;
+$white: #ffffff;
+$gray: #6c757d;
+$gray-dark: #343a40;
+$primary: #00b4aa;
+$secondary: #6c757d;
+$success: #208b4c;
+$info: #17a2b8;
+$warning: #fea900;
+$danger: #e62a3b;
+$light: #f8f9fa;
+$dark: #343a40;
+
+html {
+    box-sizing: border-box;
+}
+
+*,
+*::before,
+*::after {
+    box-sizing: inherit;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Roboto', sans-serif;
+}
+
+html,
+body,
+.root {
+    height: 100%;
+}
+
+body {
+    line-height: 1.5;
+}
+
+body,
+.app {
+    background: $white;
+}
