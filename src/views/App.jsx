@@ -10,18 +10,20 @@ class App extends React.Component
         return (
             <div className='app'>
                 <Switch>
-                    <Redirect exact from='/' to='/main' />
-                    <Route path='/main/*' render={() => (
+                    <Redirect exact from='/' to='/main/' />
+                    <Redirect exact from='/main' to='/main/' />
+
+                    <Route exact path='/main/*' render={() => (
                         <>
-                            <Route exact path='/main/*' render={(route) => (
+                            <Route path='/main' render={(route) => (
                                 <><label>NAVBAR</label><br /></>
                             )}
                             />
-                            <Route exact path='/main/:section' render={(route) => (
-                                <label>SECTION: { JSON.stringify(route.match.params) }</label>
+                            <Route exact path='/main/xd' render={(route) => (
+                                <label>XD: { JSON.stringify(route.match.params) }</label>
                             )}
                             />
-                            <Route exact path='/main/test/:section' render={(route) => (
+                            <Route exact path='/main/test' render={(route) => (
                                 <label>TEST: { JSON.stringify(route.match.params) }</label>
                             )}
                             />
