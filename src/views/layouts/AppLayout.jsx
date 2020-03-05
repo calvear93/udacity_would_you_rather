@@ -6,7 +6,7 @@ class AppLayout extends React.PureComponent
     {
         return (
             <div className='app-container'>
-                <label>test</label>
+                <label>test</label> <br />
                 {this.props.children}
             </div>
         );

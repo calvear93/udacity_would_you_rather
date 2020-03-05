@@ -1,9 +1,10 @@
 import React from 'react';
-import { Redirect, Route, Switch } from 'react-router-dom';
+import { Redirect, HashRouter, Route, Switch, Link } from 'react-router-dom';
 import AppLayout from './layouts/AppLayout';
 import NotFoundPage from './NotFoundPage';
+import { Button } from 'semantic-ui-react';
 
-class App extends React.Component
+class App extends React.PureComponent
 {
     render()
     {
@@ -13,21 +14,26 @@ class App extends React.Component
                     <Redirect exact from='/' to='/main/' />
                     <Redirect exact from='/main' to='/main/' />
 
-                    <Route exact path='/main/*' render={() => (
-                        <>
-                            <Route path='/main' render={(route) => (
-                                <><label>NAVBAR</label><br /></>
-                            )}
-                            />
-                            <Route exact path='/main/xd' render={(route) => (
-                                <label>XD: { JSON.stringify(route.match.params) }</label>
-                            )}
-                            />
-                            <Route exact path='/main/test' render={(route) => (
-                                <label>TEST: { JSON.stringify(route.match.params) }</label>
-                            )}
-                            />
-                        </>
+                    <Route exact path='/main/*' render={(route) => (
+                        <AppLayout>
+                            <Switch>
+                                <Route exact path='/main/xd' render={(route) => (
+                                    <label>XD: { JSON.stringify(route.match.params) }</label>
+                                )}
+                                />
+
+                                <Route exact path='/main/test' render={(route) => (
+                                    <label>TEST: { JSON.stringify(route.match.params) }</label>
+                                )}
+                                />
+
+                                <Redirect to={{
+                                    pathname: '/not-found',
+                                    state: { search: route.location.pathname }
+                                }}
+                                />
+                            </Switch>
+                        </AppLayout>
                     )}
                     />
 
