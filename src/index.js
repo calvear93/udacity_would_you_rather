@@ -7,7 +7,7 @@ import 'typeface-roboto';
 import 'moment/locale/es-us';
 import store from './store';
 import './styles/App.scss';
-import App from './views/App';
+import App from './App';
 
 /* Application rendering. */
 ReactDOM.render(

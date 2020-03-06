@@ -1,8 +1,8 @@
 import React from 'react';
 import { Redirect, Route, Switch } from 'react-router-dom';
-import { HomePage, LeaderBoardPage, LoginPage, NewQuestionPage, NotFoundPage } from './';
-import AppLayout from './layouts/AppLayout';
-import RouteWithLayout from './layouts/RouteWithLayout';
+import { HomePage, LeaderBoardPage, LoginPage, NewQuestionPage, NotFoundPage } from './views';
+import AppLayout from './views/layouts/AppLayout';
+import RouteWithLayout from './views/layouts/RouteWithLayout';
 
 /**
  * Renders the main application view.
