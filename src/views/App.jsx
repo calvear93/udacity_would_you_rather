@@ -1,43 +1,58 @@
 import React from 'react';
-import { Redirect, HashRouter, Route, Switch, Link } from 'react-router-dom';
+import { Redirect, Route, Switch } from 'react-router-dom';
+import { HomePage, LeaderBoardPage, LoginPage, NewQuestionPage, NotFoundPage } from './';
 import AppLayout from './layouts/AppLayout';
-import NotFoundPage from './NotFoundPage';
-import { Button } from 'semantic-ui-react';
+import RouteWithLayout from './layouts/RouteWithLayout';
 
+/**
+ * Renders the main application view.
+ * Contains routing logic for different
+ * app pages, applying default layouts
+ * for JSX pages decomposition.
+ *
+ * @class App
+ * @extends {React.PureComponent}
+ */
 class App extends React.PureComponent
 {
+    /**
+     * Renders the main application.
+     *
+     * @returns {JSX} Main app renderer.
+     * @memberof App
+     */
     render()
     {
         return (
             <div className='app'>
                 <Switch>
-                    <Redirect exact from='/' to='/main/' />
-                    <Redirect exact from='/main' to='/main/' />
+                    <Redirect exact from='/' to='/main' />
 
-                    <Route exact path='/main/*' render={(route) => (
-                        <AppLayout>
-                            <Switch>
-                                <Route exact path='/main/xd' render={(route) => (
-                                    <label>XD: { JSON.stringify(route.match.params) }</label>
-                                )}
-                                />
-
-                                <Route exact path='/main/test' render={(route) => (
-                                    <label>TEST: { JSON.stringify(route.match.params) }</label>
-                                )}
-                                />
-
-                                <Redirect to={{
-                                    pathname: '/not-found',
-                                    state: { search: route.location.pathname }
-                                }}
-                                />
-                            </Switch>
-                        </AppLayout>
-                    )}
+                    <RouteWithLayout
+                        exact path='/main/login'
+                        layout={AppLayout}
+                        component={LoginPage}
                     />
 
-                    <Route render={(route) => <NotFoundPage route={route} />} />
+                    <RouteWithLayout
+                        exact path='/main'
+                        layout={AppLayout}
+                        component={HomePage}
+                    />
+
+                    <RouteWithLayout
+                        exact path='/main/newquestion'
+                        layout={AppLayout}
+                        component={NewQuestionPage}
+                    />
+
+                    <RouteWithLayout
+                        exact path='/main/leaderboard'
+                        layout={AppLayout}
+                        component={LeaderBoardPage}
+                    />
+
+                    <Route component={NotFoundPage} />
                 </Switch>
             </div>
         );
