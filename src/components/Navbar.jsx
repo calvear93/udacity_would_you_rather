@@ -13,9 +13,9 @@ class Navbar extends React.Component
         return (
             <Grid padded centered>
                 <ButtonGroup className='navbar-menu' attached='top'>
-                    <NavbarTab icon='home' help='Home' />
-                    <NavbarTab icon='question' help='New Question' />
-                    <NavbarTab icon='list alternate' help='Leaderboard' />
+                    <NavbarTab icon='home' help='Home' to='/main' />
+                    <NavbarTab icon='question' help='New Question' to='/main/newquestion' />
+                    <NavbarTab icon='list alternate' help='Leaderboard' to='/main/leaderboard' />
                 </ButtonGroup>
             </Grid>
         );

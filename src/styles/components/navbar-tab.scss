@@ -1,6 +1,8 @@
 @import '../variables.scss';
 
 .navbar-tab {
+    border-top-left-radius: 32rem !important;
+    border-top-right-radius: 32rem !important;
     background-color: white !important;
 }
 
@@ -14,7 +16,7 @@
     transition: color .4s ease;
 }
 
-.navbar-menu > .navbar-tab {
-    border-top-left-radius: 32rem !important;
-    border-top-right-radius: 32rem !important;
+.navbar-divider {
+    height: .25em !important;
+    background-color: $teal;
 }

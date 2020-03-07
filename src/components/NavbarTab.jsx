@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { Button, Icon } from 'semantic-ui-react';
 import '../styles/components/navbar-tab.scss';
 
@@ -6,18 +7,27 @@ class NavbarTab extends React.Component
 {
     render()
     {
-        const { icon, help, ...rest } = this.props;
+        const { className, icon, help, to = '/', minWidth = '8rem', width = '12vw', ...rest } = this.props;
 
         return (
-            <Button className='navbar-tab' animated='fade' {...rest}
-                style={{
-                    minWidth: '8rem',
-                    width: '12vw'
-                }}
-            >
-                <Button.Content visible><Icon name={icon} /></Button.Content>
-                <Button.Content hidden>{help}</Button.Content>
-            </Button>
+            <Link to={to}>
+                <Button
+                    animated='fade'
+                    className={
+                        [ 'navbar-tab', className ]
+                            .filter(c => typeof c === 'string' && c.length > 0)
+                            .join(' ')
+                    }
+                    style={{
+                        minWidth: minWidth,
+                        width: width
+                    }}
+                    {...rest}
+                >
+                    <Button.Content visible><Icon name={icon} /></Button.Content>
+                    <Button.Content hidden>{help}</Button.Content>
+                </Button>
+            </Link>
         );
     }
 }
