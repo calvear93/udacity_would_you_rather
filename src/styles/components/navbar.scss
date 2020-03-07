@@ -1,0 +1,31 @@
+@import '../variables.scss';
+
+.navbar-container {
+    padding-bottom: .35 !important;
+}
+.navbar-tab {
+    border-top-left-radius: 32rem !important;
+    border-top-right-radius: 32rem !important;
+    background-color: white !important;
+
+    .content {
+        margin-bottom: -.2em;
+        padding-top: .15em;
+    }
+
+    &:hover,
+    &:focus {
+        background-color: $teal !important;
+        transition: background-color .4s ease;
+
+        div {
+            color: $white;
+            transition: color .4s ease;
+        }
+    }
+}
+
+.navbar-divider {
+    height: .25em !important;
+    background-color: $teal;
+}

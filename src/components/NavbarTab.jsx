@@ -1,13 +1,20 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { Button, Icon } from 'semantic-ui-react';
-import '../styles/components/navbar-tab.scss';
 
 class NavbarTab extends React.Component
 {
     render()
     {
-        const { className, icon, help, to = '/', minWidth = '8rem', width = '12vw', ...rest } = this.props;
+        const {
+            className,
+            icon,
+            help,
+            to = '/',
+            minWidth = '8rem',
+            width = '12vw',
+            ...rest
+        } = this.props;
 
         return (
             <Link to={to}>

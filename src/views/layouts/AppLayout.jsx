@@ -1,7 +1,8 @@
 import React from 'react';
-import { Grid, Image, Header, Icon, Divider } from 'semantic-ui-react';
+import { Divider, Grid } from 'semantic-ui-react';
 import Navbar from '../../components/Navbar';
 import NavbarTab from '../../components/NavbarTab';
+import '../../styles/components/navbar.scss';
 
 class AppLayout extends React.PureComponent
 {
@@ -9,7 +10,8 @@ class AppLayout extends React.PureComponent
     {
         return (
             <Grid stackable centered padded className='app-container' columns='equal'>
-                <Grid.Row columns={3} style={{ paddingBottom: .6 }}>
+                {/* style={{ paddingBottom: .35 }} */}
+                <Grid.Row className='navbar-container' columns={3}>
                     <Grid.Column width={4} />
                     <Grid.Column width={6}>
                         <Navbar />
