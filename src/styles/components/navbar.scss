@@ -1,9 +1,10 @@
 @import '../variables.scss';
 
-.navbar-container {
-    padding-bottom: .35 !important;
+.ui.grid > .row.navbar-container {
+    padding-bottom: .025em;
 }
-.navbar-tab {
+
+button.navbar-tab {
     border-top-left-radius: 32rem !important;
     border-top-right-radius: 32rem !important;
     background-color: white !important;
@@ -14,7 +15,8 @@
     }
 
     &:hover,
-    &:focus {
+    &:focus,
+    &.active {
         background-color: $teal !important;
         transition: background-color .4s ease;
 
@@ -25,7 +27,8 @@
     }
 }
 
-.navbar-divider {
-    height: .25em !important;
+.ui.grid > .divider.navbar-divider {
+    margin-top: 0 !important;
+    height: .25em;
     background-color: $teal;
 }

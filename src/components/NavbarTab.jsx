@@ -4,6 +4,10 @@ import { Button, Icon } from 'semantic-ui-react';
 
 class NavbarTab extends React.Component
 {
+    state = {
+        active: false
+    }
+
     render()
     {
         const {
@@ -11,8 +15,7 @@ class NavbarTab extends React.Component
             icon,
             help,
             to = '/',
-            minWidth = '8rem',
-            width = '12vw',
+            style,
             ...rest
         } = this.props;
 
@@ -21,13 +24,13 @@ class NavbarTab extends React.Component
                 <Button
                     animated='fade'
                     className={
-                        [ 'navbar-tab', className ]
+                        [ 'navbar-tab', className, this.state.active ? 'active' : undefined ]
                             .filter(c => typeof c === 'string' && c.length > 0)
                             .join(' ')
                     }
-                    style={{
-                        minWidth: minWidth,
-                        width: width
+                    style={style || {
+                        minWidth: '8rem',
+                        width: '12vw'
                     }}
                     {...rest}
                 >
