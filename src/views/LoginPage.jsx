@@ -4,7 +4,7 @@ import '../styles/views/login.scss';
 import { Logo } from '../assets/images';
 import { Male, Female } from '../assets/images/avatars';
 import DataService from '../services/_DATA';
-import { _getUsers } from './../services/_DATA';
+import Swal from 'sweetalert2';
 
 const users = [
     {
@@ -55,6 +55,12 @@ class LoginPage extends React.Component
     {
         console.log(this.state.value);
         console.log(await DataService._getUsers());
+        Swal.fire({
+            title: 'Error!',
+            text: 'Do you want to continue',
+            icon: 'error',
+            confirmButtonText: 'Cool'
+        });
     }
 
     handleChange = (e, { value }) => this.setState({ value })
