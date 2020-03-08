@@ -1,5 +1,5 @@
 import { all } from 'redux-saga/effects';
-import init from './users';
+import usersInit from './users';
 import logger from './logger';
 
 /**
@@ -11,6 +11,6 @@ export default function* combineMiddleware()
 {
     yield all([
         logger(),
-        init()
+        usersInit()
     ]);
 }

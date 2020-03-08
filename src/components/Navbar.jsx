@@ -1,4 +1,5 @@
 import React from 'react';
+import { withRouter } from 'react-router-dom';
 import { ButtonGroup, Grid } from 'semantic-ui-react';
 import NavbarTab from './NavbarTab';
 
@@ -6,15 +7,17 @@ class Navbar extends React.Component
 {
     render()
     {
+        const { location: { pathname } } = this.props;
+
         return (
             <>
                 <Grid.Column width={4} />
                 <Grid.Column width={6}>
                     <Grid padded centered>
                         <ButtonGroup className='navbar-menu' attached='top'>
-                            <NavbarTab icon='home' help='Home' to='/main' active />
-                            <NavbarTab icon='question' help='New Question' to='/main/newquestion' />
-                            <NavbarTab icon='list alternate' help='Leaderboard' to='/main/leaderboard' />
+                            <NavbarTab icon='home' help='Home' to='/main' path={pathname} />
+                            <NavbarTab icon='question' help='New Question' to='/main/newquestion' path={pathname} />
+                            <NavbarTab icon='list alternate' help='Leaderboard' to='/main/leaderboard' path={pathname} />
                         </ButtonGroup>
                     </Grid>
                 </Grid.Column>
@@ -25,6 +28,7 @@ class Navbar extends React.Component
                         icon='sign in'
                         help='Login'
                         to='/main/login'
+                        path={pathname}
                         style={{
                             width: '6vw',
                             minWidth: '2rem'
@@ -36,4 +40,4 @@ class Navbar extends React.Component
     }
 }
 
-export default Navbar;
+export default withRouter(Navbar);

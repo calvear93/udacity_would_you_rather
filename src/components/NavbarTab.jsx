@@ -15,6 +15,7 @@ class NavbarTab extends React.Component
             icon,
             help,
             to = '/',
+            path,
             style,
             ...rest
         } = this.props;
@@ -24,7 +25,7 @@ class NavbarTab extends React.Component
                 <Button
                     animated='fade'
                     className={
-                        [ 'navbar-tab', className, this.state.active ? 'active' : undefined ]
+                        [ 'navbar-tab', className, to === path ? 'active' : undefined ]
                             .filter(c => typeof c === 'string' && c.length > 0)
                             .join(' ')
                     }

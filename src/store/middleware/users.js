@@ -1,6 +1,6 @@
-import { call, delay, put, take, takeLatest } from 'redux-saga/effects';
-import UsersAction from '../actions/users';
+import { call, put, all, takeLatest } from 'redux-saga/effects';
 import DataService from '../../services/_DATA';
+import UsersAction from '../actions/users';
 
 function* getAll(action)
 {
@@ -22,5 +22,7 @@ function* getAll(action)
 
 export default function* init()
 {
-    yield takeLatest(UsersAction.Types.GET_ALL, getAll);
+    yield all(
+        yield takeLatest(UsersAction.Types.GET_ALL, getAll)
+    );
 }
