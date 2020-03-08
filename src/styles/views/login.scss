@@ -1,1 +1,31 @@
 @import '../variables.scss';
+
+.login-header {
+    background-color: #f9f8f9 !important;
+}
+
+.ui.header.login-title {
+    margin-bottom: .2em;
+}
+
+.ui.header.login-subtitle {
+    margin-top: .2em;
+    color: $gray !important;
+}
+
+.login-logo {
+    width: 100%;
+}
+
+.login-sign-in-info {
+    color: $teal !important;
+}
+
+.ui.dropdown.login-user-selector {
+    margin-top: .6em;
+    margin-bottom: .8em;
+}
+
+.ui.button.login-sign-in {
+    margin-top: .8em;
+}

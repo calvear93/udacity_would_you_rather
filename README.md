@@ -102,6 +102,9 @@ This repository is the starter code for *all* Udacity students. Therefore, we mo
 icons
 https://www.flaticon.es/
 
+avatars
+https://iconstore.co/redirect/?icon-pack=flatflow-icons
+
 not found page
 https://colorlib.com/
 
