@@ -3,6 +3,8 @@ import { Card, Button, Header, Image, Grid, Dropdown } from 'semantic-ui-react';
 import '../styles/views/login.scss';
 import { Logo } from '../assets/images';
 import { Male, Female } from '../assets/images/avatars';
+import '../services/_DATA';
+import { _getUsers } from './../services/_DATA';
 
 const users = [
     {
@@ -49,9 +51,10 @@ class LoginPage extends React.Component
         value: null
     }
 
-    onSignIn = () =>
+    onSignIn = async () =>
     {
         console.log(this.state.value);
+        console.log(await _getUsers());
     }
 
     handleChange = (e, { value }) => this.setState({ value })
