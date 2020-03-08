@@ -1,12 +1,12 @@
-import { createAction, createActionTypesMirroring } from './shared';
+import { createAction, createActionTypes } from './shared';
 
 /**
  * Redux Action container.
  *
- * @class AppAction
- * @export AppAction
+ * @class SessionAction
+ * @export SessionAction
  */
-const AppAction =
+const SessionAction =
 {
 
     /**
@@ -14,19 +14,18 @@ const AppAction =
      *
      * @memberof AppAction
      */
-    Key: 'APP',
+    Key: 'SESSION',
 
     /**
      * Action Types.
      *
      * @memberof AppAction
      */
-    Types: createActionTypesMirroring([
-        'FETCH',
-        'UPDATE',
-        'REMOVE',
-        'CLEAR'
-    ]),
+    Types: createActionTypes({
+        LOGIN: 'LOGIN',
+        LOGOUT: 'LOGOUT',
+        STATUS: 'STATUS'
+    }),
 
     /**
      * Returns the action.
@@ -36,7 +35,7 @@ const AppAction =
      * @memberof AppAction
      * @returns {func} Action.
      */
-    Action: (type, payload) => createAction(AppAction.Key, type, payload)
+    Action: (type, payload) => createAction(SessionAction.Key, type, payload)
 };
 
-export default Object.freeze(AppAction);
+export default Object.freeze(SessionAction);

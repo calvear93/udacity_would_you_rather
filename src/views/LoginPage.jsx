@@ -1,72 +1,51 @@
 import React from 'react';
-import { Card, Button, Header, Image, Grid, Dropdown } from 'semantic-ui-react';
-import '../styles/views/login.scss';
+import { connect } from 'react-redux';
+import { Button, Card, Dropdown, Grid, Header, Image } from 'semantic-ui-react';
 import { Logo } from '../assets/images';
-import { Male, Female } from '../assets/images/avatars';
-import DataService from '../services/_DATA';
-import Swal from 'sweetalert2';
-
-const users = [
-    {
-        key: 'Jenny Hess',
-        text: 'Jenny Hess',
-        value: 'Jenny Hess',
-        image: { avatar: true, src: Female }
-    },
-    {
-        key: 'Elliot Fu',
-        text: 'Elliot Fu',
-        value: 'Elliot Fu',
-        image: { avatar: true, src: Male }
-    },
-    {
-        key: 'Stevie Feliciano',
-        text: 'Stevie Feliciano',
-        value: 'Stevie Feliciano',
-        image: { avatar: true, src: Male }
-    },
-    {
-        key: 'Christian',
-        text: 'Christian',
-        value: 'Christian',
-        image: { avatar: true, src: Male }
-    },
-    {
-        key: 'Matt',
-        text: 'Matt',
-        value: 'Matt',
-        image: { avatar: true, src: Male }
-    },
-    {
-        key: 'Justen Kitsune',
-        text: 'Justen Kitsune',
-        value: 'Justen Kitsune',
-        image: { avatar: true, src: Male }
-    }
-];
+import UsersAction from '../store/actions/users';
+import '../styles/views/login.scss';
 
 class LoginPage extends React.Component
 {
     state = {
-        value: null
+        userSelected: undefined
+    }
+
+    componentWillMount()
+    {
+        this.props.dispatch(UsersAction.Action(UsersAction.Types.GET_ALL));
     }
 
     onSignIn = async () =>
     {
-        console.log(this.state.value);
-        console.log(await DataService._getUsers());
-        Swal.fire({
-            title: 'Error!',
-            text: 'Do you want to continue',
-            icon: 'error',
-            confirmButtonText: 'Cool'
-        });
+        const id = this.state.userSelected;
+
+        const user = this.props.users[id];
+        console.log(user);
     }
 
-    handleChange = (e, { value }) => this.setState({ value })
+    formatUsers = (users) =>
+    {
+        return Object.entries(users)
+            .map(u =>
+            {
+                const user = u[1];
+
+                return {
+                    key: user.id,
+                    text: user.name,
+                    value: user.id,
+                    image: { avatar: true, src: user.avatarURL }
+                };
+            });
+    }
+
+    handleChange = (e, { value }) => this.setState({ userSelected: value })
 
     render()
     {
+        const { users } = this.props;
+
         return (
             <>
                 <Card centered fluid>
@@ -89,13 +68,15 @@ class LoginPage extends React.Component
                             closeOnEscape
                             fluid
                             selection
+                            defaultValue={this.userSelected}
                             onChange={this.handleChange}
-                            options={users}
+                            options={this.formatUsers(users)}
                         />
                         <Button
                             className='login-sign-in'
                             fluid
                             color='teal'
+                            disabled={this.state.userSelected ? false : true}
                             onClick={this.onSignIn}
                         >
                             Sign in
@@ -107,4 +88,9 @@ class LoginPage extends React.Component
     }
 }
 
-export default LoginPage;
+function mapStateToProps({ [UsersAction.Key]: { users = {} } })
+{
+    return { users };
+}
+
+export default connect(mapStateToProps)(LoginPage);

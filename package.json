@@ -38,6 +38,7 @@
     "stylelint-order": "^4.0.0",
     "stylelint-scss": "^3.14.2",
     "sweetalert2": "^9.9.0",
+    "sweetalert2-react-content": "^3.0.1",
     "typeface-roboto": "0.0.75",
     "uuid": "^7.0.2",
     "voca": "^1.4.0"

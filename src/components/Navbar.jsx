@@ -1,15 +1,11 @@
 import React from 'react';
-import { connect } from 'react-redux';
-import AppAction from '../store/actions/app';
-import { Grid, Icon, ButtonGroup, Divider } from 'semantic-ui-react';
+import { ButtonGroup, Grid } from 'semantic-ui-react';
 import NavbarTab from './NavbarTab';
 
 class Navbar extends React.Component
 {
     render()
     {
-        const { ...rest } = this.props;
-
         return (
             <>
                 <Grid.Column width={4} />
@@ -40,9 +36,4 @@ class Navbar extends React.Component
     }
 }
 
-function mapStateToProps({ [AppAction.Key]: store })
-{
-    return { store };
-}
-
-export default connect(mapStateToProps)(Navbar);
+export default Navbar;

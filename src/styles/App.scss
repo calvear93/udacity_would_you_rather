@@ -34,3 +34,8 @@ body,
 .app {
     background: $white;
 }
+
+button.swal2-confirm:focus {
+    outline: none;
+    box-shadow: none;
+}

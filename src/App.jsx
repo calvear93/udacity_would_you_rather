@@ -26,7 +26,7 @@ class App extends React.PureComponent
         return (
             <div className='app'>
                 <Switch>
-                    <Redirect exact from='/' to='/main' />
+                    <Redirect exact from='/' to='/main/login' />
 
                     <RouteWithLayout
                         exact path='/main/login'
