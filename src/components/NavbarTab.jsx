@@ -17,7 +17,7 @@ class NavbarTab extends React.Component
         } = this.props;
 
         return (
-            <Link to={to}>
+            <Link to={ to }>
                 <Button
                     animated='fade'
                     className={
@@ -25,13 +25,13 @@ class NavbarTab extends React.Component
                             .filter(c => typeof c === 'string' && c.length > 0)
                             .join(' ')
                     }
-                    style={style || {
+                    style={ style || {
                         width: '12vw',
                         minWidth: '8em'
-                    }}
-                    {...rest}
+                    } }
+                    { ...rest }
                 >
-                    <Button.Content visible><Icon name={icon} /></Button.Content>
+                    <Button.Content visible><Icon name={ icon } /></Button.Content>
                     <Button.Content hidden>{help}</Button.Content>
                 </Button>
             </Link>

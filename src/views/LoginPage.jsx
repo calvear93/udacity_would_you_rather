@@ -60,7 +60,7 @@ class LoginPage extends React.Component
 
                     <Card.Content>
                         <Grid centered padded>
-                            <Image src={Logo} size='small' />
+                            <Image src={ Logo } size='small' />
                         </Grid>
                         <Header className='login-sign-in-info centered' as='h1'>Sign in</Header>
                     </Card.Content>
@@ -72,16 +72,16 @@ class LoginPage extends React.Component
                             closeOnEscape
                             fluid
                             selection
-                            defaultValue={this.userSelected}
-                            onChange={this.handleChange}
-                            options={this.formatUsers(users)}
+                            defaultValue={ this.userSelected }
+                            onChange={ this.handleChange }
+                            options={ this.formatUsers(users) }
                         />
                         <Button
                             className='login-sign-in'
                             fluid
                             color='teal'
-                            disabled={this.state.userSelected ? false : true}
-                            onClick={this.onSignIn}
+                            disabled={ this.state.userSelected ? false : true }
+                            onClick={ this.onSignIn }
                         >
                             Sign in
                         </Button>

@@ -32,3 +32,17 @@ button.navbar-tab {
     height: .25em;
     background-color: $teal;
 }
+
+.ui.label.navbar-user-info {
+    display: flex;
+    margin-top: -4px;
+    float: right;
+    background-color: $white;
+    font-weight: normal;
+    text-align: right;
+
+    img {
+        margin-top: -2px;
+        margin-left: .4em;
+    }
+}

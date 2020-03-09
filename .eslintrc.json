@@ -24,9 +24,16 @@
     "ecmaVersion": 2018,
     "sourceType": "module"
   },
-  "plugins": ["react-redux", "react", "import"],
+  "plugins": [
+    "react-redux",
+    "react",
+    "import"
+  ],
   "rules": {
-    "array-bracket-spacing": ["warn", "always"],
+    "array-bracket-spacing": [
+      "warn",
+      "always"
+    ],
     "array-callback-return": "error",
     "arrow-spacing": "warn",
     "block-scoped-var": "warn",
@@ -39,7 +46,10 @@
       }
     ],
     "class-methods-use-this": "off",
-    "comma-dangle": ["warn", "never"],
+    "comma-dangle": [
+      "warn",
+      "never"
+    ],
     "comma-spacing": [
       "warn",
       {
@@ -47,13 +57,22 @@
         "before": false
       }
     ],
-    "comma-style": ["warn", "last"],
+    "comma-style": [
+      "warn",
+      "last"
+    ],
     "curly": "warn",
     "default-case": "warn",
-    "dot-location": ["warn", "property"],
+    "dot-location": [
+      "warn",
+      "property"
+    ],
     "dot-notation": "warn",
     "eqeqeq": "warn",
-    "func-call-spacing": ["warn", "never"],
+    "func-call-spacing": [
+      "warn",
+      "never"
+    ],
     "getter-return": [
       "error",
       {
@@ -82,7 +101,10 @@
         "outerIIFEBody": 1
       }
     ],
-    "jsx-quotes": ["warn", "prefer-single"],
+    "jsx-quotes": [
+      "warn",
+      "prefer-single"
+    ],
     "key-spacing": [
       "warn",
       {
@@ -106,13 +128,19 @@
         "beforeLineComment": false
       }
     ],
-    "lines-between-class-members": ["warn", "always"],
+    "lines-between-class-members": [
+      "warn",
+      "always"
+    ],
     "no-console": "warn",
     "no-duplicate-case": "error",
     "no-empty": "error",
     "no-eq-null": "warn",
     "no-extra-semi": "warn",
-    "no-mixed-spaces-and-tabs": ["warn", "smart-tabs"],
+    "no-mixed-spaces-and-tabs": [
+      "warn",
+      "smart-tabs"
+    ],
     "no-multi-spaces": "warn",
     "no-multiple-empty-lines": [
       "warn",
@@ -130,8 +158,14 @@
         "vars": "local"
       }
     ],
-    "object-curly-spacing": ["warn", "always"],
-    "padded-blocks": ["warn", "never"],
+    "object-curly-spacing": [
+      "warn",
+      "always"
+    ],
+    "padded-blocks": [
+      "warn",
+      "never"
+    ],
     "padding-line-between-statements": [
       "warn",
       {
@@ -151,25 +185,47 @@
       }
     ],
     "prefer-promise-reject-errors": "warn",
-    "quote-props": ["warn", "as-needed"],
-    "quotes": ["warn", "single", "avoid-escape"],
-    "radix": ["warn", "as-needed"],
+    "quote-props": [
+      "warn",
+      "as-needed"
+    ],
+    "quotes": [
+      "warn",
+      "single",
+      "avoid-escape"
+    ],
+    "radix": [
+      "warn",
+      "as-needed"
+    ],
     "react-redux/no-unused-prop-types": "warn",
     "react-redux/prefer-separate-component-file": "off",
     "react/boolean-prop-naming": [
       "error",
       {
-        "propTypeNames": ["bool", "mutuallyExclusiveTrueProps"]
+        "propTypeNames": [
+          "bool",
+          "mutuallyExclusiveTrueProps"
+        ]
       }
     ],
     "react/display-name": "error",
     "react/forbid-prop-types": "warn",
     "react/jsx-boolean-value": "warn",
     "react/jsx-child-element-spacing": "off",
-    "react/jsx-closing-bracket-location": ["warn", "tag-aligned"],
+    "react/jsx-closing-bracket-location": [
+      "warn",
+      "tag-aligned"
+    ],
     "react/jsx-closing-tag-location": "warn",
-    "react/jsx-curly-spacing": "warn",
-    "react/jsx-indent-props": "warn",
+    "react/jsx-curly-spacing": [
+      "warn",
+      "always"
+    ],
+    "react/jsx-indent-props": [
+      "warn",
+      4
+    ],
     "react/jsx-max-props-per-line": "off",
     "react/jsx-no-duplicate-props": "warn",
     "react/jsx-no-literals": "off",
@@ -196,7 +252,10 @@
     "react/no-unescaped-entities": [
       "warn",
       {
-        "forbid": [">", "}"]
+        "forbid": [
+          ">",
+          "}"
+        ]
       }
     ],
     "react/no-unknown-property": "warn",
@@ -207,11 +266,20 @@
     "react/self-closing-comp": "warn",
     "react/sort-comp": "warn",
     "react/sort-prop-types": "warn",
-    "semi": ["error", "always"],
+    "semi": [
+      "error",
+      "always"
+    ],
     "semi-spacing": "warn",
-    "semi-style": ["warn", "last"],
+    "semi-style": [
+      "warn",
+      "last"
+    ],
     "sort-imports": "off",
-    "sort-keys": ["off", "asc"],
+    "sort-keys": [
+      "off",
+      "asc"
+    ],
     "space-before-blocks": "warn",
     "space-before-function-paren": [
       "error",
@@ -227,16 +295,29 @@
       {
         "block": {
           "balanced": true,
-          "exceptions": ["*"],
-          "markers": ["!"]
+          "exceptions": [
+            "*"
+          ],
+          "markers": [
+            "!"
+          ]
         },
         "line": {
-          "exceptions": ["-", "+"],
-          "markers": ["/"]
+          "exceptions": [
+            "-",
+            "+"
+          ],
+          "markers": [
+            "/"
+          ]
         }
       }
     ],
     "switch-colon-spacing": "warn",
+    "template-curly-spacing": [
+      "warn",
+      "always"
+    ],
     "valid-jsdoc": [
       "warn",
       {

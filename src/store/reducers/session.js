@@ -7,14 +7,15 @@ import { SessionAction } from '../actions';
  * @param {any} action Action dispatched.
  * @returns {any} Action state.
  */
-function SessionReducer(state = {}, action)
+function SessionReducer(state = { authenticated: false }, action)
 {
     switch (action.type)
     {
         case SessionAction.Types.LOGIN_SUCCESS:
             return {
                 ...state,
-                ...action.payload
+                ...action.payload,
+                authenticated: true
             };
 
         default:
