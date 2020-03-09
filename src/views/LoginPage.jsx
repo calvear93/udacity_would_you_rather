@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { Button, Card, Dropdown, Grid, Header, Image } from 'semantic-ui-react';
 import { Logo } from '../assets/images';
-import UsersAction from '../store/actions/users';
+import { SessionAction, UsersAction } from '../store/actions';
 import '../styles/views/login.scss';
 
 class LoginPage extends React.Component
@@ -11,7 +11,7 @@ class LoginPage extends React.Component
         userSelected: undefined
     }
 
-    componentWillMount()
+    componentDidMount()
     {
         this.props.dispatch(UsersAction.Action(UsersAction.Types.GET_ALL));
     }
@@ -20,8 +20,12 @@ class LoginPage extends React.Component
     {
         const id = this.state.userSelected;
 
-        const user = this.props.users[id];
-        console.log(user);
+        this.props.dispatch(SessionAction.Action(
+            SessionAction.Types.LOGIN,
+            {
+                userId: id
+            }
+        ));
     }
 
     formatUsers = (users) =>

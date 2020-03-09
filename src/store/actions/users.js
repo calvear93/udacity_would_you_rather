@@ -22,8 +22,8 @@ const UsersAction =
      * @memberof AppAction
      */
     Types: createActionTypes({
-        GET_ALL: 'GET_ALL',
         GET: 'GET',
+        GET_ALL: 'GET_ALL',
         CREATE: 'CREATE',
         UPDATE: 'UPDATE',
         DELETE: 'DELETE',

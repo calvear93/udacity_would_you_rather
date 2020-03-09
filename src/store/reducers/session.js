@@ -1,4 +1,4 @@
-import { UsersAction } from '../actions';
+import { SessionAction } from '../actions';
 
 /**
  * Redux Action Reducer.
@@ -7,14 +7,14 @@ import { UsersAction } from '../actions';
  * @param {any} action Action dispatched.
  * @returns {any} Action state.
  */
-function UsersReducer(state = {}, action)
+function SessionReducer(state = {}, action)
 {
     switch (action.type)
     {
-        case UsersAction.Types.UPDATE:
+        case SessionAction.Types.LOGIN_SUCCESS:
             return {
                 ...state,
-                users: action.payload
+                ...action.payload
             };
 
         default:
@@ -22,4 +22,4 @@ function UsersReducer(state = {}, action)
     }
 }
 
-export default UsersReducer;
+export default SessionReducer;

@@ -4,10 +4,6 @@ import { Button, Icon } from 'semantic-ui-react';
 
 class NavbarTab extends React.Component
 {
-    state = {
-        active: false
-    }
-
     render()
     {
         const {
@@ -30,8 +26,8 @@ class NavbarTab extends React.Component
                             .join(' ')
                     }
                     style={style || {
-                        minWidth: '8rem',
-                        width: '12vw'
+                        width: '12vw',
+                        minWidth: '8em'
                     }}
                     {...rest}
                 >

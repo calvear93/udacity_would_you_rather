@@ -1,33 +1,34 @@
-// import axios from 'axios';
-// import { call, delay, put, take } from 'redux-saga/effects';
-// import SessionAction from '../actions/session';
-// import '../../services/_DATA';
+import { call, put, all, takeLatest } from 'redux-saga/effects';
+import DataService from '../../services/_DATA';
+import { SessionAction } from '../actions';
 
-// export function fetchData(id)
-// {
-//     return axios.get(`https://jsonplaceholder.typicode.com/todos/${id}`);
-// }
+function* login(action)
+{
+    try
+    {
+        const response = yield call(DataService._getUser, action.payload.userId);
+        yield put(SessionAction.Action(
+            SessionAction.Types.LOGIN_SUCCESS,
+            { ...response }
+        ));
+    }
+    catch (e)
+    {
+        yield put(SessionAction.Action(
+            SessionAction.Types.ERROR,
+            {
+                Error: {
+                    Type: action.Type,
+                    Message: e.message
+                }
+            }
+        ));
+    }
+}
 
-// /**
-//  * Initialize data from API.
-//  */
-// function* initializeData()
-// {
-//     while (true)
-//     {
-//         try
-//         {
-//             const { payload } = yield take(AppAction.Types.FETCH);
-//             yield delay(2000);
-//             const response = yield call(fetchData, payload.id);
-//             yield put(AppAction.Action(AppAction.Types.UPDATE, response.data));
-//             yield put(AppAction.Action(AppAction.Types.REMOVE, 'error'));
-//         }
-//         catch (e)
-//         {
-//             yield put(AppAction.Action(AppAction.Types.UPDATE, { error: e.message }));
-//         }
-//     }
-// }
-
-// export default initializeData;
+export default function* init()
+{
+    yield all(
+        yield takeLatest(SessionAction.Types.LOGIN, login)
+    );
+}

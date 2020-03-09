@@ -23,8 +23,11 @@ const SessionAction =
      */
     Types: createActionTypes({
         LOGIN: 'LOGIN',
+        LOGIN_SUCCESS: 'LOGIN_SUCCESS',
         LOGOUT: 'LOGOUT',
-        STATUS: 'STATUS'
+        LOGOUT_SUCCESS: 'LOGOUT_SUCCESS',
+        STATUS: 'STATUS',
+        ERROR: 'ERROR'
     }),
 
     /**

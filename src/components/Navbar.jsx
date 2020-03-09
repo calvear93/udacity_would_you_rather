@@ -11,7 +11,7 @@ class Navbar extends React.Component
 
         return (
             <>
-                <Grid.Column width={4} />
+                <Grid.Column width={3} />
                 <Grid.Column width={6}>
                     <Grid padded centered>
                         <ButtonGroup className='navbar-menu' attached='top'>
@@ -21,7 +21,7 @@ class Navbar extends React.Component
                         </ButtonGroup>
                     </Grid>
                 </Grid.Column>
-                <Grid.Column width={4}>
+                <Grid.Column width={3}>
                     <label>Hello, Cristopher Alvear</label>
                     <NavbarTab
                         className='navbar-session'

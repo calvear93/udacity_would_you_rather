@@ -125,6 +125,14 @@ let questions = {
 
 export default class DataService
 {
+    static _getUser(id)
+    {
+        return new Promise((res, rej) =>
+        {
+            setTimeout(() => res({ ...users[id] }), 1000);
+        });
+    }
+
     static _getUsers()
     {
         return new Promise((res, rej) =>
