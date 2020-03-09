@@ -30,29 +30,29 @@ class App extends React.PureComponent
 
                     <RouteWithLayout
                         exact path='/main/login'
-                        layout={AppLayout}
-                        component={LoginPage}
+                        layout={ AppLayout }
+                        component={ LoginPage }
                     />
 
                     <RouteWithLayout
                         exact path='/main'
-                        layout={AppLayout}
-                        component={HomePage}
+                        layout={ AppLayout }
+                        component={ HomePage }
                     />
 
                     <RouteWithLayout
                         exact path='/main/newquestion'
-                        layout={AppLayout}
-                        component={NewQuestionPage}
+                        layout={ AppLayout }
+                        component={ NewQuestionPage }
                     />
 
                     <RouteWithLayout
                         exact path='/main/leaderboard'
-                        layout={AppLayout}
-                        component={LeaderBoardPage}
+                        layout={ AppLayout }
+                        component={ LeaderBoardPage }
                     />
 
-                    <Route component={NotFoundPage} />
+                    <Route component={ NotFoundPage } />
                 </Switch>
             </div>
         );

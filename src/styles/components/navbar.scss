@@ -20,6 +20,10 @@ button.navbar-tab {
         background-color: $teal !important;
         transition: background-color .4s ease;
 
+        &.logout {
+            background-color: $orange !important;
+        }
+
         div {
             color: $white;
             transition: color .4s ease;
