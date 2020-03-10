@@ -18,9 +18,15 @@ function SessionReducer(state = { authenticated: false }, action)
                 authenticated: true
             };
 
-        case SessionAction.Types.LOGOUT:
+        case SessionAction.Types.LOGOUT_SUCCESS:
             return {
                 authenticated: false
+            };
+
+        case SessionAction.Types.ERROR:
+            return {
+                ...state,
+                ...action.payload
             };
 
         default:

@@ -11,6 +11,30 @@ function* login(action)
             SessionAction.Types.LOGIN_SUCCESS,
             { ...response }
         ));
+        action.payload.history.push('/main');
+    }
+    catch (e)
+    {
+        yield put(SessionAction.Action(
+            SessionAction.Types.ERROR,
+            {
+                Error: {
+                    Type: action.Type,
+                    Message: e.message
+                }
+            }
+        ));
+    }
+}
+
+function* logout(action)
+{
+    try
+    {
+        action.payload.history.push('/main/login');
+        yield put(SessionAction.Action(
+            SessionAction.Types.LOGOUT_SUCCESS
+        ));
     }
     catch (e)
     {
@@ -29,6 +53,7 @@ function* login(action)
 export default function* init()
 {
     yield all(
-        yield takeLatest(SessionAction.Types.LOGIN, login)
+        yield takeLatest(SessionAction.Types.LOGIN, login),
+        yield takeLatest(SessionAction.Types.LOGOUT, logout)
     );
 }

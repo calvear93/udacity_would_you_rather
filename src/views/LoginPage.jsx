@@ -1,5 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import { withRouter } from 'react-router-dom';
 import { Button, Card, Dropdown, Grid, Header, Image } from 'semantic-ui-react';
 import { Logo } from '../assets/images';
 import { SessionAction, UsersAction } from '../store/actions';
@@ -16,14 +17,16 @@ class LoginPage extends React.Component
         this.props.dispatch(UsersAction.Action(UsersAction.Types.GET_ALL));
     }
 
-    onSignIn = async () =>
+    onSignIn = () =>
     {
+        const { history } = this.props;
         const id = this.state.userSelected;
 
         this.props.dispatch(SessionAction.Action(
             SessionAction.Types.LOGIN,
             {
-                userId: id
+                userId: id,
+                history
             }
         ));
     }
@@ -92,9 +95,12 @@ class LoginPage extends React.Component
     }
 }
 
-function mapStateToProps({ [UsersAction.Key]: { users = {} } })
+function mapStateToProps({
+    [SessionAction.Key]: session,
+    [UsersAction.Key]: { users = {} }
+})
 {
-    return { users };
+    return { session, users };
 }
 
-export default connect(mapStateToProps)(LoginPage);
+export default connect(mapStateToProps)(withRouter(LoginPage));

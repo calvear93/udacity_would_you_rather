@@ -12,10 +12,9 @@ class Navbar extends React.Component
         const { dispatch, history } = this.props;
 
         dispatch(SessionAction.Action(
-            SessionAction.Types.LOGOUT
+            SessionAction.Types.LOGOUT,
+            { history }
         ));
-
-        // history.push('/main/login');
     }
 
     render()

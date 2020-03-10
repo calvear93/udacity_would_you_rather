@@ -18,8 +18,10 @@ class NavbarTab extends React.Component
             ...rest
         } = this.props;
 
+        const Wrapper = disabled || !to ? (props) => (<div>{props.children}</div>) : Link;
+
         return (
-            <Link to={ disabled ? undefined : to }>
+            <Wrapper to={ to }>
                 <Button
                     animated='fade'
                     disabled={ disabled }
@@ -38,7 +40,7 @@ class NavbarTab extends React.Component
                     <Button.Content visible><Icon name={ icon } /></Button.Content>
                     <Button.Content hidden>{help}</Button.Content>
                 </Button>
-            </Link>
+            </Wrapper>
         );
     }
 }

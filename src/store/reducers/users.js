@@ -17,6 +17,12 @@ function UsersReducer(state = {}, action)
                 users: action.payload
             };
 
+        case UsersAction.Types.ERROR:
+            return {
+                ...state,
+                ...action.payload
+            };
+
         default:
             return state;
     }
