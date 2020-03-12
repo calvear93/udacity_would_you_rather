@@ -1,8 +1,14 @@
-import React from 'react';
+import React, { Suspense, lazy } from 'react';
 import { Redirect, Route, Switch } from 'react-router-dom';
-import { HomePage, LeaderBoardPage, LoginPage, NewQuestionPage, NotFoundPage } from './views';
+import { Loader, Segment, Dimmer, Image } from 'semantic-ui-react';
 import AppLayout from './views/layouts/AppLayout';
 import RouteWithLayout from './views/layouts/RouteWithLayout';
+
+const HomePage = lazy(() => import('./views/HomePage'));
+const LeaderBoardPage = lazy(() => import('./views/LeaderBoardPage'));
+const LoginPage = lazy(() => import('./views/LoginPage'));
+const NewQuestionPage = lazy(() => import('./views/NewQuestionPage'));
+const NotFoundPage = lazy(() => import('./views/NotFoundPage'));
 
 /**
  * Renders the main application view.
@@ -24,37 +30,46 @@ class App extends React.PureComponent
     render()
     {
         return (
-            <div className='app'>
-                <Switch>
-                    <Redirect exact from='/' to='/main/login' />
+            <Suspense fallback={ <Loader size='large'>Loading</Loader> }>
+                <div className='app'>
+                <Segment>
+      <Dimmer active inverted>
+        <Loader size='large'>Loading</Loader>
+      </Dimmer>
 
-                    <RouteWithLayout
-                        exact path='/main/login'
-                        layout={ AppLayout }
-                        component={ LoginPage }
-                    />
+      <Image src='https://react.semantic-ui.com/images/wireframe/paragraph.png' />
+    </Segment>
+                    <Switch>
+                        <Redirect exact from='/' to='/main/login' />
 
-                    <RouteWithLayout
-                        exact path='/main'
-                        layout={ AppLayout }
-                        component={ HomePage }
-                    />
+                        <RouteWithLayout
+                            exact path='/main/login'
+                            layout={ AppLayout }
+                            component={ LoginPage }
+                        />
 
-                    <RouteWithLayout
-                        exact path='/main/newquestion'
-                        layout={ AppLayout }
-                        component={ NewQuestionPage }
-                    />
+                        <RouteWithLayout
+                            exact path='/main'
+                            layout={ AppLayout }
+                            component={ HomePage }
+                        />
 
-                    <RouteWithLayout
-                        exact path='/main/leaderboard'
-                        layout={ AppLayout }
-                        component={ LeaderBoardPage }
-                    />
+                        <RouteWithLayout
+                            exact path='/main/newquestion'
+                            layout={ AppLayout }
+                            component={ NewQuestionPage }
+                        />
 
-                    <Route component={ NotFoundPage } />
-                </Switch>
-            </div>
+                        <RouteWithLayout
+                            exact path='/main/leaderboard'
+                            layout={ AppLayout }
+                            component={ LeaderBoardPage }
+                        />
+
+                        <Route component={ NotFoundPage } />
+                    </Switch>
+                </div>
+            </Suspense>
         );
     }
 }
