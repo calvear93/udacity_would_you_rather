@@ -1,5 +1,8 @@
-import { call, put, all, takeLatest } from 'redux-saga/effects';
+import React from 'react';
+import { all, call, put, takeLatest } from 'redux-saga/effects';
+import { Message } from 'semantic-ui-react';
 import DataService from '../../services/_DATA';
+import { Confirm } from '../../utils/Swal';
 import { SessionAction } from '../actions';
 
 function* login(action)
@@ -15,6 +18,17 @@ function* login(action)
     }
     catch (e)
     {
+        Confirm('error', (
+            <Message
+                error
+                header='There was some errors with your login attempt'
+                list={ [
+                    e.message,
+                    'You must validate your internet connection.'
+                ] }
+            />
+        ));
+
         yield put(SessionAction.Action(
             SessionAction.Types.ERROR,
             {

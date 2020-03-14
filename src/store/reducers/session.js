@@ -11,11 +11,24 @@ function SessionReducer(state = { authenticated: false }, action)
 {
     switch (action.type)
     {
+        case SessionAction.Types.LOGIN:
+            return {
+                ...state,
+                loading: true
+            };
+
         case SessionAction.Types.LOGIN_SUCCESS:
             return {
                 ...state,
                 ...action.payload,
-                authenticated: true
+                authenticated: true,
+                loading: false
+            };
+
+        case SessionAction.Types.LOGOUT:
+            return {
+                ...state,
+                loading: true
             };
 
         case SessionAction.Types.LOGOUT_SUCCESS:
@@ -26,7 +39,8 @@ function SessionReducer(state = { authenticated: false }, action)
         case SessionAction.Types.ERROR:
             return {
                 ...state,
-                ...action.payload
+                ...action.payload,
+                loading: false
             };
 
         default:

@@ -51,7 +51,13 @@ class LoginPage extends React.Component
 
     render()
     {
-        const { users } = this.props;
+        const { session: { loading: sessionLoading }, loading: usersLoading, users } = this.props;
+        const noData = Object.keys(users).length === 0;
+        const placeholder = noData ?
+            usersLoading ?
+                'Fetching data...'
+                : 'No data fetched'
+            : 'Select User';
 
         return (
             <Card centered fluid>
@@ -71,12 +77,14 @@ class LoginPage extends React.Component
                     <Dropdown
                         fluid
                         className='login-user-selector'
-                        placeholder='Select User'
+                        placeholder={ placeholder }
                         closeOnEscape
                         selection
                         defaultValue={ this.userSelected }
                         onChange={ this.handleChange }
                         options={ this.formatUsers(users) }
+                        disabled={ noData }
+                        loading={ usersLoading }
                     />
                     <Button
                         fluid
@@ -84,6 +92,7 @@ class LoginPage extends React.Component
                         color='teal'
                         disabled={ !this.state.userSelected }
                         onClick={ this.onSignIn }
+                        loading={ sessionLoading }
                     >
                             Sign in
                     </Button>
@@ -95,10 +104,10 @@ class LoginPage extends React.Component
 
 function mapStateToProps({
     [SessionAction.Key]: session,
-    [UsersAction.Key]: { users = {} }
+    [UsersAction.Key]: { loading, users = {} }
 })
 {
-    return { session, users };
+    return { session, users, loading };
 }
 
 export default connect(mapStateToProps)(withRouter(LoginPage));

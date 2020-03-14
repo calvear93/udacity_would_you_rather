@@ -26,10 +26,15 @@ const UsersAction =
      */
     Types: createActionTypesMirroringUnique([
         'GET',
+        'GET_SUCCESS',
         'GET_ALL',
+        'GET_ALL_SUCCESS',
         'CREATE',
+        'CREATE_SUCCESS',
         'UPDATE',
+        'UPDATE_SUCCESS',
         'DELETE',
+        'DELETE_SUCCESS',
         'ERROR'
     ]),
 
