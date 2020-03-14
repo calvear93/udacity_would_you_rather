@@ -1,4 +1,7 @@
-import { createAction, createActionTypes } from './shared';
+import { createAction, createActionTypesMirroringUnique } from './shared';
+
+// Store partition key.
+const KEY = 'SESSION';
 
 /**
  * Redux Action container.
@@ -14,21 +17,21 @@ const SessionAction =
      *
      * @memberof AppAction
      */
-    Key: 'SESSION',
+    Key: KEY,
 
     /**
      * Action Types.
      *
      * @memberof AppAction
      */
-    Types: createActionTypes({
-        LOGIN: 'LOGIN',
-        LOGIN_SUCCESS: 'LOGIN_SUCCESS',
-        LOGOUT: 'LOGOUT',
-        LOGOUT_SUCCESS: 'LOGOUT_SUCCESS',
-        STATUS: 'STATUS',
-        ERROR: 'ERROR'
-    }),
+    Types: createActionTypesMirroringUnique([
+        'LOGIN',
+        'LOGIN_SUCCESS',
+        'LOGOUT',
+        'LOGOUT_SUCCESS',
+        'STATUS',
+        'ERROR'
+    ]),
 
     /**
      * Returns the action.
@@ -38,7 +41,7 @@ const SessionAction =
      * @memberof AppAction
      * @returns {func} Action.
      */
-    Action: (type, payload) => createAction(SessionAction.Key, type, payload)
+    Action: (type, payload) => createAction(KEY, type, payload)
 };
 
 export default Object.freeze(SessionAction);

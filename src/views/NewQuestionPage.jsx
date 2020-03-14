@@ -31,7 +31,9 @@ class NewQuestionPage extends React.PureComponent
         this.setState({ [id]: { value, isValid } });
     };
 
-    isValid = () => !Object.values(this.state).any(q => !q.isValid)
+    isValid = () => !Object
+        .values(this.state)
+        .any(q => !q.isValid)
 
     render()
     {

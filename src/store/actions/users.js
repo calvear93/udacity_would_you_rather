@@ -1,4 +1,7 @@
-import { createAction, createActionTypes } from './shared';
+import { createAction, createActionTypesMirroringUnique } from './shared';
+
+// Store partition key.
+const KEY = 'USERS';
 
 /**
  * Redux Action container.
@@ -14,21 +17,21 @@ const UsersAction =
      *
      * @memberof UsersAction
      */
-    Key: 'USERS',
+    Key: KEY,
 
     /**
      * Action Types.
      *
      * @memberof AppAction
      */
-    Types: createActionTypes({
-        GET: 'GET',
-        GET_ALL: 'GET_ALL',
-        CREATE: 'CREATE',
-        UPDATE: 'UPDATE',
-        DELETE: 'DELETE',
-        ERROR: 'ERROR'
-    }),
+    Types: createActionTypesMirroringUnique([
+        'GET',
+        'GET_ALL',
+        'CREATE',
+        'UPDATE',
+        'DELETE',
+        'ERROR'
+    ]),
 
     /**
      * Returns the action.
@@ -38,7 +41,7 @@ const UsersAction =
      * @memberof AppAction
      * @returns {func} Action.
      */
-    Action: (type, payload) => createAction(UsersAction.Key, type, payload)
+    Action: (type, payload) => createAction(KEY, type, payload)
 };
 
 export default Object.freeze(UsersAction);
