@@ -1,0 +1,17 @@
+@import '../variables.scss';
+
+.question-logo {
+    width: 100%;
+}
+
+.ui.button.question-submit {
+    margin-top: .8em;
+}
+
+.question-input {
+    width: 100% !important;
+
+    + .label {
+        color: $red;
+    }
+}
