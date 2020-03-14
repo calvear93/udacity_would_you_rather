@@ -10,13 +10,20 @@ import QuestionInput from './../components/QuestionInput';
 
 const minInputLength = 3;
 
-const questions = [ 'question-one', 'question-two' ];
+const options = [ 'optionOne', 'optionTwo' ];
 
 class NewQuestionPage extends React.PureComponent
 {
-    state = {
-        [questions[0]]: {},
-        [questions[1]]: {}
+    constructor(props)
+    {
+        super(props);
+        this.state = options
+            .reduce((result, item) =>
+            {
+                result[item] = {};
+
+                return result;
+            }, {});
     }
 
     handleQuestionInputChange = (id, value, isValid) =>
@@ -45,7 +52,7 @@ class NewQuestionPage extends React.PureComponent
 
                         <Grid.Row centered>
                             <QuestionInput
-                                id={ questions[0] }
+                                id={ options[0] }
                                 onChange={ this.handleQuestionInputChange }
                                 placeholder='Enter Option One Text Here'
                                 minInputLength={ minInputLength }
@@ -58,7 +65,7 @@ class NewQuestionPage extends React.PureComponent
 
                         <Grid.Row centered>
                             <QuestionInput
-                                id={ questions[1] }
+                                id={ options[1] }
                                 onChange={ this.handleQuestionInputChange }
                                 placeholder='Enter Option Two Text Here'
                                 minInputLength={ minInputLength }
