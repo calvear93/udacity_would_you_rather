@@ -5,23 +5,26 @@ import { Button, Card, Input, Grid, Header, Divider, Label } from 'semantic-ui-r
 import { Logo } from '../assets/images';
 import { SessionAction, UsersAction } from '../store/actions';
 import '../styles/views/new-question.scss';
+import 'linqjs';
 import QuestionInput from './../components/QuestionInput';
 
-const minInputLength = 5;
+const minInputLength = 3;
+
+const questions = [ 'question-one', 'question-two' ];
 
 class NewQuestionPage extends React.PureComponent
 {
     state = {
-        'question-one': '',
-        'question-two': ''
+        [questions[0]]: {},
+        [questions[1]]: {}
     }
 
-    handleInputChange = (event) =>
+    handleQuestionInputChange = (id, value, isValid) =>
     {
-        const id = event.target.getAttribute('id');
-
-        this.setState({ [id]: event.target.value });
+        this.setState({ [id]: { value, isValid } });
     };
+
+    isValid = () => !Object.values(this.state).any(q => !q.isValid)
 
     render()
     {
@@ -42,8 +45,8 @@ class NewQuestionPage extends React.PureComponent
 
                         <Grid.Row centered>
                             <QuestionInput
-                                id='question-one'
-                                onChange={ this.handleInputChange }
+                                id={ questions[0] }
+                                onChange={ this.handleQuestionInputChange }
                                 placeholder='Enter Option One Text Here'
                                 minInputLength={ minInputLength }
                             />
@@ -54,18 +57,12 @@ class NewQuestionPage extends React.PureComponent
                         </Divider>
 
                         <Grid.Row centered>
-                            <Input
-                                id='question-two'
-                                className='question-input'
-                                label={ { icon: 'pencil' } }
-                                labelPosition='right corner'
+                            <QuestionInput
+                                id={ questions[1] }
+                                onChange={ this.handleQuestionInputChange }
                                 placeholder='Enter Option Two Text Here'
-                                onChange={ this.handleInputChange }
-                                required
+                                minInputLength={ minInputLength }
                             />
-                            {this.state['question-two'].length < minInputLength && this.state['question-two'].length > 0 && (
-                                <Label pointing>Please enter a value of min {minInputLength} chars</Label>
-                            )}
                         </Grid.Row>
                     </Grid>
                 </Card.Content>
@@ -75,10 +72,7 @@ class NewQuestionPage extends React.PureComponent
                         fluid
                         className='question-submit'
                         color='teal'
-                        disabled={
-                            !(this.state['question-one'].length >= 5 &&
-                            this.state['question-two'].length >= 5)
-                        }
+                        disabled={ !this.isValid() }
                     >
                             Submit
                     </Button>

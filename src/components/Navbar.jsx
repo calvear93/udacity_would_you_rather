@@ -57,7 +57,7 @@ class Navbar extends React.Component
                         <Grid.Column width={ 10 }>
                             {isAuthenticated && (
                                 <Label className='navbar-user-info' image>
-                                    <span><small>Hello,</small><br /><b>{ user.name }</b></span>
+                                    <span><small className=''>Hello,</small><br /><b>{ user.name }</b></span>
                                     <Image src={ user.avatarURL } />
                                 </Label>
                             )}
