@@ -5,6 +5,7 @@ import { Button, Card, Input, Grid, Header, Divider, Label } from 'semantic-ui-r
 import { Logo } from '../assets/images';
 import { SessionAction, UsersAction } from '../store/actions';
 import '../styles/views/new-question.scss';
+import QuestionInput from './../components/QuestionInput';
 
 const minInputLength = 5;
 
@@ -40,18 +41,12 @@ class NewQuestionPage extends React.PureComponent
                         </Grid.Row>
 
                         <Grid.Row centered>
-                            <Input
+                            <QuestionInput
                                 id='question-one'
-                                className='question-input'
-                                label={ { icon: 'pencil' } }
-                                labelPosition='right corner'
-                                placeholder='Enter Option One Text Here'
                                 onChange={ this.handleInputChange }
-                                required
+                                placeholder='Enter Option One Text Here'
+                                minInputLength={ minInputLength }
                             />
-                            {this.state['question-one'].length < minInputLength && this.state['question-one'].length > 0 && (
-                                <Label pointing>Please enter a value of min {minInputLength} chars</Label>
-                            )}
                         </Grid.Row>
 
                         <Divider horizontal>
@@ -81,9 +76,8 @@ class NewQuestionPage extends React.PureComponent
                         className='question-submit'
                         color='teal'
                         disabled={
-                            this.state['question-one'].length >= minInputLength &&
-                            this.state['question-two'].length >= minInputLength
-                                ? false : true
+                            !(this.state['question-one'].length >= 5 &&
+                            this.state['question-two'].length >= 5)
                         }
                     >
                             Submit
