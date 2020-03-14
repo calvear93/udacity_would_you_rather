@@ -50,27 +50,25 @@ class NewQuestionPage extends React.PureComponent
                             <Header as='h3'>Would you rather...</Header>
                         </Grid.Row>
 
-                        <Grid.Row centered>
-                            <QuestionInput
-                                id={ options[0] }
-                                onChange={ this.handleQuestionInputChange }
-                                placeholder='Enter Option One Text Here'
-                                minInputLength={ minInputLength }
-                            />
-                        </Grid.Row>
-
-                        <Divider horizontal>
-                            <Header as='h4'>OR</Header>
-                        </Divider>
-
-                        <Grid.Row centered>
-                            <QuestionInput
-                                id={ options[1] }
-                                onChange={ this.handleQuestionInputChange }
-                                placeholder='Enter Option Two Text Here'
-                                minInputLength={ minInputLength }
-                            />
-                        </Grid.Row>
+                        {options
+                            .map(o => (
+                                <Grid.Row key={ o } centered>
+                                    <QuestionInput
+                                        id={ o }
+                                        onChange={ this.handleQuestionInputChange }
+                                        placeholder='Enter Option Text Here'
+                                        minInputLength={ minInputLength }
+                                    />
+                                </Grid.Row>
+                            ))
+                            .reduce((prev, curr, index) => [
+                                prev,
+                                <Divider key={ `divider-${ index }` } horizontal>
+                                    <Header as='h4'>OR</Header>
+                                </Divider>,
+                                curr
+                            ])
+                        }
                     </Grid>
                 </Card.Content>
 
