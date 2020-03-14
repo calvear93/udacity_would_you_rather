@@ -69,10 +69,10 @@ class LoginPage extends React.Component
 
                 <Card.Content extra>
                     <Dropdown
+                        fluid
                         className='login-user-selector'
                         placeholder='Select User'
                         closeOnEscape
-                        fluid
                         selection
                         defaultValue={ this.userSelected }
                         onChange={ this.handleChange }
@@ -82,7 +82,7 @@ class LoginPage extends React.Component
                         fluid
                         className='login-sign-in'
                         color='teal'
-                        disabled={ this.state.userSelected ? false : true }
+                        disabled={ !this.state.userSelected }
                         onClick={ this.onSignIn }
                     >
                             Sign in

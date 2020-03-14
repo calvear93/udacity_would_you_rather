@@ -1,8 +1,5 @@
 import React, { Suspense, lazy } from 'react';
 import { Redirect, Route, Switch } from 'react-router-dom';
-// import { HomePage, LeaderBoardPage, LoginPage, NewQuestionPage, NotFoundPage } from './views';
-// import AppLayout from './views/layouts/AppLayout';
-// import RouteWithLayout from './views/layouts/RouteWithLayout';
 import Loader from './components/Loader';
 
 // Lazy loaded components.

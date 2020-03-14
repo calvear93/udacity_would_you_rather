@@ -1,22 +1,20 @@
-import React from 'react';
+import React, { lazy } from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
-import { Button, Card, Input, Grid, Header, Divider, Label } from 'semantic-ui-react';
-import { Logo } from '../assets/images';
-import { SessionAction, UsersAction } from '../store/actions';
+import { v1 as uuid } from 'uuid';
+import { Button, Card, Divider, Grid, Header } from 'semantic-ui-react';
+import { ConfigurationAction, SessionAction } from '../store/actions';
 import '../styles/views/new-question.scss';
 import 'linqjs';
-import QuestionInput from './../components/QuestionInput';
 
-const minInputLength = 3;
-
-const options = [ 'optionOne', 'optionTwo' ];
+const QuestionInput = lazy(() => import('./../components/QuestionInput'));
 
 class NewQuestionPage extends React.PureComponent
 {
     constructor(props)
     {
         super(props);
+        const { configuration: { options } } = this.props;
         this.state = options
             .reduce((result, item) =>
             {
@@ -26,17 +24,46 @@ class NewQuestionPage extends React.PureComponent
             }, {});
     }
 
+    componentDidMount()
+    {
+        this.props.dispatch(ConfigurationAction.Action(ConfigurationAction.Types.GET));
+    }
+
     handleQuestionInputChange = (id, value, isValid) =>
     {
-        this.setState({ [id]: { value, isValid } });
+        this.setState({ [id]: { id, value, isValid } });
     };
 
-    isValid = () => !Object
-        .values(this.state)
-        .any(q => !q.isValid)
+    isValid = () => this.state && !Object.values(this.state).any(q => !q.isValid)
+
+    onCreateQuestion = () =>
+    {
+        const { session } = this.props;
+
+        const question = Object.keys(this.state)
+            .reduce((result, key) =>
+            {
+                result[key] = {
+                    votes: [],
+                    text: this.state[key].value
+                };
+
+                return result;
+            }, {});
+
+        Object.assign(question, {
+            id: uuid(),
+            timestamp: Date.now(),
+            author: session.id
+        });
+
+        console.log(question);
+    }
 
     render()
     {
+        const { configuration: { options, minInputLength } } = this.props;
+
         return (
             <Card centered fluid>
                 <Card.Content className='question-header'>
@@ -80,6 +107,7 @@ class NewQuestionPage extends React.PureComponent
                         className='question-submit'
                         color='teal'
                         disabled={ !this.isValid() }
+                        onClick={ this.onCreateQuestion }
                     >
                             Submit
                     </Button>
@@ -89,4 +117,12 @@ class NewQuestionPage extends React.PureComponent
     }
 }
 
-export default NewQuestionPage;
+function mapStateToProps({
+    [SessionAction.Key]: session,
+    [ConfigurationAction.Key]: configuration
+})
+{
+    return { session, configuration };
+}
+
+export default connect(mapStateToProps)(withRouter(NewQuestionPage));
