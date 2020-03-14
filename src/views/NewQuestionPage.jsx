@@ -43,13 +43,13 @@ class NewQuestionPage extends React.PureComponent
                             <Input
                                 id='question-one'
                                 className='question-input'
-                                label={ { icon: 'question circle' } }
+                                label={ { icon: 'pencil' } }
                                 labelPosition='right corner'
                                 placeholder='Enter Option One Text Here'
                                 onChange={ this.handleInputChange }
                                 required
                             />
-                            {this.state['question-one'].length < minInputLength && (
+                            {this.state['question-one'].length < minInputLength && this.state['question-one'].length > 0 && (
                                 <Label pointing>Please enter a value of min {minInputLength} chars</Label>
                             )}
                         </Grid.Row>
@@ -62,13 +62,13 @@ class NewQuestionPage extends React.PureComponent
                             <Input
                                 id='question-two'
                                 className='question-input'
-                                label={ { icon: 'question circle' } }
+                                label={ { icon: 'pencil' } }
                                 labelPosition='right corner'
                                 placeholder='Enter Option Two Text Here'
                                 onChange={ this.handleInputChange }
                                 required
                             />
-                            {this.state['question-two'].length < minInputLength && (
+                            {this.state['question-two'].length < minInputLength && this.state['question-two'].length > 0 && (
                                 <Label pointing>Please enter a value of min {minInputLength} chars</Label>
                             )}
                         </Grid.Row>

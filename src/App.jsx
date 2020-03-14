@@ -37,8 +37,6 @@ class App extends React.PureComponent
             <Suspense fallback={ <Loader message='Loading Content' /> }>
                 <div className='app'>
                     <Switch>
-                        <Redirect exact from='/' to='/main/login' />
-
                         <RouteWithLayout
                             exact path='/main/login'
                             layout={ AppLayout }

@@ -32,6 +32,7 @@ button.navbar-tab {
 }
 
 .ui.grid > .divider.navbar-divider {
+    margin: 0 1em !important;
     margin-top: 0 !important;
     height: .25em;
     background-color: $teal;

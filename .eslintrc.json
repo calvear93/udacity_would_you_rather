@@ -150,6 +150,7 @@
     ],
     "no-throw-literal": "error",
     "no-trailing-spaces": "warn",
+    "no-unneeded-ternary": "warn",
     "no-unused-vars": [
       "warn",
       {
@@ -162,6 +163,7 @@
       "warn",
       "always"
     ],
+    "object-shorthand": "error",
     "padded-blocks": [
       "warn",
       "never"
