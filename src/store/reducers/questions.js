@@ -12,15 +12,18 @@ function QuestionsReducer(state = {}, action)
     switch (action.type)
     {
         case QuestionsAction.Types.GET_ALL:
-            return state;
+            return {
+                ...state
+            };
 
-        case QuestionsAction.Types.FETCH_ALL:
+        case QuestionsAction.Types.CREATE:
             return {
                 ...state,
                 loading: true
             };
 
-        case QuestionsAction.Types.FETCH_ALL_SUCCESS:
+        case QuestionsAction.Types.CREATE_SUCCESS:
+
             return {
                 questions: Object.assign(
                     { ...state.questions },
@@ -31,20 +34,23 @@ function QuestionsReducer(state = {}, action)
                 loading: false
             };
 
-        case QuestionsAction.Types.CREATE:
+        case QuestionsAction.Types.DELETE:
+            delete state.questions[action.payload.id];
+
+            return {
+                ...state,
+                loading: false
+            };
+
+        case QuestionsAction.Types.FETCH_ALL:
             return {
                 ...state,
                 loading: true
             };
 
-        case QuestionsAction.Types.CREATE_SUCCESS:
+        case QuestionsAction.Types.FETCH_ALL_SUCCESS:
             return {
-                questions: Object.assign(
-                    { ...state.questions },
-                    {
-                        [action.payload.id]: action.payload
-                    }
-                ),
+                questions: action.payload,
                 loading: false
             };
 

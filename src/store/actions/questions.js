@@ -30,8 +30,11 @@ const QuestionsAction =
         'FETCH_ALL_SUCCESS',
         'CREATE',
         'CREATE_SUCCESS',
+        'DELETE',
         'ANSWER',
         'ANSWER_SUCCESS',
+        'ANSWER_REMOVE',
+        'DELETE',
         'ERROR'
     ]),
 

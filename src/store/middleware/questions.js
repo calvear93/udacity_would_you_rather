@@ -40,7 +40,7 @@ function* create(action)
         const response = yield call(DataService._saveQuestion, question);
 
         yield put(QuestionsAction.Action(
-            QuestionsAction.Types.FETCH_ALL_SUCCESS,
+            QuestionsAction.Types.CREATE_SUCCESS,
             { ...response }
         ));
 
@@ -51,7 +51,6 @@ function* create(action)
     catch (e)
     {
         PopupError(e, messages.create.error);
-        yield PutError(e, messages.create.error, QuestionsAction);
     }
 }
 

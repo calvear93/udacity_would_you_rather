@@ -179,7 +179,10 @@ export default class DataService
         return new Promise((res, rej) =>
         {
             const authedUser = question.author;
+            question.id = uuid();
+            question.creation_timestamp = Date.now();
             const formattedQuestion = question;
+
             // const formattedQuestion = this.formatQuestion(question); // Not necessary.
 
             setTimeout(() =>
