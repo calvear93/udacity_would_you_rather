@@ -1,1 +1,30 @@
 @import '../variables.scss';
+
+.ui.tabular.menu {
+
+    .item.tab {
+        width: 50%;
+        border-top-width: 1px;
+        border-color: #d4d4d5;
+        font-weight: bolder;
+        text-align: center;
+
+        .floating.label {
+            display: none;
+        }
+
+        &.active {
+            background-color: $light;
+            color: $teal;
+
+            .floating.label {
+                display: inherit;
+            }
+        }
+
+        span {
+            width: 100%;
+            font-size: 1.1em;
+        }
+    }
+}

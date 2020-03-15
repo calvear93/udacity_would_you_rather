@@ -32,7 +32,7 @@ class App extends React.PureComponent
     {
         return (
             <Suspense fallback={ <Loader message='Loading Content' /> }>
-                <div className='app'>
+                <div className='app unselectable'>
                     <Switch>
                         <Redirect exact from='/' to='/main' />
 

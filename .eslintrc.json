@@ -214,7 +214,7 @@
         ]
       }
     ],
-    "react/display-name": "error",
+    "react/display-name": "off",
     "react/forbid-prop-types": "warn",
     "react/jsx-boolean-value": "warn",
     "react/jsx-child-element-spacing": "off",
