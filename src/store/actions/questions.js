@@ -1,35 +1,36 @@
 import { createAction, createActionTypesMirroringUnique } from './shared';
 
 // Store partition key.
-const KEY = 'SESSION';
+const KEY = 'QUESTIONS';
 
 /**
  * Redux Action container.
  *
- * @class SessionAction
- * @export SessionAction
+ * @class QuestionsAction
+ * @export QuestionsAction
  */
-const SessionAction =
+const QuestionsAction =
 {
 
     /**
      * Action Store Key.
      *
-     * @memberof SessionAction
+     * @memberof QuestionsAction
      */
     Key: KEY,
 
     /**
      * Action Types.
      *
-     * @memberof SessionAction
+     * @memberof QuestionsAction
      */
     Types: createActionTypesMirroringUnique([
-        'LOGIN',
-        'LOGIN_SUCCESS',
-        'LOGOUT',
-        'LOGOUT_SUCCESS',
-        'STATUS',
+        'GET_ALL',
+        'GET_ALL_SUCCESS',
+        'CREATE',
+        'CREATE_SUCCESS',
+        'ANSWER',
+        'ANSWER_SUCCESS',
         'ERROR'
     ]),
 
@@ -38,10 +39,10 @@ const SessionAction =
      *
      * @param {Symbol} type Action type.
      * @param {any} payload Data involved in the action.
-     * @memberof SessionAction
+     * @memberof QuestionsAction
      * @returns {func} Action.
      */
     Action: (type, payload) => createAction(KEY, type, payload)
 };
 
-export default Object.freeze(SessionAction);
+export default Object.freeze(QuestionsAction);

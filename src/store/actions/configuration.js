@@ -15,14 +15,14 @@ const ConfigurationAction =
     /**
      * Action Store Key.
      *
-     * @memberof AppAction
+     * @memberof ConfigurationAction
      */
     Key: KEY,
 
     /**
      * Action Types.
      *
-     * @memberof AppAction
+     * @memberof ConfigurationAction
      */
     Types: createActionTypesMirroringUnique([
         'GET',
@@ -36,7 +36,7 @@ const ConfigurationAction =
      *
      * @param {Symbol} type Action type.
      * @param {any} payload Data involved in the action.
-     * @memberof AppAction
+     * @memberof ConfigurationAction
      * @returns {func} Action.
      */
     Action: (type, payload) => createAction(KEY, type, payload)

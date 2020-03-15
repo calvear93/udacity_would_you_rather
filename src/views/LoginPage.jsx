@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
-import { Button, Card, Dropdown, Grid, Header, Image } from 'semantic-ui-react';
+import { Button, Card, Dropdown, Grid, Header, Image, Message } from 'semantic-ui-react';
 import { Logo } from '../assets/images';
 import { SessionAction, UsersAction } from '../store/actions';
 import '../styles/views/login.scss';
@@ -51,7 +51,7 @@ class LoginPage extends React.Component
 
     render()
     {
-        const { session: { loading: sessionLoading }, loading: usersLoading, users } = this.props;
+        const { session: { loading: sessionLoading }, loading: usersLoading, error, users } = this.props;
         const noData = Object.keys(users).length === 0;
         const placeholder = noData ?
             usersLoading ?
@@ -74,6 +74,18 @@ class LoginPage extends React.Component
                 </Card.Content>
 
                 <Card.Content extra>
+                    {!usersLoading && noData && error && (
+                        <Message
+                            error
+                            header={ error.message }
+                            list={ [
+                                error.error,
+                                'You must validate your internet connection.',
+                                'Refresh the page for retry.'
+                            ] }
+                        />
+                    )}
+
                     <Dropdown
                         fluid
                         className='login-user-selector'
@@ -104,10 +116,10 @@ class LoginPage extends React.Component
 
 function mapStateToProps({
     [SessionAction.Key]: session,
-    [UsersAction.Key]: { loading, users = {} }
+    [UsersAction.Key]: { loading, error, users = {} }
 })
 {
-    return { session, users, loading };
+    return { session, users, loading, error };
 }
 
 export default connect(mapStateToProps)(withRouter(LoginPage));

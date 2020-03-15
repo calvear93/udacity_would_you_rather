@@ -1,43 +1,34 @@
-import React from 'react';
 import { all, call, put, takeLatest } from 'redux-saga/effects';
-import { Message } from 'semantic-ui-react';
 import DataService from '../../services/_DATA';
-import { Confirm } from '../../utils/Swal';
 import { SessionAction } from '../actions';
+import { PopupError, PutError } from './shared';
+
+const messages = {
+    login: {
+        error: 'There was some errors with your login attempt'
+    },
+    logout: {
+        error: 'There was some errors with your logout attempt'
+    }
+};
 
 function* login(action)
 {
     try
     {
         const response = yield call(DataService._getUser, action.payload.userId);
+
         yield put(SessionAction.Action(
             SessionAction.Types.LOGIN_SUCCESS,
             { ...response }
         ));
+
         action.payload.history.push('/main');
     }
     catch (e)
     {
-        Confirm('error', (
-            <Message
-                error
-                header='There was some errors with your login attempt'
-                list={ [
-                    e.message,
-                    'You must validate your internet connection.'
-                ] }
-            />
-        ));
-
-        yield put(SessionAction.Action(
-            SessionAction.Types.ERROR,
-            {
-                Error: {
-                    Type: action.Type,
-                    Message: e.message
-                }
-            }
-        ));
+        PopupError(e, messages.login.error);
+        yield PutError(e, messages.login.error, SessionAction);
     }
 }
 
@@ -46,21 +37,14 @@ function* logout(action)
     try
     {
         action.payload.history.push('/main/login');
+
         yield put(SessionAction.Action(
             SessionAction.Types.LOGOUT_SUCCESS
         ));
     }
     catch (e)
     {
-        yield put(SessionAction.Action(
-            SessionAction.Types.ERROR,
-            {
-                Error: {
-                    Type: action.Type,
-                    Message: e.message
-                }
-            }
-        ));
+        yield PutError(e, messages.logout.error, SessionAction);
     }
 }
 

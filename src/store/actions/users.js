@@ -22,7 +22,7 @@ const UsersAction =
     /**
      * Action Types.
      *
-     * @memberof AppAction
+     * @memberof UsersAction
      */
     Types: createActionTypesMirroringUnique([
         'GET',
@@ -43,7 +43,7 @@ const UsersAction =
      *
      * @param {Symbol} type Action type.
      * @param {any} payload Data involved in the action.
-     * @memberof AppAction
+     * @memberof UsersAction
      * @returns {func} Action.
      */
     Action: (type, payload) => createAction(KEY, type, payload)

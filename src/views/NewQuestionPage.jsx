@@ -3,10 +3,11 @@ import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import { v1 as uuid } from 'uuid';
 import { Button, Card, Divider, Grid, Header } from 'semantic-ui-react';
-import { ConfigurationAction, SessionAction } from '../store/actions';
+import { QuestionsAction, ConfigurationAction, SessionAction } from '../store/actions';
 import '../styles/views/new-question.scss';
 import 'linqjs';
 
+// Lazy loading components.
 const QuestionInput = lazy(() => import('./../components/QuestionInput'));
 
 class NewQuestionPage extends React.PureComponent
@@ -57,7 +58,10 @@ class NewQuestionPage extends React.PureComponent
             author: session.id
         });
 
-        console.log(question);
+        this.props.dispatch(QuestionsAction.Action(
+            QuestionsAction.Types.CREATE,
+            question
+        ));
     }
 
     render()
