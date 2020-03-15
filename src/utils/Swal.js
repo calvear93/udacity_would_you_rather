@@ -7,7 +7,8 @@ const Confirm = (type, content) => Swal.fire({
     icon: type,
     html: content,
     confirmButtonColor: '#009c95',
-    confirmButtonText: 'Okay'
+    confirmButtonText: 'Okay',
+    allowOutsideClick: false
 });
 
 const Alert = (type, content) => Swal.fire({

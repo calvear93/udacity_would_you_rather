@@ -61,7 +61,10 @@
       "warn",
       "last"
     ],
-    "curly": "warn",
+    "curly": [
+      "warn",
+      "all"
+    ],
     "default-case": "warn",
     "dot-location": [
       "warn",

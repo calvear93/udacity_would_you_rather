@@ -3,7 +3,7 @@ import { v1 as uuid } from 'uuid';
 import {
     Boy,
     MaleCostume,
-    Girl,
+    Female,
     SupportMale
 } from '../assets/images/avatars';
 
@@ -11,7 +11,7 @@ let users = {
     sarahedo: {
         id: 'sarahedo',
         name: 'Sarah Edo',
-        avatarURL: Girl,
+        avatarURL: Female,
         answers: {
             '8xf0y6ziyjabvozdd253nd': 'optionOne',
             '6ni6ok3ym7mf1p33lnez': 'optionTwo',
@@ -179,7 +179,8 @@ export default class DataService
         return new Promise((res, rej) =>
         {
             const authedUser = question.author;
-            const formattedQuestion = this.formatQuestion(question);
+            const formattedQuestion = question;
+            // const formattedQuestion = this.formatQuestion(question); // Not necessary.
 
             setTimeout(() =>
             {

@@ -8,18 +8,22 @@ import '../styles/views/login.scss';
 
 class LoginPage extends React.Component
 {
-    state = {
-        userSelected: undefined
-    }
+    state = {}
 
     componentDidMount()
     {
-        this.props.dispatch(UsersAction.Action(UsersAction.Types.GET_ALL));
+        this.props.dispatch(UsersAction.Action(UsersAction.Types.FETCH_ALL));
     }
 
     onSignIn = () =>
     {
-        const { history } = this.props;
+        const { history, session: { loading: sessionLoading } } = this.props;
+
+        if (sessionLoading)
+        {
+            return;
+        }
+
         const id = this.state.userSelected;
 
         this.props.dispatch(SessionAction.Action(

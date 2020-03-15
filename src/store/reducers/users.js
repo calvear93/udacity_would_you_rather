@@ -11,26 +11,16 @@ function UsersReducer(state = {}, action)
 {
     switch (action.type)
     {
-        case UsersAction.Types.GET:
-            return {
-                ...state,
-                loading: true
-            };
-
-        case UsersAction.Types.GET_SUCCESS:
-            return {
-                ...state,
-                users: action.payload,
-                loading: false
-            };
-
         case UsersAction.Types.GET_ALL:
+            return state;
+
+        case UsersAction.Types.FETCH_ALL:
             return {
                 ...state,
                 loading: true
             };
 
-        case UsersAction.Types.GET_ALL_SUCCESS:
+        case UsersAction.Types.FETCH_ALL_SUCCESS:
             return {
                 ...state,
                 users: action.payload,

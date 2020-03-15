@@ -26,7 +26,8 @@ const QuestionsAction =
      */
     Types: createActionTypesMirroringUnique([
         'GET_ALL',
-        'GET_ALL_SUCCESS',
+        'FETCH_ALL',
+        'FETCH_ALL_SUCCESS',
         'CREATE',
         'CREATE_SUCCESS',
         'ANSWER',

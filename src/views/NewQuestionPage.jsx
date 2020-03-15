@@ -39,7 +39,12 @@ class NewQuestionPage extends React.PureComponent
 
     onCreateQuestion = () =>
     {
-        const { session } = this.props;
+        const { session, history, loading } = this.props;
+
+        if (loading)
+        {
+            return;
+        }
 
         const question = Object.keys(this.state)
             .reduce((result, key) =>
@@ -60,13 +65,16 @@ class NewQuestionPage extends React.PureComponent
 
         this.props.dispatch(QuestionsAction.Action(
             QuestionsAction.Types.CREATE,
-            question
+            {
+                question,
+                history
+            }
         ));
     }
 
     render()
     {
-        const { configuration: { options, minInputLength } } = this.props;
+        const { configuration: { options, minInputLength }, loading } = this.props;
 
         return (
             <Card centered fluid>
@@ -112,6 +120,7 @@ class NewQuestionPage extends React.PureComponent
                         color='teal'
                         disabled={ !this.isValid() }
                         onClick={ this.onCreateQuestion }
+                        loading={ loading }
                     >
                             Submit
                     </Button>
@@ -123,10 +132,11 @@ class NewQuestionPage extends React.PureComponent
 
 function mapStateToProps({
     [SessionAction.Key]: session,
-    [ConfigurationAction.Key]: configuration
+    [ConfigurationAction.Key]: configuration,
+    [QuestionsAction.Key]: { loading }
 })
 {
-    return { session, configuration };
+    return { session, configuration, loading };
 }
 
 export default connect(mapStateToProps)(withRouter(NewQuestionPage));

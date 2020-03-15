@@ -23,7 +23,7 @@ function ConfigurationReducer(state = defaults, action)
         case ConfigurationAction.Types.ADD:
             return {
                 ...Object.assign(
-                    state,
+                    { ...state },
                     action.payload
                 )
             };
