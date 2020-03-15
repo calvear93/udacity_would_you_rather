@@ -29,6 +29,10 @@ button.navbar-tab {
             transition: color .4s ease;
         }
     }
+
+    &:hover:not(.active) {
+        background-color: $teal-light !important;
+    }
 }
 
 .ui.grid > .divider.navbar-divider {
