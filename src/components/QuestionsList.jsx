@@ -6,12 +6,12 @@ class QuestionsList extends React.PureComponent
 
     render()
     {
-        const { questions } = this.props;
+        const { questions, loading } = this.props;
 
         return (
             <>
                 {
-                    questions
+                    !loading && questions
                         .map(q => <label key={ q.id }>{q.id} </label>)
                 }
             </>

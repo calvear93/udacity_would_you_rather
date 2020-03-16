@@ -13,17 +13,16 @@ const messages = {
     }
 };
 
-function* getAll(action)
+function* getAll()
 {
     try
     {
         const response = yield call(DataService._getQuestions);
-        console.log('>>>>>>', response);
-        // yield put(SessionAction.Action(
-        //     SessionAction.Types.LOGIN_SUCCESS,
-        //     { ...response }
-        // ));
-        // action.payload.history.push('/main');
+
+        yield put(QuestionsAction.Action(
+            QuestionsAction.Types.FETCH_ALL_SUCCESS,
+            { ...response }
+        ));
     }
     catch (e)
     {

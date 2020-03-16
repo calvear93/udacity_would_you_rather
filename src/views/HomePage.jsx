@@ -1,113 +1,67 @@
 import React from 'react';
+import { connect } from 'react-redux';
+import { withRouter } from 'react-router-dom';
+import 'linqjs';
 import { HomeTab, QuestionsList } from '../components';
+import { QuestionsAction, UsersAction, SessionAction, ConfigurationAction } from '../store/actions';
 import { Tab } from 'semantic-ui-react';
 import '../styles/views/home.scss';
 
-let questions2 = {
-    '8xf0y6ziyjabvozdd253nd': {
-        id: '8xf0y6ziyjabvozdd253nd',
-        author: 'sarahedo',
-        timestamp: 1467166872634,
-        optionOne: {
-            votes: [ 'sarahedo' ],
-            text: 'have horrible short term memory'
-        },
-        optionTwo: {
-            votes: [],
-            text: 'have horrible long term memory'
-        }
-    },
-    '6ni6ok3ym7mf1p33lnez': {
-        id: '6ni6ok3ym7mf1p33lnez',
-        author: 'johndoe',
-        timestamp: 1468479767190,
-        optionOne: {
-            votes: [],
-            text: 'become a superhero'
-        },
-        optionTwo: {
-            votes: [ 'johndoe', 'sarahedo' ],
-            text: 'become a supervillain'
-        }
-    },
-    am8ehyc8byjqgar0jgpub9: {
-        id: 'am8ehyc8byjqgar0jgpub9',
-        author: 'sarahedo',
-        timestamp: 1488579767190,
-        optionOne: {
-            votes: [],
-            text: 'be telekinetic'
-        },
-        optionTwo: {
-            votes: [ 'sarahedo' ],
-            text: 'be telepathic'
-        }
-    },
-    loxhs1bqm25b708cmbf3g: {
-        id: 'loxhs1bqm25b708cmbf3g',
-        author: 'tylermcginnis',
-        timestamp: 1482579767190,
-        optionOne: {
-            votes: [],
-            text: 'be a front-end developer'
-        },
-        optionTwo: {
-            votes: [ 'sarahedo' ],
-            text: 'be a back-end developer'
-        }
-    },
-    vthrdm985a262al8qx3do: {
-        id: 'vthrdm985a262al8qx3do',
-        author: 'tylermcginnis',
-        timestamp: 1489579767190,
-        optionOne: {
-            votes: [ 'tylermcginnis' ],
-            text: 'find $50 yourself'
-        },
-        optionTwo: {
-            votes: [ 'johndoe' ],
-            text: 'have your best friend find $500'
-        }
-    },
-    xj352vofupe1dqz9emx13r: {
-        id: 'xj352vofupe1dqz9emx13r',
-        author: 'johndoe',
-        timestamp: 1493579767190,
-        optionOne: {
-            votes: [ 'johndoe' ],
-            text: 'write JavaScript'
-        },
-        optionTwo: {
-            votes: [ 'tylermcginnis' ],
-            text: 'write Swift'
-        }
-    }
-};
-
 class HomePage extends React.Component
 {
+    componentDidMount()
+    {
+        this.props.dispatch(QuestionsAction.Action(QuestionsAction.Types.FETCH_ALL));
+    }
+
     render()
     {
-        const questions = Object.values(questions2);
+        const { session, options, users = {}, questions = {}, loading } = this.props;
+
+        const data = Object.values(questions)
+            .map(q => (
+                {
+                    id: q.id,
+                    author: users[q.author],
+                    ...Object.keys(q)
+                        .filter(k => options.includes(k))
+                        .reduce((accumulator, k) =>
+                        {
+                            accumulator[k] = q[k];
+                            // Validates if the question was answered for current user.
+                            accumulator.answered = accumulator.answered ?
+                                accumulator.answered
+                                : q[k].votes.any(v => v === session.id);
+
+                            return accumulator;
+                        }, {})
+                }
+            ));
+
+        const answered = data
+            .filter(q => q.answered);
+
+        const unanswered = data
+            .filter(q => !q.answered);
 
         return (
             <Tab panes={
                 [
                     HomeTab({
                         key: 'unanswered-tab',
-                        icon: 'clock',
                         title: 'Unanswered Questions',
                         color: 'blue',
-                        counter: questions.length,
-                        render: () => <QuestionsList questions={ questions } />
+                        counter: unanswered.length,
+                        loading,
+                        render: () => <QuestionsList questions={ unanswered } loading={ loading } />
                     }),
                     HomeTab({
                         key: 'answered-tab',
-                        icon: 'check circle',
                         title: 'Answered Questions',
                         color: 'green',
-                        counter: questions.length,
-                        render: () => <QuestionsList questions={ questions } />
+                        counter: answered.length,
+                        loading,
+                        render: () => <QuestionsList questions={ answered } loading={ loading } />
                     })
                 ]
             }
@@ -116,4 +70,14 @@ class HomePage extends React.Component
     }
 }
 
-export default HomePage;
+function mapStateToProps({
+    [ConfigurationAction.Key]: { options },
+    [SessionAction.Key]: session,
+    [UsersAction.Key]: { users },
+    [QuestionsAction.Key]: { questions, loading }
+})
+{
+    return { session, options, users, questions, loading };
+}
+
+export default connect(mapStateToProps)(withRouter(HomePage));
