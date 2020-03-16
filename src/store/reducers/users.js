@@ -11,15 +11,18 @@ function UsersReducer(state = {}, action)
 {
     switch (action.type)
     {
+        // Gets all users,
         case UsersAction.Types.GET_ALL:
             return state;
 
+        // Fetches all users from service.
         case UsersAction.Types.FETCH_ALL:
             return {
                 ...state,
                 loading: true
             };
 
+        // Fetching users succeeded.
         case UsersAction.Types.FETCH_ALL_SUCCESS:
             return {
                 ...state,
@@ -27,6 +30,7 @@ function UsersReducer(state = {}, action)
                 loading: false
             };
 
+        // Any action error.
         case UsersAction.Types.ERROR:
             return {
                 ...state,

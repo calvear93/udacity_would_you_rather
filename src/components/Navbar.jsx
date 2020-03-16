@@ -1,12 +1,23 @@
 import React from 'react';
-import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
+import { withRouter } from 'react-router-dom';
 import { ButtonGroup, Grid, Image, Label } from 'semantic-ui-react';
 import { SessionAction } from './../store/actions';
 import NavbarTab from './NavbarTab';
 
+/**
+ * Navbar with tabs and user info.
+ *
+ * @class Navbar
+ * @extends {React.Component}
+ */
 class Navbar extends React.Component
 {
+    /**
+     * Triggered when user press sign out button.
+     *
+     * @memberof Navbar
+     */
     onSignOut = async () =>
     {
         const { dispatch, history } = this.props;
@@ -17,6 +28,12 @@ class Navbar extends React.Component
         ));
     }
 
+    /**
+     * Renders the component.
+     *
+     * @returns {JSX} The navbar.
+     * @memberof Navbar
+     */
     render()
     {
         const { user, location: { pathname } } = this.props;
@@ -25,6 +42,7 @@ class Navbar extends React.Component
         return (
             <>
                 <Grid.Column width={ 4 } />
+
                 <Grid.Column width={ 6 }>
                     <Grid padded centered>
                         <ButtonGroup className='navbar-menu' attached='top'>
@@ -35,6 +53,7 @@ class Navbar extends React.Component
                                 path={ pathname }
                                 disabled={ !isAuthenticated }
                             />
+
                             <NavbarTab
                                 icon='question'
                                 help='New Question'
@@ -42,6 +61,7 @@ class Navbar extends React.Component
                                 path={ pathname }
                                 disabled={ !isAuthenticated }
                             />
+
                             <NavbarTab
                                 icon='list alternate'
                                 help='Leaderboard'
@@ -52,6 +72,7 @@ class Navbar extends React.Component
                         </ButtonGroup>
                     </Grid>
                 </Grid.Column>
+
                 <Grid.Column width={ 4 }>
                     <Grid>
                         <Grid.Column width={ 10 }>
@@ -62,6 +83,7 @@ class Navbar extends React.Component
                                 </Label>
                             )}
                         </Grid.Column>
+
                         <Grid.Column width={ 2 }>
                             <NavbarTab
                                 className={ `navbar-session${ isAuthenticated ? ' logout' : ' login' }` }

@@ -3,6 +3,7 @@ import DataService from '../../services/_DATA';
 import { SessionAction } from '../actions';
 import { PopupError, PutError } from './shared';
 
+// Alerts messages.
 const messages = {
     login: {
         error: 'There was some errors with your login attempt'
@@ -12,17 +13,23 @@ const messages = {
     }
 };
 
+/**
+ * Saves user identity to the store.
+ *
+ * @param {*} action Trigger.
+ */
 function* login(action)
 {
     try
     {
+        // Gets/validates user identity from the service.
         const response = yield call(DataService._getUser, action.payload.userId);
 
         yield put(SessionAction.Action(
             SessionAction.Types.LOGIN_SUCCESS,
             { ...response }
         ));
-
+        // Redirects the app to the main page.
         action.payload.history.push('/main');
     }
     catch (e)
@@ -32,6 +39,11 @@ function* login(action)
     }
 }
 
+/**
+ * Removes the current user from session (store).
+ *
+ * @param {*} action Trigger.
+ */
 function* logout(action)
 {
     try
@@ -48,6 +60,11 @@ function* logout(action)
     }
 }
 
+/**
+ * Combining function.
+ *
+ * @export
+ */
 export default function* init()
 {
     yield all(

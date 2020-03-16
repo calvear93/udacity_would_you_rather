@@ -2,22 +2,35 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { Button, Icon } from 'semantic-ui-react';
 
+/**
+ * Tab for the app navbar.
+ *
+ * @class NavbarTab
+ * @extends {React.Component}
+ */
 class NavbarTab extends React.Component
 {
+    /**
+     * Renders the tab.
+     *
+     * @returns {JSX} Tab for app navbar.
+     * @memberof NavbarTab
+     */
     render()
     {
         const {
             className,
             icon,
-            help,
-            to,
-            onClick,
-            path,
+            help, // Tab text.
+            to, // Tab route.
+            onClick, // Tab function, used for logout.
+            path, // Current path.
             style,
             disabled,
             ...rest
         } = this.props;
 
+        // Renders a Link component if tab isn't disabled.
         const Wrapper = disabled || !to ? (props) => (<div>{props.children}</div>) : Link;
 
         return (

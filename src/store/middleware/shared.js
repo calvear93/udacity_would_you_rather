@@ -3,6 +3,12 @@ import { put } from 'redux-saga/effects';
 import { Message } from 'semantic-ui-react';
 import { Confirm } from '../../utils/Swal';
 
+/**
+ * Shows a success popup.
+ *
+ * @param {string} message Message for show.
+ * @returns {any} Popup.
+ */
 const PopupSuccess = (message) => Confirm('success', (
     <Message
         success
@@ -10,6 +16,13 @@ const PopupSuccess = (message) => Confirm('success', (
     />
 ));
 
+/**
+ * Shows a error popup.
+ *
+ * @param {any} e Error.
+ * @param {string} message Message for show.
+ * @returns {any} Popup.
+ */
 const PopupError = (e, message) => Confirm('error', (
     <Message
         error
@@ -21,6 +34,13 @@ const PopupError = (e, message) => Confirm('error', (
     />
 ));
 
+/**
+ * Dispatches a error.
+ *
+ * @param {*} e Error.
+ * @param {*} message Message for show.
+ * @param {*} actionDescriptor Action executing when error.
+ */
 const PutError = function* (e, message, actionDescriptor)
 {
     yield put(actionDescriptor.Action(
@@ -34,9 +54,5 @@ const PutError = function* (e, message, actionDescriptor)
     ));
 };
 
-export {
-    PopupSuccess,
-    PutError,
-    PopupError
-};
+export { PopupSuccess, PutError, PopupError };
 
