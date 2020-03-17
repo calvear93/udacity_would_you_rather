@@ -50,7 +50,8 @@ function QuestionsReducer(state = {}, action)
         case QuestionsAction.Types.FETCH_ALL:
             return {
                 ...state,
-                loading: true
+                // Loader doesn't show when any data is already loaded in store.
+                loading: !state.questions || Object.keys(state.questions).length === 0
             };
 
         // Fetching action succeeded.

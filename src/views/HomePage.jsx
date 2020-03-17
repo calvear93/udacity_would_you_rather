@@ -4,14 +4,14 @@ import { withRouter } from 'react-router-dom';
 import 'linqjs';
 import { HomeTab, QuestionsList } from '../components';
 import { QuestionsAction, UsersAction, SessionAction, ConfigurationAction } from '../store/actions';
-import { Tab } from 'semantic-ui-react';
+import { Tab, LoaderasLoading } from 'semantic-ui-react';
 import '../styles/views/home.scss';
 
 class HomePage extends React.Component
 {
     componentDidMount()
     {
-        this.props.dispatch(QuestionsAction.Action(QuestionsAction.Types.FETCH_ALL));
+        this.props.dispatch(QuestionsAction.Action(QuestionsAction.Types.GET_ALL));
     }
 
     render()

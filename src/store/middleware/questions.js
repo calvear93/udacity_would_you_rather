@@ -5,40 +5,49 @@ import { Cache, PopupSuccess, PopupError, PutError } from './shared';
 
 // Alerts messages.
 const messages = {
-    getAll: {
+    fetchAll: {
         error: 'There was some errors fetching the questions'
     },
     create: {
-        success: (author) => `Question with author "${ author }" created successfully!`,
+        success: 'Question created successfully!',
         error: 'There was some errors creating the question'
     }
 };
 
 const keys = {
-    getAll: `${ QuestionsAction.Key }_getAll`
+    questions: `${ QuestionsAction.Key }::questions`
 };
+
+/**
+ * Gets all questions from the store and triggers update.
+ */
+function* getAll()
+{
+    // Whiles rendering uses current data, calls fetching action for updating it.
+    yield put(QuestionsAction.Action(QuestionsAction.Types.FETCH_ALL));
+}
 
 /**
  * Loads all questions from service to the store.
  */
-function* getAll()
+function* fetchAll()
 {
     try
     {
         // Gets the questions.
-        const response = yield Cache.get( keys.getAll ) || call(DataService._getQuestions);
+        const response = yield Cache.get( keys.questions ) || call(DataService._getQuestions);
         // Calls success event/action for finish the operation.
         yield put(QuestionsAction.Action(
             QuestionsAction.Types.FETCH_ALL_SUCCESS,
             { ...response }
         ));
 
-        Cache.set(keys.getAll, response);
+        Cache.set(keys.questions, response);
     }
     catch (e)
     {
-        PopupError(e, messages.getAll.error);
-        yield PutError(e, messages.getAll.error, QuestionsAction);
+        PopupError(e, messages.fetchAll.error);
+        yield PutError(e, messages.fetchAll.error, QuestionsAction);
     }
 }
 
@@ -51,16 +60,15 @@ function* create(action)
 {
     try
     {
-        const question = action.payload.question;
         // Saves the question to the service.
-        const response = yield call(DataService._saveQuestion, question);
+        const response = yield call(DataService._saveQuestion, action.payload.question);
         // Calls success event/action for finish the operation.
         yield put(QuestionsAction.Action(
             QuestionsAction.Types.CREATE_SUCCESS,
             { ...response }
         ));
         // Success popup.
-        PopupSuccess(messages.create.success(question.author));
+        PopupSuccess(messages.create.success);
         // Redirects the app to main page.
         action.payload.history.push('/main');
     }
@@ -78,7 +86,8 @@ function* create(action)
 export default function* init()
 {
     yield all(
-        yield takeLatest(QuestionsAction.Types.FETCH_ALL, getAll),
+        yield takeLatest(QuestionsAction.Types.GET_ALL, getAll),
+        yield takeLatest(QuestionsAction.Types.FETCH_ALL, fetchAll),
         yield takeLatest(QuestionsAction.Types.CREATE, create)
     );
 }
