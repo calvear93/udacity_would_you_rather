@@ -53,15 +53,16 @@ class HomePage extends React.Component
                         color: 'blue',
                         counter: unanswered.length,
                         loading,
-                        render: () => <QuestionsList questions={ unanswered } loading={ loading } />
+                        render: () => <QuestionsList questions={ unanswered } />
                     }),
+
                     HomeTab({
                         key: 'answered-tab',
                         title: 'Answered Questions',
                         color: 'green',
                         counter: answered.length,
                         loading,
-                        render: () => <QuestionsList questions={ answered } loading={ loading } />
+                        render: () => <QuestionsList questions={ answered } />
                     })
                 ]
             }
