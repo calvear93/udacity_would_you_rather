@@ -21,6 +21,7 @@
     "mathjs": "^6.6.0",
     "moment": "^2.24.0",
     "mout": "^1.2.2",
+    "node-cache-promise": "^1.0.2",
     "node-sass": "^4.13.1",
     "prop-types": "^15.7.2",
     "react": "^16.12.0",

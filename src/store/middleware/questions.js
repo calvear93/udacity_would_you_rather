@@ -1,7 +1,7 @@
 import { all, call, takeLatest, put } from 'redux-saga/effects';
 import DataService from '../../services/_DATA';
 import { QuestionsAction } from '../actions';
-import { PopupSuccess, PopupError, PutError } from './shared';
+import { Cache, PopupSuccess, PopupError, PutError } from './shared';
 
 // Alerts messages.
 const messages = {
@@ -14,6 +14,10 @@ const messages = {
     }
 };
 
+const keys = {
+    getAll: `${ QuestionsAction.Key }_getAll`
+};
+
 /**
  * Loads all questions from service to the store.
  */
@@ -22,12 +26,14 @@ function* getAll()
     try
     {
         // Gets the questions.
-        const response = yield call(DataService._getQuestions);
+        const response = yield Cache.get( keys.getAll ) || call(DataService._getQuestions);
         // Calls success event/action for finish the operation.
         yield put(QuestionsAction.Action(
             QuestionsAction.Types.FETCH_ALL_SUCCESS,
             { ...response }
         ));
+
+        Cache.set(keys.getAll, response);
     }
     catch (e)
     {

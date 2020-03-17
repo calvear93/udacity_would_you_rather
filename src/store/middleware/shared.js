@@ -2,6 +2,7 @@ import React from 'react';
 import { put } from 'redux-saga/effects';
 import { Message } from 'semantic-ui-react';
 import { Confirm } from '../../utils/Swal';
+import NodeCache from 'node-cache';
 
 /**
  * Shows a success popup.
@@ -54,5 +55,7 @@ const PutError = function* (e, message, actionDescriptor)
     ));
 };
 
-export { PopupSuccess, PutError, PopupError };
+const Cache = new NodeCache();
+
+export { Cache, PopupSuccess, PutError, PopupError };
 
