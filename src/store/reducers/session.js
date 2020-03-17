@@ -1,13 +1,14 @@
 import { SessionAction } from '../actions';
+import { SessionDefaults } from './defaults';
 
 /**
  * Redux Action Reducer.
  *
- * @param {any} [state = {}] Current state.
+ * @param {any} [state = SessionDefaults] Current state.
  * @param {any} action Action dispatched.
  * @returns {any} Action state.
  */
-function SessionReducer(state = { authenticated: false }, action)
+function SessionReducer(state = SessionDefaults, action)
 {
     switch (action.type)
     {

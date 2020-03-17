@@ -1,19 +1,14 @@
 import { ConfigurationAction } from '../actions';
-
-// Default state.
-const defaults = {
-    minInputLength: 3,
-    options: [ 'optionOne', 'optionTwo' ]
-};
+import { ConfigurationDefaults } from './defaults';
 
 /**
  * Redux Action Reducer.
  *
- * @param {any} [state = defaults] Current state.
+ * @param {any} [state = ConfigurationDefaults] Current state.
  * @param {any} action Action dispatched.
  * @returns {any} Action state.
  */
-function ConfigurationReducer(state = defaults, action)
+function ConfigurationReducer(state = ConfigurationDefaults, action)
 {
     switch (action.type)
     {
@@ -37,7 +32,7 @@ function ConfigurationReducer(state = defaults, action)
 
         // Resets the configuration
         case ConfigurationAction.Types.RESET:
-            return { ...defaults };
+            return { ...ConfigurationDefaults };
 
         default:
             return state;

@@ -11,30 +11,25 @@ const QuestionInput = lazy(() => import('./../components/QuestionInput'));
 
 class NewQuestionPage extends React.PureComponent
 {
-    constructor(props)
-    {
-        super(props);
-        const { configuration: { options } } = this.props;
-        this.state = options
-            .reduce((result, item) =>
-            {
-                result[item] = {};
-
-                return result;
-            }, {});
-    }
-
     componentDidMount()
     {
-        this.props.dispatch(ConfigurationAction.Action(ConfigurationAction.Types.GET));
+        this.props.dispatch(ConfigurationAction.Action(
+            ConfigurationAction.Types.GET
+        ));
     }
 
     handleQuestionInputChange = (id, value, isValid) =>
     {
-        this.setState({ [id]: { id, value, isValid } });
+        this.props.dispatch(QuestionsAction.Action(
+            QuestionsAction.Types.SAVE_INPUT,
+            { id, value, isValid }
+        ));
     };
 
-    isValid = () => this.state && !Object.values(this.state).any(q => !q.isValid)
+    isValid = () =>
+    {
+        return !this.props.inputs.any(q => !q.isValid);
+    }
 
     onCreateQuestion = () =>
     {
@@ -45,12 +40,12 @@ class NewQuestionPage extends React.PureComponent
             return;
         }
 
-        const question = Object.keys(this.state)
-            .reduce((result, key) =>
+        const question = this.props.inputs
+            .reduce((result, input) =>
             {
-                result[key] = {
+                result[input.id] = {
                     votes: [],
-                    text: this.state[key].value
+                    text: input.value
                 };
 
                 return result;
@@ -72,7 +67,7 @@ class NewQuestionPage extends React.PureComponent
 
     render()
     {
-        const { configuration: { options, minInputLength }, loading } = this.props;
+        const { minInputLength, inputs, loading } = this.props;
 
         return (
             <Card centered fluid>
@@ -89,11 +84,11 @@ class NewQuestionPage extends React.PureComponent
                             <Header as='h3'>Would you rather...</Header>
                         </Grid.Row>
 
-                        {options
-                            .map(o => (
-                                <Grid.Row key={ o } centered>
+                        {inputs
+                            .map(i => (
+                                <Grid.Row key={ i.id } centered>
                                     <QuestionInput
-                                        id={ o }
+                                        id={ i.id }
                                         onChange={ this.handleQuestionInputChange }
                                         placeholder='Enter Option Text Here'
                                         minInputLength={ minInputLength }
@@ -130,11 +125,13 @@ class NewQuestionPage extends React.PureComponent
 
 function mapStateToProps({
     [SessionAction.Key]: session,
-    [ConfigurationAction.Key]: configuration,
-    [QuestionsAction.Key]: { loading }
+    [ConfigurationAction.Key]: { minInputLength },
+    [QuestionsAction.Key]: { inputs: storedInputs, loading }
 })
 {
-    return { session, configuration, loading };
+    const inputs = Object.values(storedInputs);
+
+    return { session, minInputLength, inputs, loading };
 }
 
 export default connect(mapStateToProps)(withRouter(NewQuestionPage));

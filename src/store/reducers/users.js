@@ -1,13 +1,14 @@
 import { UsersAction } from '../actions';
+import { UsersDefaults } from './defaults';
 
 /**
  * Redux Action Reducer.
  *
- * @param {any} [state = {}] Current state.
+ * @param {any} [state = UsersDefaults] Current state.
  * @param {any} action Action dispatched.
  * @returns {any} Action state.
  */
-function UsersReducer(state = {}, action)
+function UsersReducer(state = UsersDefaults, action)
 {
     switch (action.type)
     {

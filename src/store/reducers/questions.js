@@ -1,13 +1,14 @@
 import { QuestionsAction } from '../actions';
+import { QuestionDefaults } from './defaults';
 
 /**
  * Redux Action Reducer.
  *
- * @param {any} [state = {}] Current state.
+ * @param {any} [state = QuestionDefaults] Current state.
  * @param {any} action Action dispatched.
  * @returns {any} Action state.
  */
-function QuestionsReducer(state = {}, action)
+function QuestionsReducer(state = QuestionDefaults, action)
 {
     switch (action.type)
     {
@@ -28,6 +29,7 @@ function QuestionsReducer(state = {}, action)
         case QuestionsAction.Types.CREATE_SUCCESS:
 
             return {
+                ...state,
                 questions: Object.assign(
                     { ...state.questions },
                     {
@@ -57,8 +59,22 @@ function QuestionsReducer(state = {}, action)
         // Fetching action succeeded.
         case QuestionsAction.Types.FETCH_ALL_SUCCESS:
             return {
+                ...state,
                 questions: action.payload,
                 loading: false
+            };
+
+        // Saves current inputs values for New Question page.
+        case QuestionsAction.Types.SAVE_INPUT:
+
+            return {
+                ...state,
+                inputs: Object.assign(
+                    { ...state.inputs },
+                    {
+                        [action.payload.id]: action.payload
+                    }
+                )
             };
 
         // Error on some action.

@@ -20,7 +20,7 @@ const QuestionsAction =
     Key: KEY,
 
     /**
-     * Keys for store cached data.
+     * Keys for cached data.
      *
      * @memberof QuestionsAction
      */
@@ -42,6 +42,7 @@ const QuestionsAction =
         ANSWER: 'ANSWER',
         ANSWER_SUCCESS: 'ANSWER_SUCCESS',
         ANSWER_REMOVE: 'ANSWER_REMOVE',
+        SAVE_INPUT: 'SAVE_INPUT',
         DELETE: 'DELETE',
         ERROR: 'ERROR'
     }),
