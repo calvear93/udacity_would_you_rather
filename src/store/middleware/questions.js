@@ -1,7 +1,8 @@
 import { all, call, takeLatest, put } from 'redux-saga/effects';
 import DataService from '../../services/_DATA';
 import { QuestionsAction } from '../actions';
-import { Cache, PopupSuccess, PopupError, PutError } from './shared';
+import { PopupSuccess, PopupError, PutError } from './shared';
+import Cache from '../../utils/Cache';
 
 // Alerts messages.
 const messages = {
@@ -12,10 +13,6 @@ const messages = {
         success: 'Question created successfully!',
         error: 'There was some errors creating the question'
     }
-};
-
-const keys = {
-    questions: `${ QuestionsAction.Key }::questions`
 };
 
 /**
@@ -34,15 +31,17 @@ function* fetchAll()
 {
     try
     {
+        // Gets question stored in cache.
+        const cache = Cache.get( QuestionsAction.CacheKeys.QUESTIONS );
         // Gets the questions.
-        const response = yield Cache.get( keys.questions ) || call(DataService._getQuestions);
+        const response = yield cache || call(DataService._getQuestions);
         // Calls success event/action for finish the operation.
         yield put(QuestionsAction.Action(
             QuestionsAction.Types.FETCH_ALL_SUCCESS,
             { ...response }
         ));
-
-        Cache.set(keys.questions, response);
+        // Stores the question in cache if it doesn't cached.
+        cache || Cache.set(QuestionsAction.CacheKeys.QUESTIONS, response);
     }
     catch (e)
     {
@@ -67,6 +66,8 @@ function* create(action)
             QuestionsAction.Types.CREATE_SUCCESS,
             { ...response }
         ));
+        // Removes current cached questions.
+        Cache.del(QuestionsAction.CacheKeys.QUESTIONS);
         // Success popup.
         PopupSuccess(messages.create.success);
         // Redirects the app to main page.

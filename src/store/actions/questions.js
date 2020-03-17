@@ -1,4 +1,4 @@
-import { createAction, createActionTypesMirroringUnique } from './shared';
+import { createAction, createActionTypes } from './shared';
 
 // Store partition key.
 const KEY = 'QUESTIONS';
@@ -20,23 +20,31 @@ const QuestionsAction =
     Key: KEY,
 
     /**
+     * Keys for store cached data.
+     *
+     * @memberof QuestionsAction
+     */
+    CacheKeys: createActionTypes(KEY, {
+        QUESTIONS: 'QUESTIONS'
+    }),
+
+    /**
      * Action Types.
      *
      * @memberof QuestionsAction
      */
-    Types: createActionTypesMirroringUnique([
-        'GET_ALL',
-        'FETCH_ALL',
-        'FETCH_ALL_SUCCESS',
-        'CREATE',
-        'CREATE_SUCCESS',
-        'DELETE',
-        'ANSWER',
-        'ANSWER_SUCCESS',
-        'ANSWER_REMOVE',
-        'DELETE',
-        'ERROR'
-    ]),
+    Types: createActionTypes(KEY, {
+        GET_ALL: 'GET_ALL',
+        FETCH_ALL: 'FETCH_ALL',
+        FETCH_ALL_SUCCESS: 'FETCH_ALL_SUCCESS',
+        CREATE: 'CREATE',
+        CREATE_SUCCESS: 'CREATE_SUCCESS',
+        ANSWER: 'ANSWER',
+        ANSWER_SUCCESS: 'ANSWER_SUCCESS',
+        ANSWER_REMOVE: 'ANSWER_REMOVE',
+        DELETE: 'DELETE',
+        ERROR: 'ERROR'
+    }),
 
     /**
      * Returns the action.

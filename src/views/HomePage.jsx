@@ -1,10 +1,10 @@
+import 'linqjs';
 import React from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
-import 'linqjs';
+import { Tab } from 'semantic-ui-react';
 import { HomeTab, QuestionsList } from '../components';
-import { QuestionsAction, UsersAction, SessionAction, ConfigurationAction } from '../store/actions';
-import { Tab, LoaderasLoading } from 'semantic-ui-react';
+import { ConfigurationAction, QuestionsAction, SessionAction, UsersAction } from '../store/actions';
 import '../styles/views/home.scss';
 
 class HomePage extends React.Component
