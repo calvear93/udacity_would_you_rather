@@ -2,6 +2,7 @@ import { all, call, put, takeLatest } from 'redux-saga/effects';
 import DataService from '../../services/_DATA';
 import { SessionAction } from '../actions';
 import { PopupError, PutError } from './shared';
+import Cookies from 'js-cookie';
 
 // Alerts messages.
 const messages = {
@@ -31,6 +32,19 @@ function* login(action)
         ));
         // Redirects the app to the main page.
         action.payload.history.push('/main');
+
+        // Cookie expires in 1 hou.
+        Cookies.set(
+            SessionAction.CookiesKeys.SESSION,
+            {
+                ...response,
+                authenticated: true,
+                loading: false
+            },
+            {
+                expires: new Date(new Date().getTime() + 60 * 60 * 1000)
+            }
+        );
     }
     catch (e)
     {
@@ -53,6 +67,8 @@ function* logout(action)
         yield put(SessionAction.Action(
             SessionAction.Types.LOGOUT_SUCCESS
         ));
+
+        Cookies.remove(SessionAction.CookiesKeys.SESSION);
     }
     catch (e)
     {

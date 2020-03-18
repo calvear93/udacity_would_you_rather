@@ -34,6 +34,15 @@ const SessionAction =
     }),
 
     /**
+     * Keys for data stored in cookies.
+     *
+     * @memberof SessionAction
+     */
+    CookiesKeys: createActionTypes(KEY, {
+        SESSION: 'SESSION'
+    }),
+
+    /**
      * Returns the action.
      *
      * @param {Symbol} type Action type.

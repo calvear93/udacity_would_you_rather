@@ -1,6 +1,5 @@
-/**
- * Reducers defaults values for store partitions.
- */
+import Cookies from 'js-cookie';
+import { SessionAction } from '../actions';
 
 const ConfigurationDefaults = {
     minInputLength: 3,
@@ -21,7 +20,9 @@ const QuestionDefaults = {
         }, {})
 };
 
-const SessionDefaults = {
+const SESSION = Cookies.get(SessionAction.CookiesKeys.SESSION);
+
+const SessionDefaults = (SESSION && JSON.parse(SESSION)) || {
     authenticated: false
 };
 
