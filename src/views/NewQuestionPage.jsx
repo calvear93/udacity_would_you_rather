@@ -89,6 +89,7 @@ class NewQuestionPage extends React.PureComponent
                                 <Grid.Row key={ i.id } centered>
                                     <QuestionInput
                                         id={ i.id }
+                                        value={ i.value }
                                         onChange={ this.handleQuestionInputChange }
                                         placeholder='Enter Option Text Here'
                                         minInputLength={ minInputLength }

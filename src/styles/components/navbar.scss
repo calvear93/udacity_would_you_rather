@@ -20,10 +20,6 @@ button.navbar-tab {
         background-color: $teal !important;
         transition: background-color .4s ease;
 
-        &.logout {
-            background-color: $orange !important;
-        }
-
         div {
             color: $white;
             transition: color .4s ease;
@@ -32,6 +28,10 @@ button.navbar-tab {
 
     &:hover:not(.active) {
         background-color: $teal-light !important;
+    }
+
+    &:hover.logout {
+        background-color: $orange !important;
     }
 }
 

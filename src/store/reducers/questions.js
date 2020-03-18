@@ -30,6 +30,7 @@ function QuestionsReducer(state = QuestionDefaults, action)
 
             return {
                 ...state,
+                inputs: QuestionDefaults.inputs,
                 questions: Object.assign(
                     { ...state.questions },
                     {

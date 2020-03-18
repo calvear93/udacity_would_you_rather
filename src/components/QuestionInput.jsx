@@ -29,8 +29,6 @@ class QuestionInput extends React.PureComponent
         const isValid = this.isValid(value, minInputLength);
 
         onChange(id, value, isValid);
-
-        this.setState({ value });
     };
 
     /**
@@ -54,7 +52,10 @@ class QuestionInput extends React.PureComponent
      *
      * @returns {bool} Whether error should be show.
      */
-    showError = (value, minInputLength) => value ? value.length < minInputLength && value.length > 0 : false;
+    showError = (value, minInputLength) =>
+    {
+        return value ? value.length < minInputLength && value.length > 0 : false;
+    }
 
     /**
      * Renders the input.
@@ -64,8 +65,7 @@ class QuestionInput extends React.PureComponent
      */
     render()
     {
-        const { id, placeholder, minInputLength } = this.props;
-        const value = this.state.value;
+        const { id, value, placeholder, minInputLength } = this.props;
         const showError = this.showError(value, minInputLength);
 
         return (
@@ -76,6 +76,7 @@ class QuestionInput extends React.PureComponent
                     label={ { icon: 'pencil' } }
                     labelPosition='right corner'
                     placeholder={ placeholder }
+                    value={ value }
                     onChange={ this.handleInputChange }
                     error={ showError }
                 />
