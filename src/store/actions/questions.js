@@ -20,15 +20,6 @@ const QuestionsAction =
     Key: KEY,
 
     /**
-     * Keys for cached data.
-     *
-     * @memberof QuestionsAction
-     */
-    CacheKeys: createActionTypes(KEY, {
-        QUESTIONS: 'QUESTIONS'
-    }),
-
-    /**
      * Action Types.
      *
      * @memberof QuestionsAction
@@ -45,6 +36,15 @@ const QuestionsAction =
         SAVE_INPUT: 'SAVE_INPUT',
         DELETE: 'DELETE',
         ERROR: 'ERROR'
+    }),
+
+    /**
+     * Keys for cached data.
+     *
+     * @memberof QuestionsAction
+     */
+    CacheKeys: createActionTypes(KEY, {
+        QUESTIONS: 'QUESTIONS'
     }),
 
     /**

@@ -2,7 +2,12 @@ import { all, call, takeLatest, put } from 'redux-saga/effects';
 import DataService from '../../services/_DATA';
 import { QuestionsAction } from '../actions';
 import { PopupSuccess, PopupError, PutError } from './shared';
-import Cache from '../../utils/Cache';
+import NodeCache from 'node-cache';
+
+const Cache = new NodeCache({
+    stdTTL: 30,
+    checkperiod: 120
+});
 
 // Alerts messages.
 const messages = {

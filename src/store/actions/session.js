@@ -1,4 +1,4 @@
-import { createAction, createActionTypesMirroringUnique } from './shared';
+import { createAction, createActionTypes } from './shared';
 
 // Store partition key.
 const KEY = 'SESSION';
@@ -24,14 +24,23 @@ const SessionAction =
      *
      * @memberof SessionAction
      */
-    Types: createActionTypesMirroringUnique([
-        'LOGIN',
-        'LOGIN_SUCCESS',
-        'LOGOUT',
-        'LOGOUT_SUCCESS',
-        'STATUS',
-        'ERROR'
-    ]),
+    Types: createActionTypes(KEY, {
+        LOGIN: 'LOGIN',
+        LOGIN_SUCCESS: 'LOGIN_SUCCESS',
+        LOGOUT: 'LOGOUT',
+        LOGOUT_SUCCESS: 'LOGOUT_SUCCESS',
+        STATUS: 'STATUS',
+        ERROR: 'ERROR'
+    }),
+
+    /**
+     * Keys for cached data.
+     *
+     * @memberof QuestionsAction
+     */
+    CacheKeys: createActionTypes(KEY, {
+        SESSION: 'SESSION'
+    }),
 
     /**
      * Returns the action.

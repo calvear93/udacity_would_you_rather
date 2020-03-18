@@ -1,4 +1,4 @@
-import { createAction, createActionTypesMirroringUnique } from './shared';
+import { createAction, createActionTypes } from './shared';
 
 // Store partition key.
 const KEY = 'USERS';
@@ -24,18 +24,18 @@ const UsersAction =
      *
      * @memberof UsersAction
      */
-    Types: createActionTypesMirroringUnique([
-        'GET_ALL',
-        'FETCH_ALL',
-        'FETCH_ALL_SUCCESS',
-        'CREATE',
-        'CREATE_SUCCESS',
-        'UPDATE',
-        'UPDATE_SUCCESS',
-        'DELETE',
-        'DELETE_SUCCESS',
-        'ERROR'
-    ]),
+    Types: createActionTypes(KEY, {
+        GET_ALL: 'GET_ALL',
+        FETCH_ALL: 'FETCH_ALL',
+        FETCH_ALL_SUCCESS: 'FETCH_ALL_SUCCESS',
+        CREATE: 'CREATE',
+        CREATE_SUCCESS: 'CREATE_SUCCESS',
+        UPDATE: 'UPDATE',
+        UPDATE_SUCCESS: 'UPDATE_SUCCESS',
+        DELETE: 'DELETE',
+        DELETE_SUCCESS: 'DELETE_SUCCESS',
+        ERROR: 'ERROR'
+    }),
 
     /**
      * Returns the action.

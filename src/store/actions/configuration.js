@@ -1,4 +1,4 @@
-import { createAction, createActionTypesMirroringUnique } from './shared';
+import { createAction, createActionTypes } from './shared';
 
 // Store partition key.
 const KEY = 'CONFIGURATION';
@@ -24,12 +24,12 @@ const ConfigurationAction =
      *
      * @memberof ConfigurationAction
      */
-    Types: createActionTypesMirroringUnique([
-        'GET',
-        'ADD',
-        'DELETE',
-        'RESET'
-    ]),
+    Types: createActionTypes(KEY, {
+        GET: 'GET',
+        ADD: 'ADD',
+        DELETE: 'DELETE',
+        RESET: 'RESET'
+    }),
 
     /**
      * Returns the action.
