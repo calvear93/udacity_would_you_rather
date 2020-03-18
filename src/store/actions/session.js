@@ -34,15 +34,6 @@ const SessionAction =
     }),
 
     /**
-     * Keys for cached data.
-     *
-     * @memberof QuestionsAction
-     */
-    CacheKeys: createActionTypes(KEY, {
-        SESSION: 'SESSION'
-    }),
-
-    /**
      * Returns the action.
      *
      * @param {Symbol} type Action type.

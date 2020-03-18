@@ -22,7 +22,6 @@ function SessionReducer(state = SessionDefaults, action)
         // User login succeeded.
         case SessionAction.Types.LOGIN_SUCCESS:
             return {
-                ...state,
                 ...action.payload,
                 authenticated: true,
                 loading: false
