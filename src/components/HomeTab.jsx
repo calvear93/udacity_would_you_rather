@@ -23,7 +23,7 @@ const HomeTab = ({ key, title, color, counter = 0, loading = false, render: Cont
     ),
     render: () => (
         <Tab.Pane className='tab-content' loading={ loading }>
-            <Content loading={ loading } />
+            <Content />
         </Tab.Pane>
     )
 });

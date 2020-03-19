@@ -1,6 +1,6 @@
-import { all, call, takeLatest, put } from 'redux-saga/effects';
+import { all, call, takeLatest, put, select } from 'redux-saga/effects';
 import DataService from '../../services/_DATA';
-import { QuestionsAction } from '../actions';
+import { QuestionsAction, UsersAction } from '../actions';
 import { PopupSuccess, PopupError, PutError } from './shared';
 import NodeCache from 'node-cache';
 
@@ -30,12 +30,27 @@ function* getAll()
 }
 
 /**
+ * Validates users info from store for questions rendering.
+ */
+function* validateUsers()
+{
+    const users = yield select(store => store[UsersAction.Key].users);
+
+    if (!users)
+    {
+        yield put(UsersAction.Action(UsersAction.Types.FETCH_ALL));
+    }
+}
+
+/**
  * Loads all questions from service to the store.
  */
 function* fetchAll()
 {
     try
     {
+        // Validates users info for questions rendering.
+        yield validateUsers();
         // Gets question stored in cache.
         const cache = Cache.get( QuestionsAction.CacheKeys.QUESTIONS );
         // Gets the questions.

@@ -1,18 +1,17 @@
 import React from 'react';
+import QuestionsListItem from './QuestionsListItem';
 
 class QuestionsList extends React.PureComponent
 {
-    state = {}
-
     render()
     {
-        const { questions, loading } = this.props;
+        const { questions } = this.props;
 
         return (
             <>
                 {
-                    !loading && questions
-                        .map(q => <label key={ q.id }>{q.id} </label>)
+                    questions
+                        .map(q => <QuestionsListItem key={ q.id } question={ q } />)
                 }
             </>
         );
