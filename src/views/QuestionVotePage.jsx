@@ -11,12 +11,12 @@ class QuestionVotePage extends React.Component
 {
     componentDidMount()
     {
-        // this.props.dispatch(QuestionsAction.Action(QuestionsAction.Types.GET_ALL));
+        this.props.dispatch(QuestionsAction.Action(QuestionsAction.Types.GET_ALL));
     }
 
     render()
     {
-        const { session, users = {}, questions = {}, loading } = this.props;
+        const { session, users = {}, questions = {}, loading, match: { params } } = this.props;
 
         return (
             <div>test</div>
@@ -34,4 +34,4 @@ function mapStateToProps({
     return { session, options, users, questions, loading };
 }
 
-export default connect(mapStateToProps)(withRouter(QuestionVotePage));
+export default connect(mapStateToProps)(QuestionVotePage);

@@ -1,9 +1,17 @@
 import React from 'react';
+import { withRouter } from 'react-router-dom';
 import { Button, Card, Grid, Header, Image } from 'semantic-ui-react';
 import '../styles/components/questions-list-item.scss';
 
 class QuestionsListItem extends React.PureComponent
 {
+    onViewPull = () =>
+    {
+        const { question, history } = this.props;
+
+        history.push(`/answer/${ question.id }`);
+    }
+
     render()
     {
         const { question } = this.props;
@@ -31,7 +39,11 @@ class QuestionsListItem extends React.PureComponent
                                 </Grid.Row>
 
                                 <Grid.Row className='question-view-pull-container'>
-                                    <Button basic color='teal'>
+                                    <Button
+                                        basic
+                                        color='teal'
+                                        onClick={ this.onViewPull }
+                                    >
                                         View Pull
                                     </Button>
                                 </Grid.Row>
@@ -44,4 +56,4 @@ class QuestionsListItem extends React.PureComponent
     }
 }
 
-export default QuestionsListItem;
+export default withRouter(QuestionsListItem);

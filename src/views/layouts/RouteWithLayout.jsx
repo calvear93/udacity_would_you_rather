@@ -8,12 +8,12 @@ class RouteWithLayout extends React.Component
         const { component: Component, layout: Layout, render, ...rest } = this.props;
 
         return (
-            <Route {...rest}
-                render={(props) => (
-                    <Layout {...props}>
-                        {Component ? <Component {...props} /> : render(props)}
+            <Route { ...rest }
+                render={ (props) => (
+                    <Layout { ...props }>
+                        {Component ? <Component { ...props } /> : render(props)}
                     </Layout>
-                )}
+                ) }
             />
         );
     }

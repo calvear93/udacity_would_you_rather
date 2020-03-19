@@ -1,6 +1,5 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { withRouter } from 'react-router-dom';
 import { Button, Card, Dropdown, Grid, Header, Image, Message } from 'semantic-ui-react';
 import { Logo } from '../assets/images';
 import { SessionAction, UsersAction } from '../store/actions';
@@ -126,4 +125,4 @@ function mapStateToProps({
     return { session, users, loading, error };
 }
 
-export default connect(mapStateToProps)(withRouter(LoginPage));
+export default connect(mapStateToProps)(LoginPage);

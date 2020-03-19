@@ -1,6 +1,5 @@
 import React, { lazy } from 'react';
 import { connect } from 'react-redux';
-import { withRouter } from 'react-router-dom';
 import { Button, Card, Divider, Grid, Header } from 'semantic-ui-react';
 import { QuestionsAction, ConfigurationAction, SessionAction } from '../store/actions';
 import '../styles/views/new-question.scss';
@@ -135,4 +134,4 @@ function mapStateToProps({
     return { session, minInputLength, inputs, loading };
 }
 
-export default connect(mapStateToProps)(withRouter(NewQuestionPage));
+export default connect(mapStateToProps)(NewQuestionPage);

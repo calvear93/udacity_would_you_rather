@@ -4,6 +4,8 @@ import Loader from './components/Loader';
 
 // Lazy loaded components.
 const HomePage = lazy(() => import('./views/HomePage'));
+const QuestionVotePage = lazy(() => import('./views/QuestionVotePage'));
+const QuestionSummaryPage = lazy(() => import('./views/QuestionSummaryPage'));
 const LeaderBoardPage = lazy(() => import('./views/LeaderBoardPage'));
 const LoginPage = lazy(() => import('./views/LoginPage'));
 const NewQuestionPage = lazy(() => import('./views/NewQuestionPage'));
@@ -58,6 +60,18 @@ class App extends React.PureComponent
                             exact path='/main/leaderboard'
                             layout={ AppLayout }
                             component={ LeaderBoardPage }
+                        />
+
+                        <RouteWithLayout
+                            exact path='/answer/:id'
+                            layout={ AppLayout }
+                            component={ QuestionVotePage }
+                        />
+
+                        <RouteWithLayout
+                            exact path='/summary/:id'
+                            layout={ AppLayout }
+                            component={ QuestionSummaryPage }
                         />
 
                         <Route component={ NotFoundPage } />
