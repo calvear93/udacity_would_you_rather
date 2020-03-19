@@ -21,7 +21,7 @@ class QuestionsListItem extends React.PureComponent
                             <Image className='question-avatar' src={ question.author.avatarURL } />
                         </Grid.Column>
 
-                        <Grid.Column className='question-info-container' width={ 8 }>
+                        <Grid.Column className='question-info-container' width={ 10 }>
                             <Grid>
                                 <Grid.Row className='question-title'>
                                     <Header as='h4'>Would you rather</Header>
