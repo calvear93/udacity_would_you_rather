@@ -3,6 +3,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { Tab } from 'semantic-ui-react';
 import { HomeTab, QuestionsList } from '../components';
+import { QuestionsMergeWithAuthors } from '../utils/QuestionsFormatter';
 import { ConfigurationAction, QuestionsAction, SessionAction, UsersAction } from '../store/actions';
 import '../styles/views/home.scss';
 
@@ -17,25 +18,7 @@ class HomePage extends React.Component
     {
         const { session, options, users = {}, questions = {}, loading } = this.props;
 
-        const data = Object.values(questions)
-            .map(q => (
-                {
-                    id: q.id,
-                    author: users[q.author],
-                    ...Object.keys(q)
-                        .filter(k => options.includes(k))
-                        .reduce((accumulator, k) =>
-                        {
-                            accumulator[k] = q[k];
-                            // Validates if the question was answered for current user.
-                            accumulator.answered = accumulator.answered ?
-                                accumulator.answered
-                                : q[k].votes.any(v => v === session.id);
-
-                            return accumulator;
-                        }, {})
-                }
-            ));
+        const data = QuestionsMergeWithAuthors(session.id, options, questions, users);
 
         const answered = data
             .filter(q => q.answered);

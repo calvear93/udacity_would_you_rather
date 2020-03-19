@@ -5,6 +5,7 @@ import { withRouter } from 'react-router-dom';
 import { Tab } from 'semantic-ui-react';
 import { HomeTab, QuestionsList } from '../components';
 import { ConfigurationAction, QuestionsAction, SessionAction, UsersAction } from '../store/actions';
+import { QuestionsMergeWithAuthors } from '../utils/QuestionsFormatter';
 import '../styles/views/question-vote-page.scss';
 
 class QuestionVotePage extends React.Component
@@ -16,7 +17,9 @@ class QuestionVotePage extends React.Component
 
     render()
     {
-        const { session, users = {}, questions = {}, loading, match: { params } } = this.props;
+        const { session, options, users = {}, questions = {}, loading, match: { params: { id } } } = this.props;
+
+        const data = QuestionsMergeWithAuthors(session.id, options, questions, users);
 
         return (
             <div>test</div>
