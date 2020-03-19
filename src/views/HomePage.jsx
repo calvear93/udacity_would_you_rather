@@ -45,27 +45,29 @@ class HomePage extends React.Component
             .filter(q => !q.answered);
 
         return (
-            <Tab panes={
-                [
-                    HomeTab({
-                        key: 'unanswered-tab',
-                        title: 'Unanswered Questions',
-                        color: 'blue',
-                        counter: unanswered.length,
-                        loading,
-                        render: () => <QuestionsList questions={ unanswered } />
-                    }),
+            <Tab
+                menu={ { pointing: true } }
+                panes={
+                    [
+                        HomeTab({
+                            key: 'unanswered-tab',
+                            title: 'Unanswered Questions',
+                            color: 'blue',
+                            counter: unanswered.length,
+                            loading,
+                            render: () => <QuestionsList questions={ unanswered } />
+                        }),
 
-                    HomeTab({
-                        key: 'answered-tab',
-                        title: 'Answered Questions',
-                        color: 'green',
-                        counter: answered.length,
-                        loading,
-                        render: () => <QuestionsList questions={ answered } />
-                    })
-                ]
-            }
+                        HomeTab({
+                            key: 'answered-tab',
+                            title: 'Answered Questions',
+                            color: 'green',
+                            counter: answered.length,
+                            loading,
+                            render: () => <QuestionsList questions={ answered } />
+                        })
+                    ]
+                }
             />
         );
     }

@@ -22,7 +22,7 @@ const HomeTab = ({ key, title, color, counter = 0, loading = false, render: Cont
         </Menu.Item>
     ),
     render: () => (
-        <Tab.Pane className='tab-content' loading={ loading }>
+        <Tab.Pane className='tab-content' attached={ false } loading={ loading }>
             <Content />
         </Tab.Pane>
     )
