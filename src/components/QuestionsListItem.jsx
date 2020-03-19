@@ -1,5 +1,5 @@
 import React from 'react';
-import { Card, Header, Grid, Image, Button, Divider, Segment } from 'semantic-ui-react';
+import { Button, Card, Grid, Header, Image } from 'semantic-ui-react';
 import '../styles/components/questions-list-item.scss';
 
 class QuestionsListItem extends React.PureComponent
@@ -7,7 +7,6 @@ class QuestionsListItem extends React.PureComponent
     render()
     {
         const { question } = this.props;
-        console.log('QUESTION: ', question);
 
         return (
             <Card centered fluid>

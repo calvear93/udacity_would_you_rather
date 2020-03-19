@@ -1,7 +1,6 @@
 import 'linqjs';
 import React from 'react';
 import { connect } from 'react-redux';
-import { withRouter } from 'react-router-dom';
 import { Tab } from 'semantic-ui-react';
 import { HomeTab, QuestionsList } from '../components';
 import { ConfigurationAction, QuestionsAction, SessionAction, UsersAction } from '../store/actions';
@@ -83,4 +82,4 @@ function mapStateToProps({
     return { session, options, users, questions, loading };
 }
 
-export default connect(mapStateToProps)(withRouter(HomePage));
+export default connect(mapStateToProps)(HomePage);
