@@ -1,3 +1,4 @@
+import 'linqjs';
 import React from 'react';
 import { withRouter } from 'react-router-dom';
 import { Button, Card, Grid, Header, Image } from 'semantic-ui-react';
@@ -16,6 +17,8 @@ class QuestionsListItem extends React.PureComponent
     {
         const { question } = this.props;
 
+        const firstOption = question.options.first();
+
         return (
             <Card centered fluid>
                 <Card.Content className='question-header'>
@@ -29,13 +32,13 @@ class QuestionsListItem extends React.PureComponent
                         </Grid.Column>
 
                         <Grid.Column className='question-info-container' width={ 10 }>
-                            <Grid>
+                            <Grid stackable>
                                 <Grid.Row className='question-title'>
                                     <Header as='h4'>Would you rather</Header>
                                 </Grid.Row>
 
                                 <Grid.Row>
-                                    <Header as='h5' className='question-text'>...{question.optionOne.text}...</Header>
+                                    <Header as='h5' className='question-text'>...{firstOption.text}...</Header>
                                 </Grid.Row>
 
                                 <Grid.Row className='question-view-pull-container'>

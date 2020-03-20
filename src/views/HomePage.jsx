@@ -3,7 +3,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { Tab } from 'semantic-ui-react';
 import { HomeTab, QuestionsList } from '../components';
-import { QuestionsMergeWithAuthors } from '../utils/QuestionsFormatter';
+import { QuestionsMergeWithAuthorsOptionsAsArray } from '../utils/QuestionsFormatter';
 import { ConfigurationAction, QuestionsAction, SessionAction, UsersAction } from '../store/actions';
 import '../styles/views/home.scss';
 
@@ -18,7 +18,7 @@ class HomePage extends React.Component
     {
         const { session, options, users = {}, questions = {}, loading } = this.props;
 
-        const data = QuestionsMergeWithAuthors(session.id, options, questions, users);
+        const data = QuestionsMergeWithAuthorsOptionsAsArray(session.id, options, questions, users);
 
         const answered = data
             .filter(q => q.answered);
