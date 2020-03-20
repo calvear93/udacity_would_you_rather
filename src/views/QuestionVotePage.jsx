@@ -23,7 +23,7 @@ class QuestionVotePage extends React.Component
 
     onSubmit = () =>
     {
-        Dialog('info', '¿Are you sure to submit your answer?')
+        Dialog('question', '¿Are you sure to submit your answer?')
             .then((result) =>
             {
                 if (result.dismiss)
