@@ -17,6 +17,7 @@ export const QuestionsMergeWithAuthors = (user, options, questions, users) => Ob
                 .filter(k => options.includes(k))
                 .reduce((accumulator, k) =>
                 {
+                    q[k].id = k;
                     accumulator[k] = q[k];
                     // Validates if the question was answered for current user.
                     accumulator.answered = accumulator.answered ?
@@ -45,7 +46,7 @@ export const QuestionMergeWithAuthor = (id, user, options, questions, users) =>
 
     if (!question)
     {
-        return {};
+        return undefined;
     }
 
     return {
@@ -55,6 +56,7 @@ export const QuestionMergeWithAuthor = (id, user, options, questions, users) =>
             .filter(k => options.includes(k))
             .reduce((accumulator, k) =>
             {
+                question[k].id = k;
                 accumulator[k] = question[k];
                 // Validates if the question was answered for current user.
                 accumulator.answered = accumulator.answered ?
@@ -81,20 +83,20 @@ export const QuestionsMergeWithAuthorsOptionsAsArray = (user, options, questions
         {
             id: q.id,
             author: users[q.author],
-            options: Object.keys(q)
+            ...Object.keys(q)
                 .filter(k => options.includes(k))
                 .reduce((accumulator, k) =>
                 {
                     q[k].id = k;
                     // Validates if the question was answered for current user.
-                    q[k].answered = accumulator.answered ?
+                    accumulator.answered = accumulator.answered ?
                         accumulator.answered
                         : q[k].votes.any(v => v === user);
 
-                    accumulator.push(q[k]);
+                    accumulator.options.push(q[k]);
 
                     return accumulator;
-                }, [])
+                }, { answered: false, options: [] })
         }
     ));
 
@@ -121,19 +123,19 @@ export const QuestionMergeWithAuthorOptionsAsArray = (id, user, options, questio
     return {
         id,
         author: users[question.author],
-        options: Object.keys(question)
+        ...Object.keys(question)
             .filter(k => options.includes(k))
             .reduce((accumulator, k) =>
             {
                 question[k].id = k;
                 // Validates if the question was answered for current user.
-                question[k].answered = accumulator.answered ?
+                accumulator.answered = accumulator.answered ?
                     accumulator.answered
                     : question[k].votes.any(v => v === user);
 
-                accumulator.push(question[k]);
+                accumulator.options.push(question[k]);
 
                 return accumulator;
-            }, [])
+            }, { answered: false, options: [] })
     };
 };
