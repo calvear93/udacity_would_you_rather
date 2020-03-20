@@ -6,19 +6,27 @@ class QuestionsList extends React.PureComponent
 {
     render()
     {
-        const { questions } = this.props;
+        const { questions, actions, messages } = this.props;
 
         return (
             <>
                 {questions.length > 0
                     ?
-                    questions.map(q => <QuestionsListItem key={ q.id } question={ q } />)
+                    questions
+                        .map(q => (
+                            <QuestionsListItem
+                                key={ q.id }
+                                question={ q }
+                                buttonText={ messages.button }
+                                submit={ actions.submit }
+                            />
+                        ))
                     :
                     <Message
                         warning
                         icon='warning'
-                        header='No questions in this section!'
-                        content='Try adding a new question or answering any.'
+                        header={ messages.empty.title }
+                        content={ messages.empty.body }
                     />
                 }
             </>

@@ -1,21 +1,21 @@
 import 'linqjs';
 import React from 'react';
 import { withRouter } from 'react-router-dom';
-import { Button, Card, Grid, Header, Image } from 'semantic-ui-react';
+import { Button, Card, Grid, Header, Image, MessageList } from 'semantic-ui-react';
 import '../styles/components/questions-list-item.scss';
 
 class QuestionsListItem extends React.PureComponent
 {
-    onViewPull = () =>
+    onSubmit = () =>
     {
-        const { question, history } = this.props;
+        const { question, history, submit } = this.props;
 
-        history.push(`/answer/${ question.id }`);
+        submit(question.id, history);
     }
 
     render()
     {
-        const { question } = this.props;
+        const { question, buttonText } = this.props;
 
         const firstOption = question.options.first();
 
@@ -45,9 +45,9 @@ class QuestionsListItem extends React.PureComponent
                                     <Button
                                         basic
                                         color='teal'
-                                        onClick={ this.onViewPull }
+                                        onClick={ this.onSubmit }
                                     >
-                                        View Pull
+                                        {buttonText}
                                     </Button>
                                 </Grid.Row>
                             </Grid>

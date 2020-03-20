@@ -6,14 +6,33 @@ import { Button, Card, Grid, Header, Image, Form, Radio } from 'semantic-ui-reac
 import { HomeTab, QuestionsList } from '../components';
 import { ConfigurationAction, QuestionsAction, SessionAction, UsersAction } from '../store/actions';
 import { QuestionMergeWithAuthorOptionsAsArray } from '../utils/QuestionsFormatter';
+import { Dialog } from '../utils/Swal';
 import '../styles/views/question-vote-page.scss';
 import Loader from '../components/Loader';
 
 class QuestionVotePage extends React.Component
 {
+    state = {}
+
     componentDidMount()
     {
         this.props.dispatch(QuestionsAction.Action(QuestionsAction.Types.GET_ALL));
+    }
+
+    handleChange = (e, { value }) => this.setState({ value })
+
+    onSubmit = () =>
+    {
+        Dialog('info', '¿Are you sure to submit your answer?')
+            .then((result) =>
+            {
+                if (result.dismiss)
+                {
+                    return;
+                }
+
+                alert('yeah');
+            });
     }
 
     render()
@@ -67,9 +86,9 @@ class QuestionVotePage extends React.Component
                                                                     <Radio
                                                                         label={ o.text }
                                                                         name='options'
-                                                                        value='this'
-                                                                        // checked={ this.state.value === 'this' }
-                                                                        // onChange={ this.handleChange }
+                                                                        value={ o.id }
+                                                                        checked={ this.state.value === o.id }
+                                                                        onChange={ this.handleChange }
                                                                     />
                                                                 </Form.Field>
                                                             ))
@@ -80,7 +99,8 @@ class QuestionVotePage extends React.Component
                                             <Grid.Row className='question-view-pull-container'>
                                                 <Button
                                                     color='teal'
-                                                    onClick={ this.onViewPull }
+                                                    onClick={ this.onSubmit }
+                                                    disabled={ !this.state.value }
                                                 >
                                                     Submit
                                                 </Button>

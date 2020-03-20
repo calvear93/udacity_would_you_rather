@@ -7,6 +7,32 @@ import { QuestionsMergeWithAuthorsOptionsAsArray } from '../utils/QuestionsForma
 import { ConfigurationAction, QuestionsAction, SessionAction, UsersAction } from '../store/actions';
 import '../styles/views/home.scss';
 
+const messages = {
+    answered: {
+        button: 'View Stats',
+        empty: {
+            title: 'You haven\'t answered questions yet!',
+            body: 'Try answer a question from Unanswered Questions tab in Home'
+        }
+    },
+    unanswered: {
+        button: 'View Pull',
+        empty: {
+            title: 'There are not questions to answer!',
+            body: 'Try creating a new question from New Question tab'
+        }
+    }
+};
+
+const actions = {
+    answered: {
+        submit: (id, history) => history.push(`/summary/${ id }`)
+    },
+    unanswered: {
+        submit: (id, history) => history.push(`/answer/${ id }`)
+    }
+};
+
 class HomePage extends React.Component
 {
     componentDidMount()
@@ -37,7 +63,13 @@ class HomePage extends React.Component
                             color: 'blue',
                             counter: unanswered.length,
                             loading,
-                            render: () => <QuestionsList questions={ unanswered } />
+                            render: () => (
+                                <QuestionsList
+                                    questions={ unanswered }
+                                    messages={ messages.unanswered }
+                                    actions={ actions.unanswered }
+                                />
+                            )
                         }),
 
                         HomeTab({
@@ -46,7 +78,13 @@ class HomePage extends React.Component
                             color: 'green',
                             counter: answered.length,
                             loading,
-                            render: () => <QuestionsList questions={ answered } />
+                            render: () => (
+                                <QuestionsList
+                                    questions={ answered }
+                                    messages={ messages.answered }
+                                    actions={ actions.answered }
+                                />
+                            )
                         })
                     ]
                 }

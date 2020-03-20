@@ -3,3 +3,16 @@
 .ui.loader {
     margin-top: 6em;
 }
+
+.ui.radio.checkbox {
+
+    &.checked {
+
+        label {
+
+            &::after {
+                background-color: $teal !important;
+            }
+        }
+    }
+}
