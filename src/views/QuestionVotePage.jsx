@@ -38,21 +38,9 @@ class QuestionVotePage extends React.Component
     render()
     {
         const {
-            session,
-            options,
-            users = {},
-            questions = {},
-            loading,
-            match: { params: { id } }
+            question,
+            loading
         } = this.props;
-
-        const question = QuestionMergeWithAuthorOptionsAsArray(
-            id,
-            session.id,
-            options,
-            questions,
-            users
-        );
 
         return (
             <Card centered fluid>
@@ -120,11 +108,21 @@ class QuestionVotePage extends React.Component
 function mapStateToProps({
     [ConfigurationAction.Key]: { options },
     [SessionAction.Key]: session,
-    [UsersAction.Key]: { users },
-    [QuestionsAction.Key]: { questions, loading }
+    [UsersAction.Key]: { users = {} },
+    [QuestionsAction.Key]: { questions = {}, loading }
+}, {
+    match: { params: { id } }
 })
 {
-    return { session, options, users, questions, loading };
+    const question = QuestionMergeWithAuthorOptionsAsArray(
+        id,
+        session.id,
+        options,
+        questions,
+        users
+    );
+
+    return { session, question, loading };
 }
 
 export default connect(mapStateToProps)(QuestionVotePage);

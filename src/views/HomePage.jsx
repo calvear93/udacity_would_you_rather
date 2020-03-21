@@ -42,15 +42,7 @@ class HomePage extends React.Component
 
     render()
     {
-        const { session, options, users = {}, questions = {}, loading } = this.props;
-
-        const data = QuestionsMergeWithAuthorsOptionsAsArray(session.id, options, questions, users);
-
-        const answered = data
-            .filter(q => q.answered);
-
-        const unanswered = data
-            .filter(q => !q.answered);
+        const { answered, unanswered, loading } = this.props;
 
         return (
             <Tab
@@ -96,11 +88,19 @@ class HomePage extends React.Component
 function mapStateToProps({
     [ConfigurationAction.Key]: { options },
     [SessionAction.Key]: session,
-    [UsersAction.Key]: { users },
-    [QuestionsAction.Key]: { questions, loading }
+    [UsersAction.Key]: { users = {} },
+    [QuestionsAction.Key]: { questions = {}, loading }
 })
 {
-    return { session, options, users, questions, loading };
+    const data = QuestionsMergeWithAuthorsOptionsAsArray(session.id, options, questions, users);
+
+    const answered = data
+        .filter(q => q.answered);
+
+    const unanswered = data
+        .filter(q => !q.answered);
+
+    return { session, answered, unanswered, loading };
 }
 
 export default connect(mapStateToProps)(HomePage);
