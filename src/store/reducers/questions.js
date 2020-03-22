@@ -65,6 +65,13 @@ function QuestionsReducer(state = QuestionDefaults, action)
                 loading: false
             };
 
+        // Answer a question.
+        case QuestionsAction.Types.ANSWER:
+            return {
+                ...state,
+                loading: true
+            };
+
         // Saves current inputs values for New Question page.
         case QuestionsAction.Types.SAVE_INPUT:
 

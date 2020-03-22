@@ -32,7 +32,6 @@ const QuestionsAction =
         CREATE_SUCCESS: 'CREATE_SUCCESS',
         ANSWER: 'ANSWER',
         ANSWER_SUCCESS: 'ANSWER_SUCCESS',
-        ANSWER_REMOVE: 'ANSWER_REMOVE',
         SAVE_INPUT: 'SAVE_INPUT',
         DELETE: 'DELETE',
         ERROR: 'ERROR'

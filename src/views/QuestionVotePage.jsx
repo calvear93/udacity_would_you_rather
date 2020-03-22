@@ -23,6 +23,12 @@ class QuestionVotePage extends React.Component
 
     onSubmit = () =>
     {
+        const {
+            id,
+            history,
+            session: { id: author }
+        } = this.props;
+
         Dialog('question', '¿Are you sure to submit your answer?')
             .then((result) =>
             {
@@ -31,7 +37,17 @@ class QuestionVotePage extends React.Component
                     return;
                 }
 
-                alert('yeah');
+                this.props.dispatch(QuestionsAction.Action(
+                    QuestionsAction.Types.ANSWER,
+                    {
+                        history,
+                        answer: {
+                            qid: id,
+                            authedUser: author,
+                            answer: this.state.value
+                        }
+                    }
+                ));
             });
     }
 
@@ -122,7 +138,7 @@ function mapStateToProps({
         users
     );
 
-    return { session, question, loading };
+    return { id, session, question, loading };
 }
 
 export default connect(mapStateToProps)(QuestionVotePage);

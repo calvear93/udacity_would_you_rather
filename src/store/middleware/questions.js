@@ -1,4 +1,4 @@
-import { all, call, takeLatest, put, select } from 'redux-saga/effects';
+import { all, call, take, race, fork, takeEvery, takeLatest, put, select, delay } from 'redux-saga/effects';
 import DataService from '../../services/_DATA';
 import { QuestionsAction, UsersAction } from '../actions';
 import { PopupSuccess, PopupError, PutError } from './shared';
@@ -17,6 +17,10 @@ const messages = {
     create: {
         success: 'Question created successfully!',
         error: 'There was some errors creating the question'
+    },
+    answer: {
+        success: 'Question answered successfully!',
+        error: 'There was some errors answering the question'
     }
 };
 
@@ -44,15 +48,17 @@ function* validateUsers()
 
 /**
  * Loads all questions from service to the store.
+ *
+ * @param {bool} force Forces to fetch all questions.
  */
-function* fetchAll()
+function* fetchAll({ force = false })
 {
     try
     {
         // Validates users info for questions rendering.
         yield validateUsers();
         // Gets question stored in cache.
-        const cache = Cache.get( QuestionsAction.CacheKeys.QUESTIONS );
+        const cache = force ? undefined : Cache.get( QuestionsAction.CacheKeys.QUESTIONS );
         // Gets the questions.
         const response = yield cache || call(DataService._getQuestions);
         // Calls success event/action for finish the operation.
@@ -100,6 +106,54 @@ function* create(action)
 }
 
 /**
+ * Creates an answer to a question.
+ *
+ * @param {*} action Trigger.
+ */
+function* answer(action)
+{
+    try
+    {
+        // Saves the answer for the question.
+        yield call(DataService._saveQuestionAnswer, action.payload.answer);
+
+        // NOTE: I believe offline updates are better for avoid unnecessary
+        // calls to service, but, I like to do the complex logic in the
+        // server, so may be hard to decide.
+        // For this time, API call was chosen using Saga race pattern.
+
+        // Calls fetch action for questions.
+        yield put(QuestionsAction.Action(
+            QuestionsAction.Types.FETCH_ALL,
+            { force: true } // force to not use cache.
+        ));
+
+        // Waits for first action to be triggered.
+        const { success } = yield race({ // just now I don't mind the error.
+            success: take(QuestionsAction.Types.FETCH_ALL_SUCCESS),
+            error: take(QuestionsAction.Types.ERROR)
+        });
+
+        // If success, all is ok.
+        if (success)
+        {
+            // Success popup.
+            PopupSuccess(messages.answer.success);
+            // Redirects the app to main page.
+            action.payload.history.push(`/summary/${ action.payload.answer.qId }`);
+        }
+        else // Error fetching questions.
+        {
+            throw new Error('Questions fetchAll cannot be resolved');
+        }
+    }
+    catch (e)
+    {
+        PopupError(e, messages.answer.error);
+    }
+}
+
+/**
  * Combining function.
  *
  * @export
@@ -109,6 +163,7 @@ export default function* init()
     yield all(
         yield takeLatest(QuestionsAction.Types.GET_ALL, getAll),
         yield takeLatest(QuestionsAction.Types.FETCH_ALL, fetchAll),
-        yield takeLatest(QuestionsAction.Types.CREATE, create)
+        yield takeLatest(QuestionsAction.Types.CREATE, create),
+        yield takeLatest(QuestionsAction.Types.ANSWER, answer)
     );
 }
