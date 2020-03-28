@@ -67,6 +67,12 @@ function QuestionsReducer(state = QuestionDefaults, action)
 
         // Answer a question.
         case QuestionsAction.Types.ANSWER:
+            return {
+                ...state,
+                loading: true
+            };
+
+        case QuestionsAction.Types.ANSWER_SUCCESS:
             {
                 const answer = action.payload.answer;
                 const question = state.questions[answer.qid][answer.answer];
@@ -79,7 +85,20 @@ function QuestionsReducer(state = QuestionDefaults, action)
 
             return {
                 ...state,
-                loading: true
+                loading: false
+            };
+
+        case QuestionsAction.Types.ANSWER_ERROR:
+            {
+                const answer = action.payload.answer;
+                const question = state.questions[answer.qid][answer.answer];
+
+                question.votes.remove(answer.authedUser);
+            }
+
+            return {
+                ...state,
+                loading: false
             };
 
         // Saves current inputs values for New Question page.

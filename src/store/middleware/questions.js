@@ -117,13 +117,18 @@ function* answer(action)
         // Saves the answer for the question.
         yield call(DataService._saveQuestionAnswer, action.payload.answer);
 
+        yield put(QuestionsAction.Action(
+            QuestionsAction.Types.ANSWER_SUCCESS,
+            action.payload
+        ));
+
+        action.payload.history.push(`/summary/${ action.payload.answer.qId }`);
+
         // Calls fetch action for questions.
         yield put(QuestionsAction.Action(
             QuestionsAction.Types.FETCH_ALL,
             { force: true } // force to not use cache.
         ));
-
-        action.payload.history.push(`/summary/${ action.payload.answer.qId }`);
 
         // // Waits for first action to be triggered.
         // const { success } = yield race({ // just now I don't mind the error.
@@ -146,6 +151,10 @@ function* answer(action)
     }
     catch (e)
     {
+        yield put(QuestionsAction.Action(
+            QuestionsAction.Types.ANSWER_ERROR,
+            action.payload
+        ));
         PopupError(e, messages.answer.error);
     }
 }
