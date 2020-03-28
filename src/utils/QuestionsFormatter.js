@@ -88,15 +88,19 @@ export const QuestionsMergeWithAuthorsOptionsAsArray = (user, options, questions
                 .reduce((accumulator, k) =>
                 {
                     q[k].id = k;
+                    // Whether option is answered by current user.
+                    q[k].answered = q[k].votes.any(v => v === user);
                     // Validates if the question was answered for current user.
                     accumulator.answered = accumulator.answered ?
                         accumulator.answered
-                        : q[k].votes.any(v => v === user);
+                        : q[k].answered;
 
                     accumulator.options.push(q[k]);
+                    // Total of votes.
+                    accumulator.total += q[k].votes.length;
 
                     return accumulator;
-                }, { answered: false, options: [] })
+                }, { answered: false, options: [], total: 0 })
         }
     ));
 
@@ -128,14 +132,18 @@ export const QuestionMergeWithAuthorOptionsAsArray = (id, user, options, questio
             .reduce((accumulator, k) =>
             {
                 question[k].id = k;
+                // Whether option is answered by current user.
+                question[k].answered = question[k].votes.any(v => v === user);
                 // Validates if the question was answered for current user.
                 accumulator.answered = accumulator.answered ?
                     accumulator.answered
-                    : question[k].votes.any(v => v === user);
+                    : question[k].answered;
+                // Total of votes.
+                accumulator.total += question[k].votes.length;
 
                 accumulator.options.push(question[k]);
 
                 return accumulator;
-            }, { answered: false, options: [] })
+            }, { answered: false, options: [], total: 0 })
     };
 };

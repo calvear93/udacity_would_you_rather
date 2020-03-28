@@ -13,3 +13,4 @@ class LeaderBoardPage extends React.Component
 }
 
 export default LeaderBoardPage;
+

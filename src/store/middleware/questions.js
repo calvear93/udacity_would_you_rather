@@ -136,7 +136,7 @@ function* answer(action)
         // Removes current cached questions.
         Cache.del(QuestionsAction.CacheKeys.QUESTIONS);
 
-        action.payload.history.push(`/summary/${ action.payload.answer.qId }`);
+        action.payload.history.push(`/summary/${ action.payload.answer.qid }`);
 
         // // Waits for first action to be triggered.
         // const { success } = yield race({ // just now I don't mind the error.
