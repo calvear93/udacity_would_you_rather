@@ -34,6 +34,8 @@ const UsersAction =
         UPDATE_SUCCESS: 'UPDATE_SUCCESS',
         DELETE: 'DELETE',
         DELETE_SUCCESS: 'DELETE_SUCCESS',
+        ADD_ANSWER: 'ADD_ANSWER',
+        ADD_QUESTION: 'ADD_QUESTION',
         ERROR: 'ERROR'
     }),
 

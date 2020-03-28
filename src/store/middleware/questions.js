@@ -87,6 +87,11 @@ function* create(action)
     {
         // Saves the question to the service.
         const response = yield call(DataService._saveQuestion, action.payload.question);
+        // Adds the new question to users data.
+        yield put(UsersAction.Action(
+            UsersAction.Types.ADD_QUESTION,
+            { ...response }
+        ));
         // Calls success event/action for finish the operation.
         yield put(QuestionsAction.Action(
             QuestionsAction.Types.CREATE_SUCCESS,
@@ -117,6 +122,12 @@ function* answer(action)
         // Saves the answer for the question.
         yield call(DataService._saveQuestionAnswer, action.payload.answer);
 
+        // Adds the answer to users data.
+        yield put(UsersAction.Action(
+            UsersAction.Types.ADD_ANSWER,
+            action.payload
+        ));
+        // Calls success event/action for finish the operation.
         yield put(QuestionsAction.Action(
             QuestionsAction.Types.ANSWER_SUCCESS,
             action.payload

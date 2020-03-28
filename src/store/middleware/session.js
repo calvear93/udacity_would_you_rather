@@ -26,6 +26,12 @@ function* login(action)
         // Gets/validates user identity from the service.
         const response = yield call(DataService._getUser, action.payload.userId);
 
+        // NOTE: I consider data should be stored in
+        // minimum sources possible, so, this info is
+        // in users Redux partition.
+        delete response.answers;
+        delete response.questions;
+
         yield put(SessionAction.Action(
             SessionAction.Types.LOGIN_SUCCESS,
             { ...response }

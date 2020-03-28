@@ -31,6 +31,30 @@ function UsersReducer(state = UsersDefaults, action)
                 loading: false
             };
 
+        case UsersAction.Types.ADD_ANSWER:
+            {
+                const answer = action.payload.answer;
+                const answers = state.users[answer.authedUser].answers;
+
+                answers[answer.qid] = answer.answer;
+            }
+
+            return {
+                ...state
+            };
+
+        case UsersAction.Types.ADD_QUESTION:
+            {
+                const question = action.payload;
+                const questions = state.users[question.author].questions;
+
+                questions.push(question.id);
+            }
+
+            return {
+                ...state
+            };
+
         // Any action error.
         case UsersAction.Types.ERROR:
             return {
