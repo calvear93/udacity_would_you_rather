@@ -51,7 +51,7 @@ function* validateUsers()
  *
  * @param {bool} force Forces to fetch all questions.
  */
-function* fetchAll({ force = false })
+function* fetchAll({ payload: { force = false } = {} })
 {
     try
     {
@@ -116,11 +116,6 @@ function* answer(action)
     {
         // Saves the answer for the question.
         yield call(DataService._saveQuestionAnswer, action.payload.answer);
-
-        // NOTE: I believe offline updates are better for avoid unnecessary
-        // calls to service, but, I like to do the complex logic in the
-        // server, so may be hard to decide.
-        // For this time, API call was chosen using Saga race pattern.
 
         // Calls fetch action for questions.
         yield put(QuestionsAction.Action(
