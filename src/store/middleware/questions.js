@@ -59,7 +59,7 @@ function* fetchAll({ payload: { force = false } = {} })
         yield validateUsers();
         // Gets question stored in cache.
         const cache = force ? undefined : Cache.get( QuestionsAction.CacheKeys.QUESTIONS );
-        // Gets the questions.
+        // Gets the questions from service if cache is empty.
         const response = yield cache || call(DataService._getQuestions);
         // Calls success event/action for finish the operation.
         yield put(QuestionsAction.Action(
@@ -123,24 +123,26 @@ function* answer(action)
             { force: true } // force to not use cache.
         ));
 
-        // Waits for first action to be triggered.
-        const { success } = yield race({ // just now I don't mind the error.
-            success: take(QuestionsAction.Types.FETCH_ALL_SUCCESS),
-            error: take(QuestionsAction.Types.ERROR)
-        });
+        action.payload.history.push(`/summary/${ action.payload.answer.qId }`);
 
-        // If success, all is ok.
-        if (success)
-        {
-            // Success popup.
-            PopupSuccess(messages.answer.success);
-            // Redirects the app to main page.
-            action.payload.history.push(`/summary/${ action.payload.answer.qId }`);
-        }
-        else // Error fetching questions.
-        {
-            throw new Error('Questions fetchAll cannot be resolved');
-        }
+        // // Waits for first action to be triggered.
+        // const { success } = yield race({ // just now I don't mind the error.
+        //     success: take(QuestionsAction.Types.FETCH_ALL_SUCCESS),
+        //     error: take(QuestionsAction.Types.ERROR)
+        // });
+
+        // // If success, all is ok.
+        // if (success)
+        // {
+        //     // Success popup.
+        //     PopupSuccess(messages.answer.success);
+        //     // Redirects the app to main page.
+        //     action.payload.history.push(`/summary/${ action.payload.answer.qId }`);
+        // }
+        // else // Error fetching questions.
+        // {
+        //     throw new Error('Questions fetchAll cannot be resolved');
+        // }
     }
     catch (e)
     {

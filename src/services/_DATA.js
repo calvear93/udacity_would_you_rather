@@ -153,7 +153,7 @@ export default class DataService
     {
         return new Promise((res, rej) =>
         {
-            setTimeout(() => res({ ...questions }), 1000);
+            setTimeout(() => res({ ...questions }), 2000);
         });
     }
 

@@ -67,6 +67,16 @@ function QuestionsReducer(state = QuestionDefaults, action)
 
         // Answer a question.
         case QuestionsAction.Types.ANSWER:
+            {
+                const answer = action.payload.answer;
+                const question = state.questions[answer.qid][answer.answer];
+
+                question.votes = [
+                    ...question.votes,
+                    answer.authedUser
+                ];
+            }
+
             return {
                 ...state,
                 loading: true
