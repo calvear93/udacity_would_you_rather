@@ -6,8 +6,11 @@ import {
     Female,
     SupportMale
 } from '../assets/images/avatars';
+import Cookies from 'js-cookie';
 
-let users = {
+const USE_COOKIES = false;
+
+const users = {
     sarahedo: {
         id: 'sarahedo',
         name: 'Sarah Edo',
@@ -49,8 +52,7 @@ let users = {
         questions: []
     }
 };
-
-let questions = {
+const questions = {
     '8xf0y6ziyjabvozdd253nd': {
         id: '8xf0y6ziyjabvozdd253nd',
         author: 'sarahedo',
@@ -131,13 +133,32 @@ let questions = {
     }
 };
 
+// Saves data in cookies for persistence.
+const proxyHandler = {
+    set: (target, key, value) =>
+    {
+        target[key] = value;
+        Cookies.set(key, value);
+
+        return true;
+    }
+};
+// Gets cookies.
+const usersCookie = USE_COOKIES ? Cookies.get('users') : undefined;
+const questionsCookie = USE_COOKIES ? Cookies.get('questions') : undefined;
+// Proxy for data persistence in cookies.
+let data = new Proxy({
+    users: usersCookie && JSON.parse(usersCookie) || users,
+    questions: questionsCookie && JSON.parse(questionsCookie) || questions
+}, proxyHandler);
+
 export default class DataService
 {
     static _getUser(id)
     {
         return new Promise((res, rej) =>
         {
-            setTimeout(() => res({ ...users[id] }), 1000);
+            setTimeout(() => res({ ...data.users[id] }), 1000);
         });
     }
 
@@ -145,7 +166,7 @@ export default class DataService
     {
         return new Promise((res, rej) =>
         {
-            setTimeout(() => res({ ...users }), 1000);
+            setTimeout(() => res({ ...data.users }), 1000);
         });
     }
 
@@ -153,7 +174,7 @@ export default class DataService
     {
         return new Promise((res, rej) =>
         {
-            setTimeout(() => res({ ...questions }), 2000);
+            setTimeout(() => res({ ...data.questions }), 1000);
         });
     }
 
@@ -187,16 +208,16 @@ export default class DataService
 
             setTimeout(() =>
             {
-                questions = {
-                    ...questions,
+                data.questions = {
+                    ...data.questions,
                     [formattedQuestion.id]: formattedQuestion
                 };
 
-                users = {
-                    ...users,
+                data.users = {
+                    ...data.users,
                     [authedUser]: {
-                        ...users[authedUser],
-                        questions: users[authedUser].questions.concat([ formattedQuestion.id ])
+                        ...data.users[authedUser],
+                        questions: data.users[authedUser].questions.concat([ formattedQuestion.id ])
                     }
                 };
 
@@ -211,24 +232,24 @@ export default class DataService
         {
             setTimeout(() =>
             {
-                users = {
-                    ...users,
+                data.users = {
+                    ...data.users,
                     [authedUser]: {
-                        ...users[authedUser],
+                        ...data.users[authedUser],
                         answers: {
-                            ...users[authedUser].answers,
+                            ...data.users[authedUser].answers,
                             [qid]: answer
                         }
                     }
                 };
 
-                questions = {
-                    ...questions,
+                data.questions = {
+                    ...data.questions,
                     [qid]: {
-                        ...questions[qid],
+                        ...data.questions[qid],
                         [answer]: {
-                            ...questions[qid][answer],
-                            votes: questions[qid][answer].votes.concat([ authedUser ])
+                            ...data.questions[qid][answer],
+                            votes: data.questions[qid][answer].votes.concat([ authedUser ])
                         }
                     }
                 };
