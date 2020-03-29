@@ -16,6 +16,7 @@
   },
   "dependencies": {
     "axios": "^0.19.2",
+    "env-cmd": "^10.1.0",
     "eslint-plugin-react-redux": "^3.0.3",
     "js-cookie": "^2.2.1",
     "linqjs": "^1.0.1",
@@ -52,7 +53,8 @@
     "extends": "react-app"
   },
   "scripts": {
-    "start": "react-scripts start",
+    "start": "env-cmd -e default react-scripts start",
+    "start:persistence": "env-cmd -e persistence react-scripts start",
     "lint": "eslint --fix --ext .js,.jsx ./src",
     "build": "react-scripts build"
   }

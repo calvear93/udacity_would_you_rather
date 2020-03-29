@@ -8,7 +8,7 @@ import {
 } from '../assets/images/avatars';
 import Cookies from 'js-cookie';
 
-const USE_COOKIES = true;
+const USE_COOKIES = process.env.REACT_APP_PERSISTENCE_ENABLED === 'true';
 
 const users = {
     sarahedo: {
