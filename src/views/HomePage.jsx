@@ -123,10 +123,12 @@ function mapStateToProps({
     const data = QuestionsMergeWithAuthorsOptionsAsArray(session.id, options, questions, users, true);
 
     const answered = data
-        .filter(q => q.answered);
+        .filter(q => q.answered)
+        .sort((a, b) => a.timestamp > b.timestamp ? 1 : -1);
 
     const unanswered = data
-        .filter(q => !q.answered);
+        .filter(q => !q.answered)
+        .sort((a, b) => a.timestamp > b.timestamp ? 1 : -1);
 
     return { session, answered, unanswered, loading };
 }
