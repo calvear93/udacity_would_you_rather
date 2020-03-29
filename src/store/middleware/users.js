@@ -1,4 +1,4 @@
-import { call, put, takeLatest } from 'redux-saga/effects';
+import { all, call, put, takeLatest } from 'redux-saga/effects';
 import DataService from '../../services/_DATA';
 import UsersAction from '../actions/users';
 import { PutError } from './shared';
@@ -9,6 +9,15 @@ const messages = {
         error: 'There was some errors fetching users'
     }
 };
+
+/**
+ * Gets all users from the store and triggers update.
+ */
+function* getAll()
+{
+    // Whiles rendering uses current data, calls fetching action for updating it.
+    yield put(UsersAction.Action(UsersAction.Types.FETCH_ALL));
+}
 
 /**
  * Fetches all users from service.
@@ -37,5 +46,8 @@ function* fetchAll()
  */
 export default function* init()
 {
-    yield takeLatest(UsersAction.Types.FETCH_ALL, fetchAll);
+    yield all(
+        yield takeLatest(UsersAction.Types.GET_ALL, getAll),
+        yield takeLatest(UsersAction.Types.FETCH_ALL, fetchAll)
+    );
 }

@@ -14,13 +14,16 @@ function UsersReducer(state = UsersDefaults, action)
     {
         // Gets all users,
         case UsersAction.Types.GET_ALL:
-            return state;
+            return {
+                ...state
+            };
 
         // Fetches all users from service.
         case UsersAction.Types.FETCH_ALL:
             return {
                 ...state,
-                loading: true
+                // Loader is not shown when data exists on store.
+                loading: !state.users || Object.keys(state.users).length === 0
             };
 
         // Fetching users succeeded.
