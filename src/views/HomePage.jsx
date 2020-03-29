@@ -1,12 +1,14 @@
 import 'linqjs';
+import PropTypes from 'prop-types';
 import React from 'react';
 import { connect } from 'react-redux';
 import { Tab } from 'semantic-ui-react';
 import { HomeTab, QuestionsList } from '../components';
-import { QuestionsMergeWithAuthorsOptionsAsArray } from '../utils/QuestionsFormatter';
 import { ConfigurationAction, QuestionsAction, SessionAction, UsersAction } from '../store/actions';
 import '../styles/views/home.scss';
+import { QuestionsMergeWithAuthorsOptionsAsArray } from '../utils/QuestionsFormatter';
 
+// UI messages
 const messages = {
     answered: {
         button: 'View Stats',
@@ -24,6 +26,7 @@ const messages = {
     }
 };
 
+// UI actions for answered or new questions.
 const actions = {
     answered: {
         submit: (id, history) => history.push(`/summary/${ id }`)
@@ -33,13 +36,31 @@ const actions = {
     }
 };
 
+/**
+ * Renders the Home page.
+ * Page with new or answered questions.
+ *
+ * @class HomePage
+ * @extends {React.Component}
+ */
 class HomePage extends React.Component
 {
+    /**
+     * Dispatch a GET ALL action after component mount.
+     *
+     * @memberof HomePage
+     */
     componentDidMount()
     {
         this.props.dispatch(QuestionsAction.Action(QuestionsAction.Types.GET_ALL));
     }
 
+    /**
+     * Renders the home page.
+     *
+     * @returns {JSX} Home page, showing answered and new question in tabs.
+     * @memberof HomePage
+     */
     render()
     {
         const { answered, unanswered, loading } = this.props;
@@ -63,7 +84,6 @@ class HomePage extends React.Component
                                 />
                             )
                         }),
-
                         HomeTab({
                             key: 'answered-tab',
                             title: 'Answered Questions',
@@ -85,6 +105,13 @@ class HomePage extends React.Component
     }
 }
 
+HomePage.propTypes = {
+    answered: PropTypes.arrayOf(PropTypes.any).isRequired,
+    dispatch: PropTypes.func.isRequired,
+    loading: PropTypes.bool,
+    unanswered: PropTypes.arrayOf(PropTypes.any).isRequired
+};
+
 function mapStateToProps({
     [ConfigurationAction.Key]: { options },
     [SessionAction.Key]: session,
@@ -92,6 +119,7 @@ function mapStateToProps({
     [QuestionsAction.Key]: { questions = {}, loading }
 })
 {
+    // Gets question with it's author's data.
     const data = QuestionsMergeWithAuthorsOptionsAsArray(session.id, options, questions, users, true);
 
     const answered = data

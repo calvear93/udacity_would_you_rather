@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import { Input, Label } from 'semantic-ui-react';
 
@@ -87,5 +88,13 @@ class QuestionInput extends React.PureComponent
         );
     }
 }
+
+QuestionInput.propTypes = {
+    id: PropTypes.string.isRequired,
+    minInputLength: PropTypes.number.isRequired,
+    onChange: PropTypes.func.isRequired,
+    placeholder: PropTypes.string.isRequired,
+    value: PropTypes.string.isRequired
+};
 
 export default QuestionInput;

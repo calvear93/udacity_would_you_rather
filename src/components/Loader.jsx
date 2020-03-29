@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import { Dimmer, Loader as Loading } from 'semantic-ui-react';
 
@@ -27,5 +28,9 @@ class Loader extends React.PureComponent
         );
     }
 }
+
+Loader.propTypes = {
+    message: PropTypes.string.isRequired
+};
 
 export default Loader;

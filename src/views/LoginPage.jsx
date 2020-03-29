@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import { connect } from 'react-redux';
 import { Button, Card, Dropdown, Grid, Header, Image, Message } from 'semantic-ui-react';
@@ -5,19 +6,35 @@ import { Logo } from '../assets/images';
 import { SessionAction, UsersAction } from '../store/actions';
 import '../styles/views/login.scss';
 
+/**
+ * Login page.
+ *
+ * @class LoginPage
+ * @extends {React.Component}
+ */
 class LoginPage extends React.Component
 {
     state = {}
 
+    /**
+     * Dispatches fetch all action after component mounts.
+     *
+     * @memberof LoginPage
+     */
     componentDidMount()
     {
         this.props.dispatch(UsersAction.Action(UsersAction.Types.FETCH_ALL));
     }
 
+    /**
+     * On submit selected user for login.
+     *
+     * @memberof LoginPage
+     */
     onSignIn = () =>
     {
         const { history, session: { loading: sessionLoading } } = this.props;
-
+        // Locks login attempts.
         if (sessionLoading)
         {
             return;
@@ -34,6 +51,14 @@ class LoginPage extends React.Component
         ));
     }
 
+    /**
+     * Users container formatter.
+     *
+     * @param {any} users Users container.
+     *
+     * @returns {array} Users array.
+     * @memberof LoginPage
+     */
     formatUsers = (users) =>
     {
         return Object.entries(users)
@@ -50,12 +75,27 @@ class LoginPage extends React.Component
             });
     }
 
+    /**
+     * Intercepts dropdown changing.
+     *
+     * @param {any} e Event data.
+     *
+     * @return {func} Change handling func.
+     * @memberof LoginPage
+     */
     handleChange = (e, { value }) => this.setState({ userSelected: value })
 
+    /**
+     * Renders the login page.
+     *
+     * @returns {JSX} Login page.
+     * @memberof LoginPage
+     */
     render()
     {
         const { session: { loading: sessionLoading }, loading: usersLoading, error, users } = this.props;
         const noData = Object.keys(users).length === 0;
+        // Message for dropdown in different component states.
         const placeholder = noData ?
             usersLoading ?
                 'Fetching data...'
@@ -116,6 +156,13 @@ class LoginPage extends React.Component
         );
     }
 }
+
+LoginPage.propTypes = {
+    dispatch: PropTypes.func.isRequired,
+    error: PropTypes.string,
+    history: PropTypes.objectOf(PropTypes.any).isRequired,
+    users: PropTypes.objectOf(PropTypes.any)
+};
 
 function mapStateToProps({
     [SessionAction.Key]: session,

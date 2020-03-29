@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { Button, Icon } from 'semantic-ui-react';
@@ -57,5 +58,17 @@ class NavbarTab extends React.Component
         );
     }
 }
+
+NavbarTab.propTypes = {
+    children: PropTypes.objectOf(PropTypes.any),
+    className: PropTypes.string,
+    disabled: PropTypes.bool,
+    help: PropTypes.string.isRequired,
+    icon: PropTypes.string.isRequired,
+    onClick: PropTypes.func,
+    path: PropTypes.string.isRequired,
+    style: PropTypes.objectOf(PropTypes.any),
+    to: PropTypes.string
+};
 
 export default NavbarTab;

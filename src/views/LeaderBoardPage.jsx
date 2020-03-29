@@ -1,4 +1,5 @@
 import 'linqjs';
+import PropTypes from 'prop-types';
 import React from 'react';
 import { connect } from 'react-redux';
 import { Card, Grid, Header, Image, Label, Statistic } from 'semantic-ui-react';
@@ -6,19 +7,36 @@ import Loader from '../components/Loader';
 import { UsersAction } from '../store/actions';
 import '../styles/views/leaderboard.scss';
 
+// Awards for first places in the game.
 const awards = [ 'gold', 'silver', 'bronze' ];
 
+/**
+ * Leaderboard page.
+ *
+ * @class LeaderBoardPage
+ * @extends {React.Component}
+ */
 class LeaderBoardPage extends React.Component
 {
+    /**
+     * Dispatches a Get All action after component mounts.
+     *
+     * @memberof LeaderBoardPage
+     */
     componentDidMount()
     {
         this.props.dispatch(UsersAction.Action(UsersAction.Types.GET_ALL));
     }
 
+    /**
+     * Renders the Leaderboard page.
+     *
+     * @returns {JSX} Leaderboard.
+     * @memberof LeaderBoardPage
+     */
     render()
     {
         const { users, loading } = this.props;
-        console.log(users);
 
         return (
             <Card className='board-container' centered fluid>
@@ -90,6 +108,12 @@ class LeaderBoardPage extends React.Component
         );
     }
 }
+
+LeaderBoardPage.propTypes = {
+    dispatch: PropTypes.func.isRequired,
+    loading: PropTypes.bool.isRequired,
+    users: PropTypes.arrayOf(PropTypes.any)
+};
 
 function mapStateToProps({
     [UsersAction.Key]: { users, loading }

@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
@@ -104,5 +105,11 @@ class Navbar extends React.Component
         );
     }
 }
+
+Navbar.propTypes = {
+    dispatch: PropTypes.func.isRequired,
+    history: PropTypes.objectOf(PropTypes.any).isRequired,
+    user: PropTypes.objectOf(PropTypes.any).isRequired
+};
 
 export default connect()(withRouter(Navbar));

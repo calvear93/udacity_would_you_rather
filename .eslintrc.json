@@ -206,7 +206,7 @@
     "react-redux/no-unused-prop-types": "warn",
     "react-redux/prefer-separate-component-file": "off",
     "react/boolean-prop-naming": [
-      "error",
+      "off",
       {
         "propTypeNames": [
           "bool",

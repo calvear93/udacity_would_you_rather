@@ -1,11 +1,23 @@
 import 'linqjs';
+import PropTypes from 'prop-types';
 import React from 'react';
 import { withRouter } from 'react-router-dom';
-import { Button, Card, Grid, Header, Image, MessageList } from 'semantic-ui-react';
+import { Button, Card, Grid, Header, Image } from 'semantic-ui-react';
 import '../styles/components/questions-list-item.scss';
 
+/**
+ * Card with info of the question.
+ *
+ * @class QuestionsListItem
+ * @extends {React.PureComponent}
+ */
 class QuestionsListItem extends React.PureComponent
 {
+    /**
+     * Shows the question pull.
+     *
+     * @memberof QuestionsListItem
+     */
     onSubmit = () =>
     {
         const { question, history, submit } = this.props;
@@ -13,10 +25,16 @@ class QuestionsListItem extends React.PureComponent
         submit(question.id, history);
     }
 
+    /**
+     * Renders the question info.
+     *
+     * @returns {JSX} Question data card.
+     * @memberof QuestionsListItem
+     */
     render()
     {
         const { question, buttonText } = this.props;
-
+        // Gets the first option for show it's text.
         const firstOption = question.options.first();
 
         return (
@@ -58,5 +76,12 @@ class QuestionsListItem extends React.PureComponent
         );
     }
 }
+
+QuestionsListItem.propTypes = {
+    buttonText: PropTypes.string.isRequired,
+    history: PropTypes.objectOf(PropTypes.any).isRequired,
+    question: PropTypes.objectOf(PropTypes.any).isRequired,
+    submit: PropTypes.func.isRequired
+};
 
 export default withRouter(QuestionsListItem);
