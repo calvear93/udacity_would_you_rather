@@ -48,9 +48,9 @@ class LeaderBoardPage extends React.Component
                             .map(user => (
                                 <Card key={ user.id } className={ user.award } centered fluid>
                                     {user.award && (
-                                        <a className='ui left corner label award'>
+                                        <span className='ui left corner label award'>
                                             <i aria-hidden='true' className={ `winner icon ${ user.award }` } />
-                                        </a>
+                                        </span>
                                     )}
                                     <Card.Content>
                                         <Grid className='board-container'>
@@ -111,7 +111,7 @@ class LeaderBoardPage extends React.Component
 
 LeaderBoardPage.propTypes = {
     dispatch: PropTypes.func.isRequired,
-    loading: PropTypes.bool.isRequired,
+    loading: PropTypes.bool,
     users: PropTypes.arrayOf(PropTypes.any)
 };
 

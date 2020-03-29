@@ -1,8 +1,8 @@
-import { all, call, take, race, fork, takeEvery, takeLatest, put, select, delay } from 'redux-saga/effects';
+import NodeCache from 'node-cache';
+import { all, call, put, select, takeLatest } from 'redux-saga/effects';
 import DataService from '../../services/_DATA';
 import { QuestionsAction, UsersAction } from '../actions';
-import { PopupSuccess, PopupError, PutError } from './shared';
-import NodeCache from 'node-cache';
+import { PopupError, PopupSuccess, PutError } from './shared';
 
 const Cache = new NodeCache({
     stdTTL: 30,
