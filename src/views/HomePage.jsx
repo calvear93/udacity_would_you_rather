@@ -92,7 +92,7 @@ function mapStateToProps({
     [QuestionsAction.Key]: { questions = {}, loading }
 })
 {
-    const data = QuestionsMergeWithAuthorsOptionsAsArray(session.id, options, questions, users);
+    const data = QuestionsMergeWithAuthorsOptionsAsArray(session.id, options, questions, users, true);
 
     const answered = data
         .filter(q => q.answered);

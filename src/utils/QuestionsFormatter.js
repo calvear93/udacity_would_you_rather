@@ -75,10 +75,12 @@ export const QuestionMergeWithAuthor = (id, user, options, questions, users) =>
  * @param {Array} options Application options Ids.
  * @param {any} questions All question.
  * @param {any} users All users.
+ * @param {any} onlyOwn Filter non user questions.
  *
  * @returns {any} Questions with authors assigned.
  */
-export const QuestionsMergeWithAuthorsOptionsAsArray = (user, options, questions, users) => Object.values(questions)
+export const QuestionsMergeWithAuthorsOptionsAsArray = (user, options, questions, users, onlyOwn = false) => Object.values(questions)
+    .filter(q => !onlyOwn || q.author !== user)
     .map(q => (
         {
             id: q.id,
