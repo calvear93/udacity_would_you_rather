@@ -27,8 +27,8 @@ function* login(action)
         const response = yield call(DataService._getUser, action.payload.userId);
 
         // NOTE: I consider data should be stored in
-        // minimum sources possible, so, this info is
-        // in users Redux partition.
+        // minimum sources possible, so is deleted,'cause
+        // is in users Redux partition already.
         delete response.answers;
         delete response.questions;
 
