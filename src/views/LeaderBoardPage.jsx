@@ -1,10 +1,10 @@
 import 'linqjs';
 import React from 'react';
 import { connect } from 'react-redux';
-import { Card, Grid, Header, Message, Image, Statistic, Label, Progress, Divider } from 'semantic-ui-react';
+import { Card, Grid, Header, Image, Label, Statistic } from 'semantic-ui-react';
 import Loader from '../components/Loader';
+import { UsersAction } from '../store/actions';
 import '../styles/views/leaderboard.scss';
-import { ConfigurationAction, QuestionsAction, SessionAction, UsersAction } from '../store/actions';
 
 const awards = [ 'gold', 'silver', 'bronze' ];
 
@@ -36,11 +36,11 @@ class LeaderBoardPage extends React.Component
                                     )}
                                     <Card.Content>
                                         <Grid className='board-container'>
-                                            <Grid.Column className='board-avatar-container' width={ 3 }>
+                                            <Grid.Column className='board-avatar-container' width={ 4 }>
                                                 <Image className='board-avatar' src={ user.avatarURL } />
                                             </Grid.Column>
 
-                                            <Grid.Column className='board-info-container' width={ 6 }>
+                                            <Grid.Column className='board-info-container' width={ 7 }>
                                                 <Grid stackable>
                                                     <Grid.Row className='board-title' centered>
                                                         <Header as='h2'>{user.name}</Header>
@@ -66,9 +66,18 @@ class LeaderBoardPage extends React.Component
                                                 </Grid>
                                             </Grid.Column>
 
-                                            <Grid.Column className='board-info-container' width={ 4 }>
+                                            <Grid.Column className='board-info-score' width={ 4 }>
                                                 <Grid stackable>
-                                                    {user.score}
+                                                    <Card>
+                                                        <Card.Content className='score-title'>
+                                                            <Header as='h2' className='centered'>Score</Header>
+                                                        </Card.Content>
+                                                        <Card.Content className='score-value'>
+                                                            <Label circular color={ user.questions === 0 ? 'red' : 'teal' }>
+                                                                {user.score}
+                                                            </Label>
+                                                        </Card.Content>
+                                                    </Card>
                                                 </Grid>
                                             </Grid.Column>
                                         </Grid>

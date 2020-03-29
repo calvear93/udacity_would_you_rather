@@ -39,15 +39,31 @@
         padding-right: 0 !important;
         padding-left: 0 !important;
 
+        &.score {
+            margin-left: 1em !important;
+        }
+
         .ui.grid {
             margin: 0 !important;
             padding-right: 0;
             height: 100%;
+            border-right: solid #cecccc 1px;
             border-left: solid #cecccc 1px;
 
             @media screen and (max-width: 1208px) {
                 border: none;
             }
+        }
+    }
+
+    &.board-info-score {
+        padding-right: 0 !important;
+        padding-left: 1em !important;
+
+        .ui.grid {
+            margin: 0 !important;
+            padding-right: 0;
+            height: 100%;
         }
     }
 }
@@ -69,5 +85,21 @@
         &.bronze::before {
             color: $bronze;
         }
+    }
+}
+
+.score-title {
+    display: table !important;
+
+    .header {
+        font-size: 2em !important;
+    }
+}
+
+.score-value {
+    text-align: center;
+
+    .ui.label {
+        font-size: 4em !important;
     }
 }
