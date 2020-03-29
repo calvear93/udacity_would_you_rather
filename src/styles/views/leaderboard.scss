@@ -1,9 +1,5 @@
 @import '../variables.scss';
 
-$gold: $orange;
-$silver: $teal;
-$bronze: $dark;
-
 .ui.loader {
     margin-top: 6em;
 }
@@ -12,16 +8,20 @@ $bronze: $dark;
     padding: 1.2em 1em;
 
     .card {
+        border-radius: 6px !important;
 
         &.gold {
+            border-top-left-radius: 0 !important;
             box-shadow: 0 1px 3px 0 $gold, 0 0 0 1px $gold;
         }
 
         &.silver {
+            border-top-left-radius: 0 !important;
             box-shadow: 0 1px 3px 0 $silver, 0 0 0 1px $silver;
         }
 
         &.bronze {
+            border-top-left-radius: 0 !important;
             box-shadow: 0 1px 3px 0 $bronze, 0 0 0 1px $bronze;
         }
     }
