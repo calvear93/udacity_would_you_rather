@@ -8,7 +8,7 @@ import {
 } from '../assets/images/avatars';
 import Cookies from 'js-cookie';
 
-const USE_COOKIES = false;
+const USE_COOKIES = true;
 
 const users = {
     sarahedo: {

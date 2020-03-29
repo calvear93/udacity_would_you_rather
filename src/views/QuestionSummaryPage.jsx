@@ -1,11 +1,16 @@
 import 'linqjs';
 import React from 'react';
 import { connect } from 'react-redux';
-import { Card, Grid, Image, Button, Header, Form, Radio } from 'semantic-ui-react';
+import { Card, Grid, Header, Image, Label, Progress } from 'semantic-ui-react';
 import Loader from '../components/Loader';
 import { ConfigurationAction, QuestionsAction, SessionAction, UsersAction } from '../store/actions';
 import '../styles/views/question-summary-page.scss';
 import { QuestionMergeWithAuthorOptionsAsArray } from '../utils/QuestionsFormatter';
+
+const calcPercentage = (q, t) =>
+{
+    return ((q / t) * 100).toFixed(2);
+};
 
 class QuestionSummaryPage extends React.Component
 {
@@ -17,7 +22,6 @@ class QuestionSummaryPage extends React.Component
     render()
     {
         const { question, loading } = this.props;
-        console.log(question);
 
         return (
             <Card centered fluid>
@@ -27,7 +31,7 @@ class QuestionSummaryPage extends React.Component
                     ) : (
                         <>
                             <Card.Content className='question-header'>
-                                <Header className='question-title' as='h3'>{question.author.name} asks:</Header>
+                                <Header className='question-title' as='h3'>Asked by {question.author.name}</Header>
                             </Card.Content>
 
                             <Card.Content>
@@ -38,15 +42,45 @@ class QuestionSummaryPage extends React.Component
 
                                     <Grid.Column className='question-info-container' width={ 10 }>
                                         <Grid>
-                                            <Grid.Row className='question-title'>
-                                                <Header as='h3'>Would you rather...</Header>
+                                            <Grid.Row className='summary-title'>
+                                                <Header as='h2'>Results:</Header>
                                             </Grid.Row>
 
                                             <Grid.Row>
                                                 {
                                                     question.options
                                                         .map(o => (
-                                                            <label key={ o.id }>{o.text}</label>
+                                                            <Card
+                                                                key={ o.id }
+                                                                className={ `summary-question${ o.answered ? ' answered' : '' }` }
+                                                                fluid
+                                                                centered
+                                                            >
+                                                                {o.answered && (
+                                                                    <Label key={ o.id }
+                                                                        className='question-indicator'
+                                                                        color={ 'yellow' }
+                                                                        floating
+                                                                    >
+                                                                    Your Vote
+                                                                    </Label>
+                                                                )}
+                                                                <Card.Content className='summary-question-title'>
+                                                                    <Card.Header><small>Would you rather</small> {o.text}</Card.Header>
+                                                                </Card.Content>
+
+                                                                <Card.Content>
+                                                                    <Progress
+                                                                        percent={ calcPercentage(o.votes.length, question.total) }
+                                                                        color='teal'
+                                                                        size='large'
+                                                                        progress
+                                                                        indicating={ o.votes.length !== question.total }
+                                                                    >
+                                                                        {o.votes.length} of {question.total} votes
+                                                                    </Progress>
+                                                                </Card.Content>
+                                                            </Card>
                                                         ))
                                                 }
                                             </Grid.Row>

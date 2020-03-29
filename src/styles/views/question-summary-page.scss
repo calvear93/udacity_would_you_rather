@@ -1,1 +1,26 @@
 @import '../variables.scss';
+@import '../components/questions-list-item.scss';
+
+.ui.loader {
+    margin-top: 6em;
+}
+
+.ui.label.question-indicator {
+    top: -1em !important;
+    margin-left: -3em !important;
+    padding: 1em;
+    border-radius: 32px !important;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, .19), 0 0 2px rgba(0, 0, 0, .23);
+}
+
+.content.summary-question-title {
+    padding: 2em !important;
+}
+
+.ui.card.summary-question {
+
+    &.answered {
+        box-shadow: 0 1px 4px 0 $teal, 0 0 0 1px $teal !important;
+        background-color: $teal-light-2x;
+    }
+}
