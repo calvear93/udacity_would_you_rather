@@ -148,8 +148,8 @@ const usersCookie = USE_COOKIES ? Cookies.get('users') : undefined;
 const questionsCookie = USE_COOKIES ? Cookies.get('questions') : undefined;
 // Proxy for data persistence in cookies.
 let data = new Proxy({
-    users: usersCookie && JSON.parse(usersCookie) || users,
-    questions: questionsCookie && JSON.parse(questionsCookie) || questions
+    users: (usersCookie && JSON.parse(usersCookie)) || users,
+    questions: (questionsCookie && JSON.parse(questionsCookie)) || questions
 }, proxyHandler);
 
 export default class DataService

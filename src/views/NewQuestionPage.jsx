@@ -1,15 +1,28 @@
+import 'linqjs';
+import PropTypes from 'prop-types';
 import React, { lazy } from 'react';
 import { connect } from 'react-redux';
 import { Button, Card, Divider, Grid, Header } from 'semantic-ui-react';
-import { QuestionsAction, ConfigurationAction, SessionAction } from '../store/actions';
+import { ConfigurationAction, QuestionsAction, SessionAction } from '../store/actions';
 import '../styles/views/new-question.scss';
-import 'linqjs';
 
 // Lazy loading components.
 const QuestionInput = lazy(() => import('./../components/QuestionInput'));
 
+/**
+ * New Question page.
+ *
+ * @class NewQuestionPage
+ * @extends {React.PureComponent}
+ */
 class NewQuestionPage extends React.PureComponent
 {
+    /**
+     * Gets configuration after components mounts.
+     *
+     * @date 2020-03-29
+     * @memberof NewQuestionPage
+     */
     componentDidMount()
     {
         this.props.dispatch(ConfigurationAction.Action(
@@ -17,6 +30,15 @@ class NewQuestionPage extends React.PureComponent
         ));
     }
 
+    /**
+     * Handles question input change.
+     *
+     * @param {string} id Input Id.
+     * @param {string} value Input value.
+     * @param {bool} isValid Whether is valid.
+     *
+     * @memberof NewQuestionPage
+     */
     handleQuestionInputChange = (id, value, isValid) =>
     {
         this.props.dispatch(QuestionsAction.Action(
@@ -25,11 +47,23 @@ class NewQuestionPage extends React.PureComponent
         ));
     };
 
+    /**
+     * Validates input.
+     *
+     * @return {bool} Input validation.
+     *
+     * @memberof NewQuestionPage
+     */
     isValid = () =>
     {
         return !this.props.inputs.any(q => !q.isValid);
     }
 
+    /**
+     * Dispatches the creation of a question.
+     *
+     * @memberof NewQuestionPage
+     */
     onCreateQuestion = () =>
     {
         const { session, history, loading } = this.props;
@@ -38,7 +72,7 @@ class NewQuestionPage extends React.PureComponent
         {
             return;
         }
-
+        // Question format.
         const question = this.props.inputs
             .reduce((result, input) =>
             {
@@ -49,7 +83,7 @@ class NewQuestionPage extends React.PureComponent
 
                 return result;
             }, {});
-
+        // Adds local timestamp and author.
         Object.assign(question, {
             timestamp: Date.now(),
             author: session.id
@@ -64,6 +98,12 @@ class NewQuestionPage extends React.PureComponent
         ));
     }
 
+    /**
+     * Renders the new question page.
+     *
+     * @returns {JSX} New question.
+     * @memberof NewQuestionPage
+     */
     render()
     {
         const { minInputLength, inputs, loading } = this.props;
@@ -95,6 +135,7 @@ class NewQuestionPage extends React.PureComponent
                                     />
                                 </Grid.Row>
                             ))
+                            // Renders a divider between each element.
                             .reduce((prev, curr, index) => [
                                 prev,
                                 <Divider key={ `divider-${ index }` } horizontal>
@@ -122,6 +163,15 @@ class NewQuestionPage extends React.PureComponent
         );
     }
 }
+
+NewQuestionPage.propTypes = {
+    dispatch: PropTypes.func.isRequired,
+    history: PropTypes.objectOf(PropTypes.any).isRequired,
+    inputs: PropTypes.arrayOf(PropTypes.any),
+    loading: PropTypes.bool,
+    minInputLength: PropTypes.number.isRequired,
+    session: PropTypes.objectOf(PropTypes.any).isRequired
+};
 
 function mapStateToProps({
     [SessionAction.Key]: session,

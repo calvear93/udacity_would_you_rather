@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import 'linqjs';
 import React from 'react';
 import { connect } from 'react-redux';
@@ -7,18 +8,36 @@ import { ConfigurationAction, QuestionsAction, SessionAction, UsersAction } from
 import '../styles/views/question-summary-page.scss';
 import { QuestionMergeWithAuthorOptionsAsArray } from '../utils/QuestionsFormatter';
 
+// Calcs percentage of a number.
 const calcPercentage = (q, t) =>
 {
     return ((q / t) * 100).toFixed(2);
 };
 
+/**
+ * Question summary page.
+ *
+ * @class QuestionSummaryPage
+ * @extends {React.Component}
+ */
 class QuestionSummaryPage extends React.Component
 {
+    /**
+     * Gets all question after component mounts.
+     *
+     * @memberof QuestionSummaryPage
+     */
     componentDidMount()
     {
         this.props.dispatch(QuestionsAction.Action(QuestionsAction.Types.GET_ALL));
     }
 
+    /**
+     * Renders the summary page.
+     *
+     * @returns {JSX} Summary page.
+     * @memberof QuestionSummaryPage
+     */
     render()
     {
         const { question, loading } = this.props;
@@ -95,6 +114,12 @@ class QuestionSummaryPage extends React.Component
         );
     }
 }
+
+QuestionSummaryPage.propTypes = {
+    dispatch: PropTypes.func.isRequired,
+    loading: PropTypes.bool,
+    question: PropTypes.objectOf(PropTypes.any)
+};
 
 function mapStateToProps({
     [ConfigurationAction.Key]: { options },

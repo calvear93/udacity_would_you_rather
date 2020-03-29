@@ -1,26 +1,49 @@
 import 'linqjs';
+import PropTypes from 'prop-types';
 import React from 'react';
 import { connect } from 'react-redux';
-import { withRouter } from 'react-router-dom';
-import { Button, Card, Grid, Header, Image, Form, Radio } from 'semantic-ui-react';
-import { HomeTab, QuestionsList } from '../components';
+import { Button, Card, Form, Grid, Header, Image, Radio } from 'semantic-ui-react';
+import Loader from '../components/Loader';
 import { ConfigurationAction, QuestionsAction, SessionAction, UsersAction } from '../store/actions';
+import '../styles/views/question-vote-page.scss';
 import { QuestionMergeWithAuthorOptionsAsArray } from '../utils/QuestionsFormatter';
 import { Dialog } from '../utils/Swal';
-import '../styles/views/question-vote-page.scss';
-import Loader from '../components/Loader';
 
+/**
+ * Question voting page.
+ *
+ * @class QuestionVotePage
+ * @extends {React.Component}
+ */
 class QuestionVotePage extends React.Component
 {
     state = {}
 
+    /**
+     * Gets all question after component mounts.
+     *
+     * @memberof QuestionVotePage
+     */
     componentDidMount()
     {
         this.props.dispatch(QuestionsAction.Action(QuestionsAction.Types.GET_ALL));
     }
 
+    /**
+     * Handles the radio value changing.
+     *
+     * @param {any} e Changing event.
+     *
+     * @returns {func} Handling func.
+     * @memberof QuestionVotePage
+     */
     handleChange = (e, { value }) => this.setState({ value })
 
+    /**
+     * Voting submit.
+     *
+     * @memberof QuestionVotePage
+     */
     onSubmit = () =>
     {
         const {
@@ -51,6 +74,12 @@ class QuestionVotePage extends React.Component
             });
     }
 
+    /**
+     * Renders the question vote page.
+     *
+     * @returns {JSX} Question vote page.
+     * @memberof QuestionVotePage
+     */
     render()
     {
         const {
@@ -120,6 +149,14 @@ class QuestionVotePage extends React.Component
         );
     }
 }
+
+QuestionVotePage.propTypes = {
+    dispatch: PropTypes.func.isRequired,
+    history: PropTypes.objectOf(PropTypes.any).isRequired,
+    id: PropTypes.string.isRequired,
+    loading: PropTypes.bool,
+    question: PropTypes.objectOf(PropTypes.any)
+};
 
 function mapStateToProps({
     [ConfigurationAction.Key]: { options },
