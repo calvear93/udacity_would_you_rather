@@ -61,6 +61,8 @@ I separate **simple components** from **page components**, in order to ease its 
 
 I use **Redux Saga** instead of Redux Thunk, 'cause I think the way of manage **async operations** is the best, and saga provides all that I needed for this project.
 
+Session is stored in cookies.
+
 ## Data
 
 There are two types of objects stored in our database:

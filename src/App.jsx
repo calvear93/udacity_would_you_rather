@@ -51,13 +51,13 @@ class App extends React.PureComponent
                         />
 
                         <RouteWithLayout
-                            exact path='/main/newquestion'
+                            exact path='/add'
                             layout={ AppLayout }
                             component={ NewQuestionPage }
                         />
 
                         <RouteWithLayout
-                            exact path='/main/leaderboard'
+                            exact path='/leaderboard'
                             layout={ AppLayout }
                             component={ LeaderBoardPage }
                         />
@@ -69,7 +69,7 @@ class App extends React.PureComponent
                         />
 
                         <RouteWithLayout
-                            exact path='/summary/:id'
+                            exact path='/questions/:id'
                             layout={ AppLayout }
                             component={ QuestionSummaryPage }
                         />

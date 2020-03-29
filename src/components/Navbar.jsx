@@ -58,7 +58,7 @@ class Navbar extends React.Component
                             <NavbarTab
                                 icon='question'
                                 help='New Question'
-                                to='/main/newquestion'
+                                to='/add'
                                 path={ pathname }
                                 disabled={ !isAuthenticated }
                             />
@@ -66,7 +66,7 @@ class Navbar extends React.Component
                             <NavbarTab
                                 icon='list alternate'
                                 help='Leaderboard'
-                                to='/main/leaderboard'
+                                to='/leaderboard'
                                 path={ pathname }
                                 disabled={ !isAuthenticated }
                             />

@@ -29,7 +29,7 @@ const messages = {
 // UI actions for answered or new questions.
 const actions = {
     answered: {
-        submit: (id, history) => history.push(`/summary/${ id }`)
+        submit: (id, history) => history.push(`/questions/${ id }`)
     },
     unanswered: {
         submit: (id, history) => history.push(`/answer/${ id }`)
