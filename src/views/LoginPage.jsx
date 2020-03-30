@@ -33,7 +33,8 @@ class LoginPage extends React.Component
      */
     onSignIn = () =>
     {
-        const { history, session: { loading: sessionLoading } } = this.props;
+        const { history, session: { redirect, loading: sessionLoading } } = this.props;
+
         // Locks login attempts.
         if (sessionLoading)
         {
@@ -46,6 +47,7 @@ class LoginPage extends React.Component
             SessionAction.Types.LOGIN,
             {
                 userId: id,
+                redirect,
                 history
             }
         ));
