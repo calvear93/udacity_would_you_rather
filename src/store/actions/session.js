@@ -30,6 +30,8 @@ const SessionAction =
         LOGOUT: 'LOGOUT',
         LOGOUT_SUCCESS: 'LOGOUT_SUCCESS',
         STATUS: 'STATUS',
+        REDIRECT_ATTEMPT: 'REDIRECT_ATTEMPT',
+        REDIRECT_SUCCESS: 'REDIRECT_SUCCESS',
         ERROR: 'ERROR'
     }),
 

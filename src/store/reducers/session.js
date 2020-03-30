@@ -40,6 +40,19 @@ function SessionReducer(state = SessionDefaults, action)
                 authenticated: false
             };
 
+        case SessionAction.Types.REDIRECT_ATTEMPT:
+            return {
+                ...state,
+                redirect: action.payload.pathname
+            };
+
+        case SessionAction.Types.REDIRECT_SUCCESS:
+            delete state.redirect;
+
+            return {
+                ...state
+            };
+
         // Any action error.
         case SessionAction.Types.ERROR:
             return {

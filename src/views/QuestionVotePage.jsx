@@ -2,6 +2,7 @@ import 'linqjs';
 import PropTypes from 'prop-types';
 import React from 'react';
 import { connect } from 'react-redux';
+import { Redirect } from 'react-router-dom';
 import { Button, Card, Form, Grid, Header, Image, Radio } from 'semantic-ui-react';
 import Loader from '../components/Loader';
 import { ConfigurationAction, QuestionsAction, SessionAction, UsersAction } from '../store/actions';
@@ -84,10 +85,13 @@ class QuestionVotePage extends React.Component
     {
         const {
             question,
-            loading
+            loading,
+            notFound
         } = this.props;
 
-        return (
+        return notFound ? (
+            <Redirect to='/not-found' />
+        ) : (
             <Card centered fluid>
                 {!question || loading ?
                     (
@@ -174,8 +178,10 @@ function mapStateToProps({
         questions,
         users
     );
+    // Not Found Id.
+    const notFound = question === undefined && loading === false;
 
-    return { id, session, question, loading };
+    return { id, session, question, loading, notFound };
 }
 
 export default connect(mapStateToProps)(QuestionVotePage);

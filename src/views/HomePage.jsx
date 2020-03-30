@@ -120,7 +120,7 @@ function mapStateToProps({
 })
 {
     // Gets question with it's author's data.
-    const data = QuestionsMergeWithAuthorsOptionsAsArray(session.id, options, questions, users, true);
+    const data = QuestionsMergeWithAuthorsOptionsAsArray(session.id, options, questions, users, false);
 
     const answered = data
         .filter(q => q.answered)
