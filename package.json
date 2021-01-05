@@ -15,7 +15,7 @@
     ]
   },
   "dependencies": {
-    "axios": "^0.19.2",
+    "axios": "^0.21.1",
     "env-cmd": "^10.1.0",
     "eslint-plugin-react-redux": "^3.0.3",
     "js-cookie": "^2.2.1",
