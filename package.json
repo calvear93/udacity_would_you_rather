@@ -20,7 +20,7 @@
     "eslint-plugin-react-redux": "^3.0.3",
     "js-cookie": "^2.2.1",
     "linqjs": "^1.0.1",
-    "mathjs": "^6.6.0",
+    "mathjs": "^7.5.1",
     "moment": "^2.24.0",
     "mout": "^1.2.2",
     "node-cache-promise": "^1.0.2",
